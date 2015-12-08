@@ -1,0 +1,66 @@
+/* UTILITY CLASSES
+----------------------------------------------------*/
+
+/*
+ * Floats
+ */
+.clearfix {
+    @include clearing();
+}
+.center-block {
+    @include center-block();
+}
+.pull-right {
+    float: right !important;
+}
+.pull-left {
+    float: left !important;
+}
+
+/*
+ * Texts
+ */
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/*
+ * Toggling content
+ */
+.hide {
+    display: none !important;
+}
+.show {
+    display: block !important;
+}
+.invisible {
+    visibility: hidden;
+}
+.text-hide {
+    @include hide-text();
+}
+.hide-text {
+    text-indent: -9999px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.inline {
+    display: inline-block;
+    width: initial;
+}
+
+/*
+ * Generic
+ */
+.break-word {
+    word-wrap: break-word;
+}

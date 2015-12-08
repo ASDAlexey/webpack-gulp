@@ -1,0 +1,50 @@
+<!-- Popup Step 3 confirmation -->
+<div class="popup confirmation-popup" ng-class="{ 'p-summary': survey.credits >= survey.model.cost }">
+    <div class="edit-popup-bg"></div>
+    <div class="edit-popup-wrap">
+        <div class="edit-popup-container">
+            <div class="edit-popup-content">
+                <div class="edit-question-modal _smaller">
+                    <div class="edit-question-block">
+                        <div class="edit-popup-b-title">
+                            <h2>Summary</h2>
+                            <a class="close-popup" href="" ng-click="survey.closePopup()"></a>
+                        </div>
+                        <div class="edit-popup-b-list _p-center _no-pad">
+                            <ul class="p-cum-container">
+                                <li>
+                                    <div class="p-summary-b-text">
+                                        <div class="p-sum-bal">Current balance:</div>
+                                        <div class="p-sum-resp">{{ survey.credits }} responses</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-summary-b-text">
+                                        <div class="p-sum-bal">Survey cost:</div>
+                                        <div class="p-sum-resp">{{ survey.model.cost }} responses</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-summary-b-text" ng-if="survey.credits >= survey.model.cost">
+                                        <div class="p-sum-bal _changed">Balance after survey:</div>
+                                        <div class="p-sum-resp _changed"><span>{{ survey.credits - survey.model.cost }}</span> responses</div>
+                                    </div>
+
+                                    <div class="p-summary-b-text" ng-if="survey.credits < survey.model.cost">
+                                        <div class="p-sum-bal">Topup required:</div>
+                                        <div class="p-sum-resp">{{ survey.model.cost - survey.credits }} responses</div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <button class="btn _green popup-btn-submit _mid" ng-if="survey.credits >= survey.model.cost">confirm</button>
+                            <button class="btn _green popup-btn-submit _mid" ng-if="survey.credits < survey.model.cost" ng-click="survey.openPaymentPopup()">Topup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Popup END -->

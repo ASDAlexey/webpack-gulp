@@ -1,0 +1,26 @@
+<div class="weather" ng-controller="Weather as weather">
+    <div class="weather-forecast" jqyoui-draggable data-drag="true" data-jqyoui-options="{ containment: 'body', handle: '.weather-header' }">
+        <header class="weather-header">
+            <div class="weather-heading">{{ weather.header }}</div>
+
+            <div class="weather-btn _close" ng-click="home.closeModalWindows()"></div>
+        </header>
+
+        <div class="weather-list" on-size-changed="weather.rebuildWeatherScrollbar()" ng-class="{ _scrollbar: weatherScrollbar }">
+            <div class="weather-scroll" ng-scrollbar rebuild-on="scrollbar:rebuild:weather" is-bar-shown="weatherScrollbar">
+                <div class="weather-item" ng-repeat="day in weather.days" on-last-repeat="weather.rebuildWeatherScrollbar()">
+                    <img ng-src="{{ day.image }}">
+                    <strong>{{ day.day }}</strong>
+                    <br>
+                    Min {{ day.tempmin }} Max {{ day.tempmax }}
+                </div>
+
+                <div ng-if="!weather.days.length" class="weather-no-result" ng-bind-html="weather.errorMessage"></div>
+            </div>
+        </div>
+
+        <div class="preloader" ng-show="weather.loadingForecast">
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>

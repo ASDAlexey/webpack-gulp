@@ -1,0 +1,110 @@
+@media screen and (max-width: 640px) {
+    .s-item-active::before,
+    .s-item::before  {
+        display: none;
+    }
+
+    .open-details .b-details-block {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .b-details-block ul {
+        padding: 20px 15px;
+    }
+
+    .d-options {
+        width: 55%;
+        text-align: left;
+    }
+
+    .b-link {
+        margin: 0 5%;
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .b-item-switchto {
+        margin: 0 5%;
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .b-item-category {
+        margin: 0 5%;
+        width: 90%;
+    }
+
+    .add-options-list {
+        li {
+            width: 32%;
+            margin-left: 2%;
+
+            &:nth-child(5n+1) {
+                margin-left: 2%;
+            }
+
+            &:nth-child(3n+1) {
+                margin-left: 0;
+            }
+        }
+    }
+
+    // Edit logic popup
+    .edit-question-modal {
+        &._rating {
+            .edit-popup-qlist {
+                li {
+                    &:first-child {
+                        display: none;
+                    }
+                }
+            }
+
+            .e-popop-condition-cont {
+                width: 50%;
+                margin-top: 27px;
+
+                .e-popup-answ-letter {
+                    width: 11%;
+                }
+
+                .e-popup-anws {
+                    margin-left: 11%;
+                }
+            }
+
+            .e-popup-value-cont,
+            .e-popup-logic-cont {
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .e-popup-value-cont {
+                width: 50%;
+                padding-right: 0;
+            }
+        }
+    }
+
+    //Tags in filters section
+    tags-input .tags {
+        width: 100%;
+    }
+
+    .add-options .add-option-wage {
+        width: 170px / 640px * 100%;
+    }
+
+    //Summary
+    .sum-final-notif-popup {
+        width: 96%;
+        padding: 10%;
+    }
+
+    .admin-settings-block {
+        width: 100%;
+        clear: both;
+        margin-bottom: 20px;
+    }
+}

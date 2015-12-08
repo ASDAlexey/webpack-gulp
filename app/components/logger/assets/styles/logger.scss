@@ -1,0 +1,49 @@
+@import '../../../../assets/styles/helpers/helpers';
+
+/* LOGGER
+----------------------------------------------------*/
+.toast {
+    background-color: $color-blacklight;
+}
+.toast-success {
+    background-color: $color-green;
+}
+.toast-error {
+    background-color: $color-red;
+}
+.toast-info {
+    background-color: $color-blue;
+}
+.toast-wait {
+    background-color: $color-blue;
+}
+.toast-warning {
+    background-color: $color-yellow;
+}
+
+.toast hr {
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid $color-white;
+    border-top: 0;
+}
+
+#toast-container {
+    z-index: $index-toast;
+}
+
+#toast-container > div {
+  box-shadow:  0 0 6px #999999;
+  opacity: 1;
+}
+
+#toast-container > :hover {
+  box-shadow: 0 0 6px #333333;
+  opacity: 1;
+  cursor: pointer;
+}
+
+:not(.no-enter)#toast-container > div.ng-enter.ng-enter-active,
+:not(.no-leave)#toast-container > div.ng-leave {
+    opacity: 1;
+}

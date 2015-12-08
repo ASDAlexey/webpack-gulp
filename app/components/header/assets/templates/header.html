@@ -1,0 +1,75 @@
+<header class="header" ng-controller="Header as header" fixed-element>
+    <div class="container">
+        <h1 class="logo logo-beta">
+            <a ui-sref="app.home">JellyChip</a>
+        </h1>
+
+        <div class="header-nav" ng-if="!header.Auth.isLogged()">
+            <div class="user" ng-controller="User as user">
+                <a href="#" class="btn _red user-logout" ng-click="header.Auth.showSignUpPopup()">Sign up</a>
+                <a href="#" class="user-login" ng-click="header.Auth.showLoginPopup()">Log in</a>
+            </div>
+        </div>
+
+        <div class="header-nav" ng-if="header.Auth.isLogged()">
+            <nav class="nav" click-anywhere-but-here="header.menuIsOpened = false" ng-class="{_active: header.menuIsOpened}">
+                <a href="" class="nav-button" ng-click="header.menuIsOpened = !header.menuIsOpened"></a>
+
+                <div class="header-menu">
+                    <ul class="nav-list" swipe-menu>
+                        <li class="nav-item">
+                            <a ui-sref="app.home" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a ui-sref="app.store" class="nav-link">Store</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" ng-click="header.modalCoupon.openModal(); header.menuIsOpened = false" class="nav-link">Coupon</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link" ng-click="header.Social.openModalInviteFriends()">Invite Friends</a>
+                        </li>
+                        <li class="nav-item-divider"></li>
+                        <li class="nav-item">
+                            <a ui-sref="app.settings" class="nav-link">Settings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="http://help.jellychip.com" target="_blank" class="nav-link">Help</a>
+                        </li>
+                        <li class="nav-item">
+                            <a ui-sref="app.welcome" class="nav-link">Show tour</a>
+                        </li>
+                        <li class="nav-item-divider"></li>
+                        <li class="nav-item">
+                            <a ui-sref="app.survey.create" class="nav-link">Create Survey</a>
+                        </li>
+                        <li class="nav-item">
+                            <a ui-sref="app.survey.manage" class="nav-link">Manage Surveys</a>
+                        </li>
+                        <li class="nav-item-divider"></li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link" ng-click="header.Auth.logout()">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="user">
+                <a ui-sref="app.profile.activity({ userId: user.model.id })" class="user-name">{{ user.API.getUsername(user.model) }}</a>
+
+                <a ui-sref="app.profile.activity({ userId: user.model.id })" class="user-photo">
+                    <span class="spinner"></span>
+                    <span ng-if="user.model.avatar && !user.errors.length"
+                          data-ng-style="{'background-image':'url('+user.Resource.getResourceURL(user.model.avatar.path)+')'}"
+                          class="user-photoImg"
+                    ></span>
+                    <span ng-if="user.model.avatar && user.errors.length && user.lastLoadedAvatar" ng-class="{'loaded':user.lastLoadedAvatar}"
+                          data-ng-style="{'background-image':'url('+user.lastLoadedAvatar+')'}"
+                          class="user-photoImg user-photo last-loaded-avatar" ng-attr-alt="{{ user.model.information.firstname }} {{ user.model.information.lastname }}"
+                    ></span>
+                    <img class="user-photoImg" src="/assets/images/avatar.png" ng-if="!user.model.avatar || (user.errors.length && !user.lastLoadedAvatar)" ng-attr-alt="{{ user.model.information.firstname }} {{ user.model.information.lastname }}">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

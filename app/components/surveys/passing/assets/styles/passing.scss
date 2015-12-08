@@ -1,0 +1,341 @@
+@import '../../../../../assets/styles/helpers/helpers';
+
+$survey-width: 350px !default;
+$survey-height: 488px !default;
+$survey-height-header: 60px !default;
+
+/* PASSING SURVEY
+----------------------------------------------------*/
+.surveys._passing {
+    .preloader {
+        position: absolute;
+        top: $survey-height-header;
+        display: block;
+        border-radius: 0 0  $border-radius-large  $border-radius-large;
+    }
+
+    .survey {
+        position: absolute;
+        top: 240px;
+        left: 360px;
+        width: $survey-width;
+        height: $survey-height;
+        border-radius: $border-radius-large;
+        border: 1px solid $color-graylight;
+        background-color: $color-white;
+        z-index: $index-popover + 1;
+    }
+
+    .survey-header {
+        position: relative;
+        background-color: $color-blue;
+        color: $color-white;
+        text-align: center;
+        height: $survey-height-header;
+        border-radius: $border-radius-large - 1 $border-radius-large - 1 0 0;
+        cursor: move;
+    }
+
+    .survey-heading {
+        padding: 0 20px;
+        font-size: 21px;
+        line-height: $survey-height-header;
+        vertical-align: middle;
+        @include ellipsis();
+    }
+
+    .survey-body {
+        position: relative;
+        margin: 20px 0 10px;
+        height: $survey-height - $survey-height-header - 30;
+        overflow-y: auto;
+
+        .ngsb-container {
+            height: 100%;
+        }
+
+        .survey-footer,
+        .question-body,
+        .survey-text {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        &._scrollbar {
+
+            .survey-footer {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .question-body,
+            .survey-text {
+                padding-left: 10px;
+                padding-right: 24px;
+            }
+
+            .ngsb-container {
+                height: auto;
+            }
+
+            .ngsb-wrap .ngsb-scrollbar {
+                z-index: 1;
+                right: 4px;
+            }
+
+            .ngsb-wrap .ngsb-scrollbar .ngsb-thumb-pos .ngsb-thumb {
+                background: $color-blue;
+            }
+        }
+    }
+
+    .survey-scroll {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 62px;
+        overflow-y: auto;
+
+        &._skip {
+           bottom: 119px;
+        }
+    }
+
+    .survey-footer {
+        height: 52px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: $color-white;
+
+        &._skip {
+            height: 109px;
+        }
+    }
+
+    .survey-text {
+        display:block;
+        position:relative;
+        height: auto;
+        font-size: 18px;
+        line-height: 21px;
+        margin: 0 0 10px;
+        word-break: break-word;
+    }
+
+    .survey-points {
+        font-size: 36px;
+        line-height: 42px;
+        margin: 10px 0;
+        text-align: center;
+        color: $color-green;
+    }
+
+    .answer {
+        margin-bottom: 5px;
+        background-color: #F7F7F7;
+        color: #959595;
+        font-size: 18px;
+        word-break: break-word;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &._user {
+            margin-top: 5px;
+        }
+
+        &._rating {
+            background-color: transparent;
+        }
+
+        .checkbox,
+        .radio {
+            padding: 17px 16px;
+            width: 100%;
+            height: auto;
+
+            label {
+                user-select: none;
+                padding: 0 40px 0 0;
+                margin-right: 0;
+                width: 100%;
+                height: auto;
+                font-size: 18px;
+                line-height: 21px;
+                overflow: visible;
+                white-space: normal;
+
+                &:before {
+                    left: auto;
+                    right: 0;
+                    width: 30px;
+                    height: 30px;
+                    margin-top: -15px;
+                    border-width: 2px;
+                    border-radius: 100%;
+                    transition: background-color 0.2s linear, border-color 0.2s linear;
+
+                    body._touch & {
+                        transition: background-color 0s linear, border-color 0s linear;
+                    }
+                }
+
+                &:after {
+                    left: auto;
+                    right: 8px;
+                    margin-top: -6px;
+                    width: 13px;
+                    height: 9px;
+                    background: transparent;
+                    border: 3px solid $color-white;
+                    border-radius: 0;
+                    border-top: none;
+                    border-right: none;
+                    transform: rotate(-45deg);
+                    transition: color 0.2s linear;
+
+                    body._touch & {
+                        transition: color 0s linear;
+                    }
+                }
+            }
+        }
+
+        input[type=checkbox]:checked + label:before,
+        input[type=radio]:checked + label:before {
+            background-color: $color-green;
+            border-color: $color-green;
+        }
+
+        input[type=checkbox]:checked + label:after,
+        input[type=radio]:checked + label:after {
+            opacity: 1;
+        }
+
+        .form-control {
+            border-radius: 0;
+            border-width: 2px;
+            color: $color-blacklight;
+            resize: none;
+            font-size: 18px;
+            line-height: 21px;
+            min-height: 52px;
+
+            &.ng-dirty.ng-invalid {
+                border-color: $color-red;
+            }
+        }
+
+        textarea.form-control {
+            padding: 12px;
+        }
+    }
+
+    .btn {
+        width: 100%;
+        border-radius: 0;
+        font-size: 18px;
+        line-height: 50px;
+        font-weight: bold;
+        height: 52px;
+    }
+
+    .survey-skip {
+        margin-bottom: 5px;
+        border-width: 2px;
+    }
+
+    .survey-btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        height: 60px;
+        line-height: 60px;
+        width: 60px;
+        text-align: center;
+        cursor: pointer;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+
+        &._close {
+            display: none;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAbCAYAAABiFp9rAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKVJREFUeNrs1ssNgCAMAFDiBIzCCI7SjRzBURyBFdzAESqJcCEB+sMTTXqjecbQFudWWAUi+pRXyqCoB8qhiF88XKyqh97BkAHkYhVSar0p1kAC5evImBjhYGqEgpkhA2w3RToYmiMDjIxsDOvOOX0sxam/rnG7QDpB2B2vGVfsjldjnGYUY5KOZ2OasSLBTsXiq7Hhpj0Uq7xg8Mu7Y72+zOIVYAD9rtC0zrbC7QAAAABJRU5ErkJggg==);
+        }
+    }
+
+    .survey-form {
+        position: relative;
+        min-height: 100%;
+    }
+}
+
+@media screen and (max-width: $break-phone-landscape) {
+    .surveys._passing {
+
+        .survey {
+            position: fixed;
+            top: 50px !important; // !important for fix draggable
+            left: 0 !important; // !important for fix draggable
+            right: 0;
+            bottom: 0;
+            height: auto;
+            width: auto;
+            border-radius: 0;
+        }
+
+        .survey-form {
+            min-height: 0;
+        }
+
+        .survey-header {
+            border-radius: 0;
+        }
+
+        .survey-body {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 60px;
+            bottom: 0;
+            height: auto;
+            max-height: none;
+
+            &._scrollbar {
+                .survey-footer._included {
+                    padding-left: 10px;
+                    padding-right: 24px;
+                }
+            }
+        }
+
+        .survey-scroll {
+            &._footer {
+                position: relative;
+                bottom: auto;
+                top: auto;
+                height: 100%;
+            }
+        }
+
+        .survey-footer {
+            &._included {
+                position: relative;
+                bottom: auto;
+                margin-top: 10px;
+            }
+        }
+
+        .survey-heading {
+            padding: 0 60px;
+        }
+
+        .survey-btn._close {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,235 @@
+<div class="store wrapper-chips" scroll-to-center scroll-to=".scroll-area">
+    <div class="scroll-area _loading" ng-class="{ _loading: !store.isLoaded }">
+
+        <!-- BEGIN CATEGORIES -->
+        <div class="store-circle _first">
+            <div class="store-circle _second">
+                <div class="store-circle _third">
+                    <div class="category-title-wrap">
+                        <h3 class="category-heading" ng-class="{_product: store.pointsRequired}">
+                            <span class="category-title" dotdotdot="store.currentTitle" ng-if="store.currentTitle">{{ store.currentTitle }}</span>
+                            <span class="category-title" ng-if="!store.currentTitle && store.titleSelectedCategory"  dotdotdot="store.titleSelectedCategory">{{ store.titleSelectedCategory }}</span>
+                            <span class="category-title" ng-if="!store.currentTitle && !store.titleSelectedCategory">{{ store.defaultTitle }}</span>
+
+                            <span class="category-points" ng-if="store.pointsRequired">{{ store.pointsRequired | currency : "+" : 0 }}</span>
+                        </h3>
+                    </div>
+                </div>
+
+                <ul class="categories" ng-class="{_selected: store.idSelectedCategory != 0}">
+                    <li
+                        class="category"
+                        ng-class="{_active: category.id == store.idSelectedCategory}"
+                        ng-repeat="category in store.categories track by $index"
+                        ng-style="store.getStylesOfCategory(category.id)"
+                        ng-click="store.selectCategory(category.id)"
+                        ng-mouseenter="store.changeTitle(category.name)"
+                        ng-mouseleave="store.changeTitle()"
+                    >
+                        {{category.name}}
+                    </li>
+                </ul>
+
+            </div>
+
+            <ul
+                class="products"
+                ng-repeat="category in store.categories track by $index"
+                ng-class="{_active: category.id == store.idSelectedCategory, _selected: store.idSelectedCategory != 0}"
+            >
+                <li
+                    class="product"
+                    ng-repeat="product in category.products track by $index | filter: { enable: true }"
+                    ng-style="store.getStylesOfProduct(product.id, category.id, $index)"
+                    ng-click="$event.stopPropagation(); store.showDetailProduct(category.id, product.id)"
+                    ng-mouseenter="store.changeTitle(product.name, product.price)"
+                    ng-mouseleave="store.changeTitle()"
+                >
+                    {{product.name}}
+                </li>
+            </ul>
+        </div>
+        <!-- END CATEGORIES -->
+
+        <!-- BEGIN PRODUCT -->
+        <div class="detail" ng-class="{ '_open': store.selectedProduct }" ng-if="store.selectedProduct" click-anywhere-but-here="store.closeDetailProduct()" ignore-any-popup>
+            <button class="detail-close" ng-click="store.closeDetailProduct()"></button>
+
+            <!-- BEGIN PRODUCT INFO -->
+            <div class="detail-info" ng-if="store.selectedProduct.id !== store.purchasedProduct.product.id">
+                <div class="detail-img">
+                    <img ng-src="{{ store.Resource.getResourceURL(store.selectedProduct.picture.path) }}">
+                </div>
+
+                <h2 class="detail-title" dotdotdot="store.selectedProduct.name">{{ store.selectedProduct.name }}</h2>
+
+                <p class="detail-points">+{{ store.selectedProduct.price | currency : "" : 0 }} points</p>
+
+                <div class="detail-table">
+                    <div class="detail-row">
+                        <p
+                            class="detail-desctiption"
+                            textfill="{{ store.selectedProduct.description }}"
+                            change-line-height="true"
+                            min-font-pixels="4"
+                            max-font-pixels="26"
+                            ng-show="store.selectedProduct.description"
+                        ></p>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-cell">
+                            <a href="http://help.jellychip.com/hc/en-us/articles/204994677-Charity-Partners-and-Making-an-Impact" target="_blank" class="detail-how">How does it work?</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="detail-buy" ng-click="store.buyProduct(store.selectedProduct)" ng-show="store.canIBuy(store.selectedProduct) && store.statusForm !== 'sending'">Buy it</button>
+
+                <div class="detail-needs" ng-if="!store.canIBuy(store.selectedProduct) && store.Auth.isLogged()">
+                    <p>You need<br>{{ store.getNecessaryPoints(store.selectedProduct) | currency : "" : 0 }}<br> more points</p>
+                </div>
+
+                <div class="detail-needs" ng-if="!store.Auth.isLogged()">
+                    <p>
+                        <span ng-click="store.Auth.showLoginPopup()">Login</span>
+                        <br/><br/>
+                        <span ng-click="store.Auth.showSignUpPopup()">Register</span>
+                    </p>
+                </div>
+            </div>
+            <!-- END PRODUCT INFO -->
+
+            <!-- BEGIN PRODUCT THANKS -->
+            <div class="detail-thanks thanks" ng-if="store.selectedProduct.id === store.purchasedProduct.product.id">
+                <a href="" class="detail-img" ui-sref="app.achievement({ 'achievementId': store.purchasedProduct.achievement.id })" ng-if="store.purchasedProduct.achievement && store.purchasedProduct.achievement.id">
+                    <img ng-src="{{ store.Resource.getResourceURL(store.selectedProduct.picture.path) }}">
+                </a>
+
+                <div class="detail-img" ng-if="!(store.purchasedProduct.achievement && store.purchasedProduct.achievement.id)">
+                    <img ng-src="{{ store.Resource.getResourceURL(store.selectedProduct.picture.path) }}">
+                </div>
+
+                <h2 class="thanks-title">Thanks <span class="thanks-username" dotdotdot="store.getUsername()">{{ store.getUsername() }}</span> for changing a life!</h2>
+
+                <p class="thanks-text">
+                    Keep up the great work.<br>
+                    Help spread the good news for extra points!
+                </p>
+
+                <ul class="thanks-socials social-list" ng-if="store.purchasedProduct.achievement && store.purchasedProduct.achievement.id">
+                    <li class="social-item">
+                        <a href ng-click="store.shareFb(store.purchasedProduct.achievement)" class="social-btn _blue _facebook">Facebook</a>
+                    </li>
+                    <li class="social-item">
+                        <a href ng-click="store.shareTweet(store.purchasedProduct.achievement)" class="social-btn _cyan _twitter">Twitter</a>
+                    </li>
+                    <li class="social-item">
+                        <a href="{{ store.shareEmail(store.purchasedProduct.achievement) }}" class="social-btn _red _email">Email</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END PRODUCT THANKS -->
+        </div>
+        <!-- END PRODUCT -->
+    </div>
+
+    <!-- BEGIN MOBILE STORE -->
+    <div class="mobile-store">
+        <h1 class="store-title">JellyChip<br>Store</h1>
+        <p class="title-caption">Buy a life changing gift today</p>
+
+        <!-- BEGIN PRODUCTS LIST -->
+        <div class="item" ng-repeat="category in store.categories track by $index">
+            <div ng-attr-id="product-{{product.id}}" class="item-product" ng-repeat="product in category.products track by $index | filter: { enable: true }">
+                <!-- BEGIN PRODUCT -->
+                <div ng-if="store.purchasedProduct.product.id !== product.id">
+                    <header class="item-header">
+                        <h2 class="item-title" ng-attr-style="background-color: #{{ category.colour }}">{{ product.name }}</h2>
+
+                        <img class="item-img" ng-if="product.mobile_image" ng-src="{{ store.Resource.getResourceURL(product.mobile_image.path) }}" ng-attr-alt="product.name" />
+                        <img class="item-img" ng-if="!product.mobile_image" ng-src="{{ store.Resource.getResourceURL(product.picture.path) }}" ng-attr-alt="product.name" />
+                    </header>
+
+                    <div class="container">
+                        <div class="item-detail">
+                            <div class="detail-header">
+                                <h3 class="detail-title" ng-attr-style="color: #{{ category.colour }}">{{ product.name }}</h3>
+
+                                <p class="detail-points" ng-attr-style="color: #{{ category.colour }}">+{{ product.price | currency : "" : 0 }} points</p>
+                            </div>
+
+                            <p class="detail-description">{{ product.description }}</p>
+
+                            <a  ng-if="store.Auth.isLogged()"
+                                class="buy"
+                                ng-class="{ disabled: !store.canIBuy(product) }"
+                                ng-attr-style="background-color: #{{ category.colour }}"
+                                href=""
+                                ng-click="store.buyProduct(product)"
+                            >Buy it</a>
+
+                            <a  ng-if="!store.Auth.isLogged()"
+                                class="buy"
+                                href=""
+                                style="background-color: #ccc; color: #686868"
+                                ng-click="store.Auth.showLoginPopup()"
+                            >Login</a>
+
+                            <a  ng-if="!store.Auth.isLogged()"
+                                class="buy"
+                                href=""
+                                style="background-color: #ccc; color: #686868"
+                                ng-click="store.Auth.showSignUpPopup()"
+                            >Register</a>
+
+                            <span ng-if="store.Auth.isLogged() && !store.canIBuy(product)" class="details-needs">You need {{ store.getNecessaryPoints(product) | currency : "" : 0 }} more points</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PRODUCT -->
+
+                <!-- BEGIN RESULT -->
+                <div class="item-result container" ng-if="store.purchasedProduct.product.id === product.id">
+                    <a href="" class="item-result-circle" ui-sref="app.achievement({ 'achievementId': store.purchasedProduct.achievement.id })" ng-if="store.purchasedProduct.achievement && store.purchasedProduct.achievement.id">
+                        <img ng-src="{{ store.Resource.getResourceURL(store.purchasedProduct.product.picture.path) }}">
+                    </a>
+
+                    <div class="item-result-circle" ng-if="!(store.purchasedProduct.achievement && store.purchasedProduct.achievement.id)">
+                        <img ng-src="{{ store.Resource.getResourceURL(store.purchasedProduct.product.picture.path) }}">
+                    </div>
+
+                    <p class="thanks">Thanks <strong>{{ store.getUsername() }}</strong> for&nbsp;changing a life!</p>
+                    <p class="share-text">Keep up the great work. Help spread the good news for extra points!</p>
+
+                    <ul class="social-list" ng-if="store.purchasedProduct.achievement && store.purchasedProduct.achievement.id">
+                        <li class="social-item">
+                            <a href ng-click="store.shareFb(store.purchasedProduct.achievement)" class="social-btn _blue _facebook">Facebook</a>
+                        </li>
+                        <li class="social-item">
+                            <a href ng-click="store.shareTweet(store.purchasedProduct.achievement)" class="social-btn _cyan _twitter">Twitter</a>
+                        </li>
+                        <li class="social-item">
+                            <a href="{{ store.shareEmail(store.purchasedProduct.achievement) }}" class="social-btn _red _email">Email</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END RESULT -->
+            </div>
+        </div>
+        <!-- END PRODUCTS LIST -->
+    </div>
+    <!-- END MOBILE STORE -->
+
+    <count-up ng-if="store.Auth.isLogged()"
+        class="jelly-points"
+        from="{{ user.points.from }}"
+        to="{{ user.points.to }}"
+        decimals="0"
+        duration="3"
+        delay="0"
+        options="user.couterOptions"
+        callback="user.animationPointsCompleted()"
+        fixed-element
+    ></count-up>
+</div>

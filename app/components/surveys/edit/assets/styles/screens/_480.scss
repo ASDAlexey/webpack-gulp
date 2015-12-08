@@ -1,0 +1,272 @@
+@media screen and (max-width: 480px) {
+    .s-step-circle {
+        &::before {
+            width: 150px / 55px * 100%;
+        }
+    }
+    // Header
+    .h-balance {
+        width: 100%;
+        text-align: center;
+    }
+
+    .h-balance-text {
+        display: inline-block;
+        float: none;
+    }
+
+    .add-options-list {
+        li {
+            width: 49%;
+
+            &:nth-child(3n+1) {
+                margin-left: 2%;
+            }
+
+            &:nth-child(2n+1) {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .add-question-form-container._add {
+        .add-input-question {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .add-upload-img,
+        .add-upload-video,
+        .add-option-answers {
+            width: 100%;
+            margin-bottom: 15px;
+            margin-left: 0;
+        }
+
+        .show-upload {
+            margin-bottom: 180px;
+        }
+
+        .add-upload-block {
+            top: 100px;
+        }
+
+        .upload-block-video-content {
+            width: 100% !important;
+        }
+
+        .add-upload-block {
+            .upload-block-video-content input {
+                margin-top: 0;
+            }
+
+            .upload-block-content {
+                height: 140px;
+                padding-top: 100px;
+            }
+        }
+
+        .add-respvideo {
+            top: 140px;
+        }
+
+        .add-options-list li:first-child {
+            margin: 2%;
+        }
+
+        .add-options-list li {
+            width: 46%;
+            margin: 2%;
+        }
+
+        .add-options-answers-item {
+            border-bottom: 1px solid $color-graylight;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .remove-line {
+            width: 15%;
+            margin-left: 0;
+        }
+
+        .add-line {
+            width: 15%;
+        }
+
+        .add-options-answers-list {
+            .add-upload-block {
+                width: 100%;
+            }
+        }
+
+        .add-item-mob-list {
+            overflow: hidden;
+
+            .add-options {
+                display: initial;
+            }
+        }
+    }
+
+    // Notification text
+    .free-bot-notification .notif-text {
+        padding: 40px 30px;
+    }
+
+    .free-bot-notification .notif-text .btn {
+        display: block;
+        margin: 15px 0 0 0;
+    }
+
+    //Bottom navigation
+    //.bottom-nav-left {
+    //    width: 100%;
+    //    text-align: center;
+    //    li {
+    //        width: 40%;
+    //    }
+    //}
+    //
+    //.bottom-nav-right {
+    //    text-align: center;
+    //    width: 100%;
+    //}
+
+    .add-option-name {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .add-options,
+    .add-options-btns,
+    .add-options-answers-list {
+        width: 100%;
+    }
+
+    .add-options-list2 {
+        margin-left: 0;
+    }
+
+    //Popup Edit table
+    .edit-popup-qlist {
+        height: 100%;
+    }
+
+    .e-popup-tlogic {
+        display: none;
+    }
+
+    .e-popop-answer-cont {
+        width: 100%;
+
+        .e-popup-answ-letter {
+            width: 5%;
+        }
+
+        .e-popup-anws {
+            margin-left: 5%;
+        }
+    }
+
+    .e-popup-logic-cont {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    //Filters
+    .ch-input-radio[type="radio"] + label span + i {
+        width: 100%;
+        margin: 10px 0 0 0;
+    }
+
+    .time-container {
+        width: 100%;
+    }
+
+    .l-time-list {
+        margin-bottom: 30px;
+    }
+
+    .add-question-form._pad-big {
+        padding: 40px / 480px * 100%;
+        padding-bottom: 50px;
+    }
+
+    .time-list {
+
+        li {
+            margin-bottom: 15px;
+
+            &:first-child {
+                padding: 0;
+            }
+        }
+
+        .time-date-text,
+        .time-date-inputs {
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    .add-options-list .add-option-wage:first-child {
+        margin-left: 0;
+    }
+
+    .add-options .add-option-wage {
+        width: 170px / 480px * 100%;
+    }
+    //Filters END
+
+    //Summary
+    .b-sum-container .p-sum-bal {
+        width: 270px / 480px * 100%;
+    }
+
+    .b-sum-container .p-sum-resp {
+        width: 200px / 480px * 100%;
+    }
+    //Summary END
+
+    //Survey popup
+    .p-payment-container {
+
+        .responses {
+
+            .b-item-field {
+                text-align: center;
+            }
+
+            .p-payment-column-left {
+                width: 100%;
+                padding-bottom: 20px;
+            }
+
+            .p-payment-column-right {
+                width: 80%;
+                float: none;
+
+                .b-error-msg {
+                    width: 100%;
+                }
+            }
+        }
+
+        .summary {
+
+            .b-pay-line.pay-result {
+                font-size: 15px;
+
+                .b-pay-label {
+                    font-size: 12px;
+                    display: block;
+                }
+            }
+
+
+        }
+    }
+    //Survey popup END
+
+}

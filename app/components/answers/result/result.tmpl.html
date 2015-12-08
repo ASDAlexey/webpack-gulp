@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="answers _detail">
+
+        <h2 class="answers-title">{{ answers.survey.title }}</h2>
+
+        <div class="answers-downloads">
+            <a href="" ng-click="answers.downloadResults(answers.survey, 'csv')" class="icon-file _xlsx _available"></a>
+        </div>
+
+        <div class="table-responsive">
+	        <table class="answers-table table table-hover table-bordered">
+	            <thead>
+	                <tr>
+	                    <th class="answers-th">Title</th>
+	                    <th class="answers-th">Type</th>
+	                    <th class="answers-th">Total/Skipped</th>
+	                    <th class="answers-th">Answers</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+                    <tr ng-repeat="question in answers.questions track by question.id">
+                        <td>
+                            {{ question.title }}
+                        </td>
+                        <td>
+                            {{ answers.getType(question.type) }}
+                        </td>
+                        <td>
+                            {{ question.total }}/{{ question.skipped }}
+                        </td>
+                        <td class="answers-td text-left">
+                            <!-- BEGIN TEXT_LONG, TEXT_SHORT, EMAIL, URL -->
+                            <ul class="list-unstyled" ng-if="_.indexOf(['text_long', 'text_short', 'email', 'url'], question.type) > -1">
+                                <li class="answer" ng-repeat-start="(key, value) in question.items track by $index" ng-if="$index < answers.limitAnswers">
+                                    <strong>{{ answers.alphabet[$index] }})</strong> {{ key }}
+                                </li>
+                                <li ng-repeat-end ng-if="$last && $index >= answers.limitAnswers">
+                                    <strong>...</strong><br>
+                                    <a href="" class="answer-link" ng-click="answers.showModal(question)">see all ({{ $index + 1 }})</a>
+                                </li>
+                            </ul>
+                            <!-- END TEXT_LONG, TEXT_SHORT, EMAIL, URL -->
+
+                            <!-- BEGIN BOOLEAN -->
+                            <ul class="list-unstyled" ng-if="question.type === 'boolean'">
+                                <li class="answer" ng-repeat="(key, value) in question.items track by $index">
+                                    <strong>{{ answers.alphabet[$index] }})</strong> {{ key | uppercase }}
+                                    <div class="answer-count">{{ value }} out of {{ question.total }} ({{ value / question.total  * 100 | number: 2 }}%)</div>
+                                </li>
+                            </ul>
+                            <!-- END BOOLEAN -->
+
+                            <!-- BEGIN RATING -->
+                            <ul class="list-unstyled" ng-if="question.type === 'rating'">
+                                <li class="answer" ng-repeat-start="(key, value) in question.items track by key" ng-if="$index < answers.limitAnswers">
+                                    <rating class='answer-rating' ng-model="key" max="10" readonly="true" state-on="'i-rating _star'" state-off="'i-rating _star-empty'"></rating>
+                                    <div class="answer-count">{{ value }} out of {{ question.total }} ({{ value / question.total  * 100 | number: 2 }}%)</div>
+                                </li>
+
+                                <li ng-repeat-end ng-if="$last && $index >= answers.limitAnswers">
+                                    <strong>...</strong><br>
+                                    <a href="" class="answer-link" ng-click="answers.showModal(question)">see all ({{ $index + 1 }})</a>
+                                </li>
+                            </ul>
+                            <!-- END RATING -->
+
+                            <!-- BEGIN CHOICE -->
+                            <ul class="list-unstyled" ng-if="question.type === 'choice'">
+                                <li class="answer" ng-repeat-start="(key, value) in (_.extend({}, question.items.choice, question.items.own)) track by $index" ng-if="$index < answers.limitAnswers">
+                                    <strong>{{ answers.alphabet[$index] }})</strong> {{ key }}
+                                    <div class="answer-count">{{ value }} out of {{ question.total }} ({{ value / question.total  * 100 | number: 2 }}%)</div>
+                                </li>
+                                <li ng-repeat-end ng-if="$last && $index >= answers.limitAnswers">
+                                    <strong>...</strong><br>
+                                    <a href="" class="answer-link" ng-click="answers.showModal(question)">see all ({{ $index + 1 }})</a>
+                                </li>
+                            </ul>
+                            <!-- END CHOICE -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

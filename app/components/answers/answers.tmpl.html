@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="answers _list">
+        <form action="" class="answers-search search" ng-submit="answers.searchByTitle($event)" novalidate>
+            <input type="text" name="search" class="search-input form-control inline" ng-model="answers.filter" placeholder="Search by title">
+
+            <!-- <button type="submit" class="search-btn _search btn _green" name="button">Search survey</button> -->
+            <!-- <button type="button" class="search-btn _create btn _cyan" name="button">Create a survey</button> -->
+        </form>
+
+        <div class="answers-body">
+            <div class="answers-order order">
+                <div class="order-current" ng-class="{ '_opened': answers.order.isDisplayed }" ng-click="answers.order.isDisplayed = !answers.order.isDisplayed">{{ answers.order.current }}</div>
+
+                <ul class="order-list list-unstyled" ng-show="answers.order.isDisplayed">
+                    <li class="order-item" ng-click="answers.orderByDate(criteria)" ng-repeat="criteria in answers.order.list">{{ criteria }}</li>
+                </ul>
+            </div>
+
+            <div class="answers-group group" ng-repeat="(category, group) in answers.list | filterBy: ['title']: answers.filter | groupBy: 'category'">
+                <h3 class="group-title">{{ category }}</h3>
+
+                <ul class="group-list list-unstyled">
+                    <li class="group-item survey" ng-repeat="survey in group">
+                        <a ui-sref="app.answers.result({ 'surveyId': survey.id })" class="survey-link">
+                            <div class="survey-body">
+                                <h4 class="survey-title">{{ survey.title }}</h4>
+                                <p class="survey-text">{{ survey.respondents }} respondents</p>
+                            </div>
+
+                            <div class="survey-time">
+                                <p class="survey-text">{{ answers.getRelativeDate(survey.status.date) }}</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

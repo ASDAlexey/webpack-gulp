@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h3 class="modal-title">Redeem a Coupon</h3>
+
+    <a class="close" href="" ng-click="$dismiss('cancel')"></a>
+</div>
+
+<form ng-submit="coupon.redeem()" novalidate>
+    <div class="modal-body" ng-if="!coupon.model">
+        <label for="couponInput" class="coupon-label">Enter a coupon code:</label>
+
+        <input type="text" id="couponInput" class="form-control coupon-input" ng-class="{ '_error': coupon.isInvalideCode }" ng-model="coupon.couponCode" ng-change="coupon.isInvalideCode = false">
+        
+        <p class="coupon-error" ng-show="coupon.isInvalideCode">
+            Error: Invalid code
+        </p>
+    </div>
+    
+    <div class="modal-body" ng-if="coupon.model">
+        <p class="coupon-text">
+            Thanks for redeeming your coupon!<br>
+            <span ng-show="coupon.model.data > 0">You have been rewarded:</span>
+        </p>
+
+        <p class="coupon-points" ng-show="coupon.model.data > 0">
+            +{{coupon.model.data}} points
+        </p>
+    </div>
+
+    <div class="modal-footer">
+        <button ng-if="!coupon.model" type="submit" class="btn _green" ng-disabled="!coupon.couponCode || coupon.isInvalideCode || coupon.isSending">Redeem</button>
+        <button type="button" ng-if="coupon.model" class="btn _green" ng-click="coupon.ok()">OK</button>
+    </div>
+</form>

@@ -1,0 +1,19 @@
+.date-select {
+    display: inline-block;
+
+    .date-select-select {
+        margin-right: 5px;
+    }
+
+    .date-select-day {
+        width: 80px;
+    }
+
+    .date-select-month {
+        width: 95px;
+    }
+
+    .date-select-year {
+        width: 85px;
+    }
+}

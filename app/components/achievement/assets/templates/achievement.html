@@ -1,0 +1,98 @@
+<a href="#" class="close achievement-close" ng-click="$dismiss('cancel')">Close</a>
+<article class="achievement">
+    <div class="achievement-container">
+        <header class="achievement-header">
+            <a ui-sref="app.profile.activity({userId: achievement.model.user.id })" class="user">
+                <div class="user-photo">
+                    <span class="achievement-avatar" ng-if="achievement.model.user.avatar"
+                          data-ng-style="{'background-image':'url('+achievement.Resource.getResourceURL(achievement.model.user.avatar.path)+')'}"></span>
+                    <img src="/assets/images/avatar.png" ng-if="!achievement.model.user.avatar">
+                </div>
+                <div class="user-nickname">{{ achievement.model.user.information.nickname }}</div>
+                <div class="user-name">{{ achievement.model.user.information.firstname }} {{ achievement.model.user.information.lastname }}</div>
+            </a>
+
+            <a href="" ng-if="achievement.Auth.isLogged() && user.model.id && achievement.model.user.id && (user.model.id != achievement.model.user.id) && achievement.isFriend(achievement.model.user.id)" class="achievement-add btn _primary" ng-click="achievement.addFriend(achievement.model.user, $event)">Add Friend</a>
+
+            <ul class="achievement-socials socials">
+                <li class="socials-item">
+                    <a href="" ng-click="achievement.shareFb()" class="socials-link _facebook"></a>
+                </li>
+                <li class="socials-item">
+                    <a href="" ng-click="achievement.shareTweet()" class="socials-link _twitter"></a>
+                </li>
+                <li class="socials-item">
+                    <a href="" class="socials-link _email"></a>
+                </li>
+            </ul>
+        </header>
+
+        <h3 class="achievement-title">
+            <span ng-if="achievement.model.user.information.firstname && achievement.model.user.information.lastname">{{ achievement.model.user.information.firstname }} {{ achievement.model.user.information.lastname }}</span>
+            <span ng-if="achievement.model.user.information.nickname && !(achievement.model.user.information.firstname || achievement.model.user.information.lastname)">{{ achievement.model.user.information.nickname }}</span>
+            <span ng-if="!achievement.model.user.information.nickname && !(achievement.model.user.information.firstname || achievement.model.user.information.lastname)">{{ achievement.model.user.email }}</span>
+
+            has bought a
+
+            <a href="{{achievement.getUrlToProduct()}}" class="break-word">{{ achievement.model.gift.name | lowercase }}</a>
+
+            gift to help change lives!
+        </h3>
+
+        <div class="achievement-image">
+            <img ng-src="{{ achievement.Resource.getResourceURL(achievement.model.gift.image.path) }}" class="achievement-img">
+        </div>
+
+        <footer class="achievement-footer">
+            <div class="achievement-date">{{ achievement.model.date | date : 'd MMM yy - h:mma' }}</div>
+
+            <ul class="achievement-socials socials">
+                <li class="socials-item">
+                    <a href="" ng-click="achievement.shareFb()" class="socials-link _facebook"></a>
+                </li>
+                <li class="socials-item">
+                    <a href="" ng-click="achievement.shareTweet()" class="socials-link _twitter"></a>
+                </li>
+                <li class="socials-item">
+                    <a href="{{ achievement.shareEmail() }}" class="socials-link _email"></a>
+                </li>
+            </ul>
+
+            <div class="achievement-divider"></div>
+
+            <div class="achievement-info">
+                <a ng-if="achievement.Auth.isLogged()" href="" ng-click="achievement.like()" class="achievement-likes achievement-link">
+                    <span class="icon _likes" ng-class="{_liked: achievement.liked }"></span>
+                    {{ achievement.model.likes }}
+                </a>
+                <a ng-if="!achievement.Auth.isLogged()" href="" ng-click="achievement.Auth.showLoginPopup(false)" class="achievement-likes achievement-link">
+                    <span class="icon _likes"></span>
+                    {{ achievement.model.likes }}
+                </a>
+                <span class="achievement-comments achievement-link">
+                    <span class="icon _comments" ng-class="{_commented: achievement.commented }"></span>
+                    {{ achievement.model.comments }}
+                </span>
+            </div>
+            <div class="comments-wrap">
+
+                <div class="comments-posts">
+                    <div class="enter-comment-wrap">
+                        <div class="avatar">
+                            <span class="avatar-img" ng-if="user.model.avatar"
+                                  data-ng-style="{'background-image':'url('+achievement.Resource.getResourceURL(user.model.avatar.path)+')'}"></span>
+                            <img src="/assets/images/default-avatar.png" ng-if="!user.model.avatar" ng-attr-alt="{{ user.model.information.firstname }} {{ user.model.information.lastname }}">
+                        </div>
+                        <div class="input-wrap">
+                            <textarea placeholder="Join the discussion..." ng-model="message"></textarea>
+                            <a class="btn _primary" href="" ng-mousedown="achievement.sendComment(message)">Send</a>
+                        </div>
+                    </div>
+                    <ul class="post-list">
+                        <li ng-repeat="data in achievement.comments" ng-include="'/assets/templates/comments.tree.html'"></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</article>

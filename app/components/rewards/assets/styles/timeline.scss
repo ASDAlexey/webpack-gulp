@@ -1,0 +1,58 @@
+@import '../../../../assets/styles/helpers/helpers';
+//bem block timeline
+.timeline {
+    background-color: #fff;
+    margin: 66px auto 0;
+    width: 100%;
+    border: 4px solid #fff;
+    border-radius: $rewards-border-radius;
+    position: relative;
+    z-index: 0;
+    height: 58px;
+    &__indicator {
+        border-radius: $rewards-border-radius/2;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        display: block;
+        background-color: #FFCE56;
+        width: 100%;
+        height: 100%;
+        @include tn(.7s);
+        &__red {
+            background-color: #F26D4E;
+        }
+        &__blue {
+            background-color: #6794CD;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            z-index: 1;
+            top: -18px;
+            right: -6px;
+            background-image: url(../images/arrow.png);
+            background-position: center top;
+            width: 16px;
+            height: 9px;
+        }
+    }
+    &__list {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        z-index: 1;
+        left: -5%;
+        top: 122%;
+        display: flex;
+        justify-content: space-between;
+        width: 110%;
+    }
+    &__item {
+        color: #fff;
+        @include os(18px);
+        list-style: none;
+        text-align: left;
+    }
+}

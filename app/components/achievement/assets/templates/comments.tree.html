@@ -1,0 +1,22 @@
+<div class="post-content">
+    <div class="avatar">
+        <img ng-if="!data.user.avatar" src="/assets/images/default-avatar.png" alt="">
+        <img ng-if="data.user.avatar" ng-src="{{ achievement.Resource.getResourceURL(data.user.avatar) }}" alt="">
+    </div>
+    <div class="post-body">
+        <div class="post-header">
+            <span class="author" ng-if="data.user.lastname || data.user.firstname">{{ data.user.firstname }} {{ data.user.lastname }}</span>
+            <span class="author" ng-if="!data.user.lastname && !data.user.firstname && data.user.nickname">{{ data.user.nickname }}</span>
+            <span class="author" ng-if="!data.user.lastname && !data.user.firstname && !data.user.nickname">User #{{ data.user.id }}</span>
+            <span class="bullet">•</span>
+            <span class="time-ago">{{ achievement.getRelativeDate(data.created_at) }}</span>
+        </div>
+        <p class="message">{{ data.message }}</p>
+        <div class="post-footer">
+            <!--<a class="reply" reply href="#">Reply</a>-->
+        </div>
+    </div>
+</div>
+<ul ng-if="data.comments.length > 0" ng-init="comments = achievement.getCommentsDependsOnMaxDepth(data)" class="children">
+    <li ng-repeat="data in comments track by data.id" ng-include="'/assets/templates/comments.tree.html'"></li>
+</ul>

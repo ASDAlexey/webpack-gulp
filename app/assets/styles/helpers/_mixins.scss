@@ -1,0 +1,88 @@
+/* MIXINS
+----------------------------------------------------*/
+@mixin glow() {
+    box-shadow: 0 0 30px 10px #ffecbd;
+}
+
+@mixin list-unstyled() {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+@mixin ellipsis() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin hide-text() {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+@mixin center-block() {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin clearing() {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear:both;
+    }
+}
+
+@mixin vertical-align-text() {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+@mixin justify-list() {
+    text-align: justify !important;
+    text-justify: distribute-all-lines;
+    font-size: 0 !important;
+
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+    }
+
+    li {
+        vertical-align: top;
+        display: inline-block;
+        // text-align: left;
+    }
+}
+
+@mixin placeholder{
+    &::-webkit-input-placeholder {@content;}
+    &:-ms-input-placeholder      {@content;}
+    &:-moz-placeholder           {@content;}
+    &::-moz-placeholder          {@content;}
+}
+@mixin os($size:14px,$lh:1,$fw:400) {
+    font-family:'Open Sans', sans-serif;
+    line-height:$lh;
+    font-size: $size;
+}
+@mixin tn($time:.5s,$property:all,$lh:1,$ease:ease-out) {
+    transition: $property $time $ease;
+}
+@mixin dibt() {
+    display: inline-block;
+    vertical-align: top;
+}

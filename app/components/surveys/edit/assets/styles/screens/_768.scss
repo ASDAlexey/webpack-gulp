@@ -1,0 +1,46 @@
+@media screen and (max-width: 768px) {
+    .s-step-circle {
+        &::before {
+            width: 150px / 55px * 100%;
+        }
+    }
+
+    .b-link {
+        margin-left: 5%;
+        width: 43%;
+    }
+
+    .b-item-switchto {
+        margin-right: 5%;
+        width: 43%;
+    }
+
+    .b-item-category {
+        width: 90%;
+        margin: 20px 5% 0 5%;
+    }
+
+    .add-option-name {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .add-options,
+    .add-options-btns,
+    .add-options-answers-list {
+        width: 100%;
+    }
+
+    .add-options-list2 {
+        margin-left: 0;
+    }
+
+    //filters
+    .time-container {
+        width: 100%;
+    }
+
+    .l-time-list {
+        margin-bottom: 30px;
+    }
+}

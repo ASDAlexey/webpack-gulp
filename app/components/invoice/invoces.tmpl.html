@@ -1,0 +1,29 @@
+<div class="surveys _manage">
+
+    <ng-include src="'/assets/templates/balance.block.html'"></ng-include>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li>
+                <a ui-sref="app.survey.manage">Manage Surveys</a>
+            </li>
+            <li class="active">
+                <a ui-sref="app.invoice.list">Invoices</a>
+            </li>
+        </ul>
+
+
+        <!-- INVOICES -->
+
+        <div class="page-survey-invoices">
+            <p ng-repeat="invoice in invoice.invoices">
+                <a href ui-sref="app.invoice.invoice({ invoiceId: invoice.id })">
+                    Invoice, {{ invoice.date | date: 'MM/dd/yyyy' }}, {{ invoice.total / 100 | currency }}
+                </a>
+            </p>
+        </div>
+
+        <!-- End INVOICES -->
+
+    </div>
+</div>

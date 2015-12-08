@@ -1,0 +1,221 @@
+/* PROFILE
+----------------------------------------------------*/
+
+/*
+ * .modal-open      - body class for killing the scroll
+ * .modal           - container to scroll within
+ * .modal-dialog    - positioning shell for the actual modal
+ * .modal-content   - actual modal w/ bg and corners and shit
+ */
+
+.modal-open {
+    overflow: hidden;
+}
+
+.modal {
+    display: none;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $index-modal + 1;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    text-align: center;
+
+    &:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+
+    &.fade .modal-dialog {
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 0.2s linear, transform 0.2s linear;
+    }
+    &.in .modal-dialog {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.modal-dialog {
+    position: relative;
+    width: 90%;
+    margin: 10px auto;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.modal-content {
+    position: relative;
+    background-color: $modal-color-bg;
+    border: 1px solid $modal-fallback-border-color;
+    border: 1px solid $modal-color-border;
+    border-radius: $modal-border-radius;
+    background-clip: padding-box;
+    outline: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+    .close{
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        right: 7px;
+        top: 7px;
+        background: url("/assets/images/close.svg") no-repeat center center;
+        background-color: $color-graylighter;
+        border-radius: 15px;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+
+        &:hover{
+            background-color: $color-graylight;
+            transition: background-color 0.3s;
+        }
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $index-modal;
+    background-color: $modal-backdrop-color-bg;
+
+    &.fade { opacity: 0; }
+    &.in { opacity: $modal-backdrop-opacity; }
+}
+
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    min-height: 20px;
+
+    .close {
+        margin-top: -2px;
+    }
+}
+
+.modal-title {
+    margin: 0;
+}
+
+.modal-body {
+    position: relative;
+    padding: 20px;
+}
+
+.modal-footer {
+    margin-top: 15px;
+    padding: 19px 20px 20px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    @include clearing();
+
+    .btn + .btn {
+        margin-left: 5px;
+        margin-bottom: 0;
+    }
+
+    .btn-group .btn + .btn {
+        margin-left: -1px;
+    }
+
+    .btn-block + .btn-block {
+        margin-left: 0;
+    }
+}
+
+.modal-scrollbar-measure {
+    position: absolute;
+    top: -9999px;
+    width: 50px;
+    height: 50px;
+    overflow: scroll;
+}
+
+.confirm-modal {
+
+    .modal-dialog {
+        width: 90%;
+        max-width: 620px;
+    }
+
+    .modal-content {
+        background-color: $color-white;
+        border: 1px solid $color-green;
+        overflow: hidden;
+        border-radius: $border-radius-large;
+        box-shadow: none;
+    }
+
+    .modal-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid $color-green;
+        min-height: 20px;
+        background-color: $color-green;
+        color: $color-white;
+        font-size: 18px;
+        line-height: 20px;
+        text-transform: uppercase;
+        @include ellipsis();
+    }
+
+    .modal-body {
+        padding: 30px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .modal-footer {
+        margin-top: 0;
+        padding: 0 30px 30px;
+        text-align: right;
+        border-top: 0;
+    }
+
+    .close {
+        background-color: transparent;
+        right: 11px;
+        top: 13px;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    .btn {
+        border-radius: 5px;
+        min-width: 80px;
+    }
+}
+
+@media screen and (min-width: $break-tablet-portrait) {
+    .modal-lg {
+        width: 600px;
+        margin: 30px auto;
+    }
+    .modal-sm {
+        width: 300px;
+        margin: 30px auto;
+    }
+}
+
+@media screen and (min-width: $break-tablet-landscape) {
+    .modal-lg { width: 830px; }
+}

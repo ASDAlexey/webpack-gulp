@@ -1,0 +1,156 @@
+/* AUTH MODAL
+----------------------------------------------------*/
+.auth-modal {
+
+    .modal-dialog {
+        max-width: 400px;
+    }
+
+    .modal-content {
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+    .popup {
+        .popup-list{
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .popup-fieldset {
+            margin: 14px 0;
+        }
+
+        .btn {
+            width: 100%;
+            height: 54px;
+            line-height: 52px;
+            font-size: 20px;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .form-control {
+            font-size: 20px;
+            line-height: 20px;
+            height: 54px;
+            padding: 0 12px;
+        }
+
+        .popup-btns {
+            &:before,
+            &:after {
+                content: "";
+                display: table;
+            }
+
+            &:after {
+                clear:both;
+            }
+        }
+
+        .popup-btn {
+            width: 47%;
+        }
+
+        .popup-checkbox {
+            font-size: 18px;
+            line-height: 20px;
+            text-align: center;
+
+            .checkbox {
+                height: auto;
+            }
+        }
+
+        .popup-link,
+        .popup-info,
+        .popup-message {
+            text-align: center;
+            font-size: 20px;
+            line-height: 22px;
+        }
+    }
+
+    .divider {
+        position: relative;
+        text-align: center;
+        margin: 14px auto;
+
+        .divider-decor {
+            position: relative;
+            display: block;
+            margin: 15px auto;
+            height: 21px;
+            width: 95%;
+            font-style: normal;
+
+            &:before {
+                content: "";
+                position: absolute;
+                border-top: 2px solid #cfcdcd;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: 50%;
+                z-index: 10;
+            }
+
+            &:after {
+                content: "or";
+                font-family: 'Open Sans Light', sans-serif;
+                font-weight: normal;
+                font-size: 20px;
+                line-height: 20px;
+                display: block;
+                margin: 0 auto;
+                color: #969696;
+                background: #fff;
+                position: absolute;
+                left: 45%;
+                right: 45%;
+                z-index: 15;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .auth-modal {
+
+        .modal-content {
+            padding: 30px 15px 15px;
+            border-radius: 15px;
+        }
+
+        .popup {
+            .btn,
+            .form-control {
+                font-size: 16px;
+            }
+
+            .form-control {
+                  padding: 0 20px;
+            }
+
+            .popup-btn {
+                width: 100%;
+                margin: 7px 0;
+            }
+
+            .popup-checkbox {
+                font-size: 16px;
+            }
+
+            .popup-link,
+            .popup-info,
+            .popup-message {
+                font-size: 16px;
+                line-height: 20px;
+            }
+        }
+    }
+}

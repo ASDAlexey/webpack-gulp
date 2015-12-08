@@ -1,0 +1,634 @@
+@import '../../../../assets/styles/helpers/helpers';
+
+/* ACHIEVEMENT
+----------------------------------------------------*/
+.achievement-modal {
+
+    .modal-content {
+        border-radius: 8px;
+    }
+
+    .achievement {
+        margin-top: 0;
+        margin-bottom: 0;
+
+        .achievement-container {
+            min-width: 280px;
+            max-width: 580px;
+        }
+    }
+
+    .achievement-close {
+        display: block;
+    }
+}
+
+.achievement-modal {
+    .modal-dialog {
+        min-width: 280px;
+        max-width: 580px;
+    }
+}
+
+.achievement-close {
+    display: none;
+}
+
+.achievement {
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    .achievement-container {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 40px 50px 35px;
+        max-width: 580px;
+        min-width: 320px;
+        background-color: $color-white;
+        border-radius: 8px;
+    }
+
+    .achievement-header {
+        position: relative;
+        @include clearing();
+
+        .achievement-socials {
+            display: none;
+            margin-top: 5px;
+
+            .socials-link {
+                margin-right: 0;
+                margin-left: 15px;
+            }
+
+            .socials-item:first-child {
+                .socials-link {
+                    margin-left: 0;
+                }
+            }
+        }
+        .achievement-avatar {
+            display: block;
+            vertical-align: top;
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-position: center center;
+        }
+    }
+
+    .achievement-add {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        max-width: 180px;
+    }
+
+    .user {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        text-decoration: none;
+        font-size: 18px;
+        line-height: 22px;
+        white-space: nowrap;
+        vertical-align: middle;
+        padding-right: 160px;
+        min-height: 70px;
+
+        .user-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            border-radius: 100%;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .user-nickname,
+        .user-name {
+            width: 100%;
+            padding-left: 100px;
+            @include ellipsis();
+        }
+
+        .user-nickname {
+            color: #000;
+            padding-top: 10px;
+        }
+
+        .user-name {
+            color: #959595;
+        }
+    }
+
+    .achievement-title {
+        color: #000;
+        font-size: 18px;
+        line-height: 22px;
+        margin: 20px 10px 40px;
+    }
+
+    .achievement-image {
+        text-align: center;
+
+        .achievement-img {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .achievement-footer {
+        position: relative;
+        padding: 18px 0;
+        overflow: hidden;
+    }
+
+    .achievement-date {
+        float: left;
+        padding-top: 5px;
+        color: #CDCCCC;
+        font-size: 18px;
+        line-height: 22px;
+        white-space: nowrap;
+    }
+
+    .socials {
+        float: right;
+        @include list-unstyled();
+
+        .socials-item {
+            display: block;
+            float: left;
+        }
+
+        .socials-link {
+            display: block;
+            height: 30px;
+            margin-right: 15px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+
+            &._facebook {
+                width: 15px;
+                background-image: url('/assets/images/socials/icon-facebook-gray.png');
+
+                &:hover {
+                    background-image: url('/assets/images/socials/icon-facebook-green.png');
+                }
+            }
+
+            &._twitter {
+                width: 29px;
+                background-image: url('/assets/images/socials/icon-twitter-gray.png');
+
+                &:hover {
+                    background-image: url('/assets/images/socials/icon-twitter-green.png');
+                }
+            }
+
+            &._email {
+                width: 29px;
+                background-image: url('/assets/images/socials/icon-email-gray.png');
+
+                &:hover {
+                    background-image: url('/assets/images/socials/icon-email-green.png');
+                }
+            }
+        }
+    }
+
+    .achievement-divider {
+        float: left;
+        height: 2px;
+        width: 100%;
+        background-color: #F0F0F0;
+        margin: 15px 0;
+        @include clearing();
+    }
+
+    .achievement-info {
+        float: left;
+
+        .achievement-link {
+            float: left;
+            margin-right: 16px;
+            color: $color-green;
+            font-size: 23px;
+            line-height: 27px;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .icon {
+            display: block;
+            float: left;
+            width: 31px;
+            height: 28px;
+            margin-right: 5px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+
+            &._likes {
+                background-image: url('/assets/images/icons-likes-comments.png');
+                background-position: -113px 0px;
+                &._liked {
+                    background-position: -154px 0px;
+                }
+            }
+
+            &._comments {
+                background-image: url('/assets/images/icons-likes-comments.png');
+                background-position: -195px 0px;
+                &._commented {
+                    background-position: -236px 0px;
+                }
+            }
+        }
+    }
+    .comments-wrap {
+        float: left;
+        margin-top: 30px;
+        width: 100%;
+        a:hover {
+            text-decoration: none;
+        }
+        .avatar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            img,span {
+                display: inline-block;
+                vertical-align: top;
+                width: 39px;
+                height: 39px;
+                border-radius: 50%;
+                background-size:cover;
+                background-position: center center;
+            }
+        }
+        .dropdown-wrap {
+            position: relative;
+            &:hover {
+                ul.dropdown-menu {
+                    display: block;
+                }
+            }
+            ul.dropdown-menu {
+                display: none;
+                position: absolute;
+                z-index: 100;
+                top: 100%;
+                margin: 0;
+                padding: 5px 0;
+                list-style: none;
+                background-color: #fff;
+                border: 2px solid $color-whitedark;
+                border-radius: 3px;
+                &.right-aligned {
+                    right: 0;
+                }
+                &.left-aligned {
+                    left: 0;
+                }
+                a {
+                    display: block;
+                    padding: 3px 10px;
+                    font-size: 12px;
+                    line-height: 14px;
+                    color: $color-gray;
+                    text-decoration: none;
+                    transition: all 0.2s;
+                    &:hover {
+                        color: #fff;
+                        background-color: $color-green;
+                    }
+                }
+            }
+        }
+        .comments-header {
+            margin-bottom: 18px;
+            .top {
+                padding-bottom: 5px;
+                border-bottom: 2px solid $color-whitedark;
+                @include clearing();
+            }
+            .bottom {
+                @include clearing();
+                margin-top: 10px;
+            }
+            .amount {
+                position: relative;
+                float: left;
+                height: 19px;
+                font-size: 12px;
+                line-height: 19px;
+                font-weight: bold;
+                color: $color-blacklight;
+                &:after {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -7px;
+                    height: 2px;
+                    background-color: $color-blacklight;
+                    content: "";
+
+                }
+            }
+            .login-wrap {
+                float: right;
+                &:hover .login {
+                    color: $color-blacklight;
+                    background-position: right -28px;
+                }
+                .counter {
+                    float: left;
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 7px;
+                    background: url('/assets/images/comments-counter.png') no-repeat;
+                    background-size: 16px auto;
+                    font-size: 10px;
+                    line-height: 17px;
+                    text-align: center;
+                    color: #fff;
+                }
+                .login {
+                    float: left;
+                    height: 19px;
+                    padding-right: 11px;
+                    line-height: 19px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: $color-gray;
+                    background: url('/assets/images/select-arrow.png') no-repeat;
+                    background-position: right 8px;
+                    background-size: 8px auto;
+                }
+            }
+            .sorting,
+            .recommend {
+                height: 12px;
+                font-size: 11px;
+                line-height: 12px;
+                font-weight: bold;
+                color: $color-gray;
+            }
+            .sorting-wrap {
+                width: 150px;
+                float: left;
+                &:hover .sorting {
+                    color: $color-blacklight;
+                    background-position: right -32px;
+                }
+                .sorting {
+                    float: left;
+                    height: 15px;
+                    padding-right: 12px;
+                    background: url('/assets/images/select-arrow.png') no-repeat;
+                    background-position: right 4px;
+                    background-size: 8px auto;
+                }
+            }
+            .recommend {
+                float: right;
+                padding-left: 16px;
+                background: url('/assets/images/recommend.png') no-repeat;
+                background-position: 0 0;
+                background-size: 13px 24px;
+                &:hover {
+                    color: $color-blacklight;
+                    background-position: 0 -12px;
+                }
+            }
+            .dropdown-wrap {
+                float: left;
+            }
+        }
+        .comments-posts {
+            .enter-comment-wrap {
+                position: relative;
+                .input-wrap {
+                    position: relative;
+                    padding-left: 49px;
+                    @include clearing();
+                }
+                textarea {
+                    position: relative;
+                    z-index: 10;
+                    width: 100%;
+                    height: 40px;
+                    padding: 9px 10px;
+                    border: 2px solid $color-whitedark;
+                    font-size: 15px;
+                    color: $color-blacklight;
+                    transition: all 0.5s;
+                    resize: none;
+                    border-radius: 3px;
+                    @include placeholder {
+                        color: $color-gray;
+                    }
+                    &:focus {
+                        border: 2px solid $color-green;
+                        height: 100px;
+                        margin-bottom: 40px;
+                        + .btn {
+                            top: 105px;
+                        }
+                    }
+                }
+                a.btn {
+                    position: absolute;
+                    z-index: 5;
+                    top: 0;
+                    right: 0;
+                    transition: all 0.5s;
+                }
+            }
+            .reply-wrap {
+                margin-top: 20px;
+                margin-left: 50px;
+                .input-wrap {
+                    padding-left: 40px;
+                }
+                textarea {
+                    height: 31px;
+                    font-size: 12px;
+                    padding: 4px 5px;
+                    &:focus {
+                        height: 80px;
+                        margin-bottom: 25px;
+                        + .btn {
+                            top: 85px;
+                        }
+                    }
+                }
+                a.btn {
+                    height: 31px;
+                    line-height: 29px;
+                }
+                .avatar img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            ul.post-list {
+                margin: 18px 0 0;
+                padding: 0;
+                list-style: none;
+                .post-content {
+                    position: relative;
+                    margin-top: 15px;
+                }
+                .post-body {
+                    margin-left: 49px;
+                }
+                .post-header,
+                .post-footer {
+                    @include clearing;
+                }
+                .post-footer {
+                    .bullet {
+                        height: 11px;
+                        line-height: 12px;
+                    }
+                }
+                .author,
+                .bullet,
+                .time-ago {
+                    float: left;
+                    height: 12px;
+                    line-height: 12px;
+                }
+                .author {
+                    font-size: 11px;
+                    font-weight: bold;
+                    color: $color-blacklight;
+                }
+                .bullet {
+                    margin: 0 6px;
+                    font-size: 12px;
+                }
+                .time-ago {
+                    font-size: 11px;
+                }
+                p.message {
+                    margin: 4px 0;
+                    font-size: 12px;
+                    color: $color-blacklight;
+                }
+                .voting {
+                    position: relative;
+                    float: left;
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        width: 2px;
+                        margin-right: 17px;
+                        background-color: $color-graylight;
+                        opacity: 0.5;
+                    }
+                }
+                .vote-up {
+                    margin-right: 7px;
+                    background: url('/assets/images/vote-up.png') no-repeat;
+                }
+                .vote-down {
+                    background: url('/assets/images/vote-down.png') no-repeat;
+                    margin-left: 7px;
+                }
+                .vote-up,
+                .vote-down {
+                    float: left;
+                    width: 11px;
+                    height: 11px;
+                    background-size: 9px auto;
+                    background-position: center center;
+                    opacity: 0.5;
+                    transition: opacity 0.5s;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+                .votes {
+                    float: left;
+                    height: 11px;
+                    margin-right: 7px;
+                    font-size: 10px;
+                    line-height: 12px;
+                }
+                .reply {
+                    float: left;
+                    height: 11px;
+                    font-size: 11px;
+                    line-height: 11px;
+                    color: $color-gray;
+                    &:hover {
+                        color: $color-blacklight;
+                    }
+                }
+                ul.children {
+                    margin: 25px 0 25px 49px;
+                    padding: 0;
+                    list-style: none;
+                    .avatar img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                    .post-body {
+                        margin-left: 40px;
+                    }
+                    li:first-child {
+                        margin-top: 0px;
+                    }
+                    li {
+                        margin-top: 25px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $break-tablet-portrait) {
+    .achievement {
+        .achievement-container {
+            padding: 40px 20px 10px;
+        }
+
+        .user {
+            padding-right: 0;
+            margin-bottom: 5px;
+        }
+
+        .achievement-add {
+            position: relative;
+            top: auto;
+            left: auto;
+            display: inline-block;
+        }
+
+        .achievement-header {
+            .achievement-socials {
+                display: block;
+            }
+        }
+
+        .achievement-footer {
+            .achievement-socials {
+                display: none;
+            }
+        }
+    }
+}

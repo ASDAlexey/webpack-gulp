@@ -1,0 +1,374 @@
+@import 'helpers/helpers';
+/*@import 'partials/reset';*/
+@import 'partials/normalize';
+@import 'partials/fonts';
+@import 'partials/form';
+@import 'partials/icons';
+@import 'partials/scrollbar';
+@import 'partials/responsive-tables';
+@import 'partials/layout';
+@import 'partials/modal';
+@import 'partials/utilities';
+
+/* BASE STYLES
+----------------------------------------------------*/
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+* {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+}
+
+html {
+  height: 100%;
+
+  &.html-no-scroll {
+    overflow-y: hidden;
+  }
+}
+
+body {
+  font-family: $font-base;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: $base-font-color;
+  background-color: $color-bg;
+  padding-top: $header-height;
+  height: 100%;
+
+  &._light {
+    background-color: $color-white;
+  }
+
+  &._white {
+    background-color: $color-white;
+  }
+}
+
+a {
+  color: $color-green;
+  text-decoration: none;
+
+  &:hover {
+    color: darken($color-green, 15%);
+    text-decoration: underline;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: auto;
+}
+
+ol {
+  padding-left: 2em;
+
+  li {
+    list-style-type: none;
+    counter-increment: list;
+    position: relative;
+    margin-bottom: 10px;
+
+    &:after {
+      content: counter(list) ")";
+      position: absolute;
+      left: -2em;
+      top: 0;
+      width: 2em;
+      text-align: center;
+      color: $color-green;
+    }
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+
+.img-responsive {
+  max-width: 100%;
+}
+
+.list-unstyled {
+  @include list-unstyled();
+}
+
+.glow {
+  @include glow();
+}
+
+.ellipsis {
+  @include ellipsis();
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+// disable ng-animate for .btn
+.no-animate.ng-enter,
+.no-animate.ng-leave,
+.no-animate.ng-animate {
+  transition: none !important;
+}
+
+/* SOCIAL LIST
+----------------------------------------------------*/
+.social-list {
+  text-align: center;
+  @include list-unstyled();
+}
+
+.social-item {
+  display: inline-block;
+  margin: 0 7px;
+}
+
+.social-btn {
+  display: block;
+  width: 93px;
+  height: 93px;
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  transition: background-color 0.2s linear;
+  @include hide-text();
+
+  &._blue {
+    background-color: $color-blue;
+
+    &:hover {
+      background-color: darken($color-blue, 15%);
+    }
+  }
+
+  &._cyan {
+    background-color: $color-cyan;
+
+    &:hover {
+      background-color: darken($color-cyan, 15%);
+    }
+  }
+
+  &._red {
+    background-color: $color-red;
+
+    &:hover {
+      background-color: darken($color-red, 15%);
+    }
+  }
+
+  &._facebook {
+    background-image: url('/assets/images/socials/icon-facebook.png');
+  }
+  &._twitter {
+    background-image: url('/assets/images/socials/icon-twitter.png');
+  }
+  &._email {
+    background-image: url('/assets/images/socials/icon-email.png');
+  }
+}
+
+/* CHIPS AREA
+----------------------------------------------------*/
+@mixin chip-bg-animate($color, $value: 15%) {
+  border-color: $color;
+
+  &._fill {
+    background-color: $color;
+  }
+
+  &:hover {
+    border-color: darken($color, $value);
+
+    &._fill {
+      background-color: darken($color, $value);
+    }
+  }
+}
+
+.chip {
+  position: absolute;
+  display: block;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 100%;
+  top: 50%;
+  left: 50%;
+
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: $base-font-color;
+  }
+
+  .chip-title {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%;
+    @include ellipsis();
+  }
+
+  &._green {
+    @include chip-bg-animate($color-green);
+  }
+
+  &._red {
+    @include chip-bg-animate($color-red);
+  }
+
+  &._blue {
+    @include chip-bg-animate($color-blue);
+  }
+
+  &._cyan {
+    @include chip-bg-animate($color-cyan);
+  }
+
+  &._yellow {
+    @include chip-bg-animate($color-yellow);
+  }
+
+  &._birch {
+    @include chip-bg-animate($color-birch);
+  }
+}
+
+.wrapper-chips {
+  position: absolute;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
+
+  body._keyboard & {
+    bottom: auto;
+  }
+}
+
+.scroll-area {
+  position: relative;
+  margin: 0 auto;
+
+  &._not-animate,
+  &._animate {
+    .chip {
+      transition: margin 0.2s ease-out, opacity 0.3s linear 0.3s, background-color 0.2s linear, border-color 0.2s linear;
+
+      .chip-title {
+        transition: opacity 0.2s linear 0.3s;
+      }
+    }
+  }
+}
+
+.jelly-points {
+  position: fixed;
+  bottom: 40px;
+  right: 140px;
+  font-family: $font-sans-semibold;
+  color: $color-green;
+  font-size: 46px;
+  line-height: 46px;
+  letter-spacing: 0.05em;
+}
+
+.tab-content > .tab-pane {
+  display: none;
+}
+
+.tab-content > .active {
+  display: block;
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity 0.2s linear;
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+/* BALANCE BLOCK
+----------------------------------------------------*/
+.bal-container {
+  overflow: hidden;
+
+  .h-balance {
+    float: right;
+    padding: 14px 20px;
+    color: $color-graydarker;
+    font-size: $header-bal-font-size;
+    line-height: 2.5em;
+    border: 1px solid $color-green;
+    border-top: 0;
+    border-radius: 0 0 $input-border-radius $input-border-radius;
+  }
+
+  .h-balance-text {
+    float: left;
+    margin-right: 20px;
+  }
+
+  .h-balance-link {
+    color: $color-graydarker;
+    text-decoration: underline;
+
+    &:hover {
+      color: $color-graydarker;
+      text-decoration: none;
+    }
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 640px) {
+    .h-container {
+      height: 80px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    // Header
+    .h-balance {
+      width: 100%;
+      text-align: center;
+    }
+
+    .h-balance-text {
+      display: inline-block;
+      float: none;
+    }
+  }
+}

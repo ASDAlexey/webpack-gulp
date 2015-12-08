@@ -1,0 +1,14 @@
+<div class="dropdown-wrap" ng-click="showList = !showList">
+    <div class="dropdown-container" ng-class="{ 'show': listVisible, 'list-show': showList, 'list-hide': !showList}" click-anywhere-but-here="listVisible = false; showList = false">
+        <div class="dropdown-display survey-input" ng-click="show();" ng-class="{ clicked: listVisible }">
+            <span class="dd-placeholder" ng-class="{ 'must-have-star': !selected }">{{ placeholder }}</span>
+            <span class="dd-arrowdown"></span>
+        </div>
+
+        <div class="dropdown-list">
+            <div class="dd-list-item" ng-repeat="item in list track by $index" ng-click="selectItem(item)">
+                <span>{{property !== undefined ? item[property] : item}}</span>
+            </div>
+        </div>
+    </div>
+</div>

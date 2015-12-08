@@ -1,0 +1,142 @@
+<div class="surveys _passing" ng-controller="SurveyPassing as survey">
+    <div class="modal-wrap" ng-if="home.shouldShowSurvey" ng-click="survey.surveyCompleted ? home.completeSurvey() : home.closeModalWindows()"></div>
+
+    <div class="survey" jqyoui-draggable data-drag="true" data-jqyoui-options="{ containment: 'body', handle: '.survey-header' }">
+        <header class="survey-header">
+            <div class="survey-heading">{{ survey.model.title }}</div>
+
+            <div class="survey-btn _close" ng-click="home.closeModalWindows()"></div>
+        </header>
+
+        <form role="form" ng-submit="survey.nextQuestion()" novalidate class="survey-body question" ng-class="{ _scrollbar: survey.surveyScrollbar }" on-size-changed="survey.changedSurveyHeight(sizes)">
+            <!-- BEGIN COMPLETED BLOCK -->
+            <div ng-if="survey.surveyCompleted">
+                <div class="survey-form" name="questionForm">
+                    <div class="survey-form-body">
+                        <p class="survey-text">Thanks for completing your survey! You have been awarded:</p>
+
+                        <div class="question-body _complete">
+                            <div class="survey-points">+{{ survey.points }} points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END COMPLETED BLOCK -->
+
+            <!-- BEGIN QUESTION BLOCK -->
+            <div
+                ng-if="!survey.surveyCompleted"
+                class="survey-scroll"
+                ng-scrollbar
+                reset-on="scrollbar:reset:survey"
+                rebuild-on="scrollbar:rebuild:survey"
+                is-bar-shown="survey.surveyScrollbar"
+                ng-class="{
+                    '_skip': (survey.question.required == false),
+                    '_footer': survey.isMinHeight || (config.isKeyboard && survey.isMobileVersion)
+                }"
+            >
+                <div class="survey-form" name="questionForm">
+                    <div class="survey-form-body">
+                        <p class="survey-text question-title">{{ survey.question.title }}</p>
+
+                        <div class="question-body">
+                            <!-- CHOICE RADIO -->
+                            <ul class="list-unstyled" ng-if="survey.question.type === 'choice' && survey.question.multiple == false">
+                                <li class="answer" ng-repeat="item in survey.question.items track by item.id" on-last-repeat="survey.rebuildScrollbar()">
+                                    <div class="radio">
+                                        <input type="radio" ng-attr-id="answer-{{item.id}}" name="answer" ng-model="survey.answer.items[0]" ng-change="survey.resetOwnAnswer()" ng-value="item.id">
+                                        <label onclick="" ng-attr-for="answer-{{item.id}}">{{ item.title }}</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- END CHOICE RADIO -->
+
+                            <!-- CHOICE CHECKBOX -->
+                            <ul class="list-unstyled" ng-if="survey.question.type === 'choice' && survey.question.multiple == true">
+                                <li class="answer" ng-repeat="item in survey.question.items track by item.id" on-last-repeat="survey.rebuildScrollbar()">
+                                    <div class="checkbox">
+                                        <input type="checkbox" ng-attr-id="answer-{{item.id}}" name="answer" ng-model="survey.answer.items[$index]" ng-true-value="{{ item.id }}" ng-false-value="null">
+                                        <label onclick="" ng-attr-for="answer-{{item.id}}">{{ item.title }}</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- END CHOICE CHECKBOX -->
+
+                            <!-- BOOLEAN -->
+                            <ul class="list-unstyled" ng-if="survey.question.type === 'boolean'">
+                                <li class="answer">
+                                    <div class="radio">
+                                        <input type="radio" id="answer-yes" name="answer" ng-model="survey.answer.answer" ng-value="'true'">
+                                        <label onclick="" for="answer-yes">Yes</label>
+                                    </div>
+                                </li>
+                                <li class="answer">
+                                    <div class="radio">
+                                        <input type="radio" id="answer-no" name="answer" ng-model="survey.answer.answer" ng-value="'false'">
+                                        <label onclick="" for="answer-no">No</label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- END BOOLEAN -->
+
+                            <!-- RATING -->
+                            <div class="answer _rating" ng-if="survey.question.type === 'rating' && !survey.question.isPassed">
+                                <rating ng-model="survey.answer.answer" max="survey.question.size" readonly="false" state-on="'i-rating _star'" state-off="'i-rating _star-empty'"></rating>
+                            </div>
+                            <!-- END RATING -->
+
+                            <!-- TEXT LONG -->
+                            <div class="answer" ng-if="survey.question.type === 'text_long'">
+                                <textarea class="form-control" name="answer" rows="8" cols="40" ng-model="survey.answer.answer"></textarea>
+                            </div>
+                            <!-- END TEXT LONG -->
+
+                            <!-- TEXT SHORT | URL | EMAIL -->
+                            <div class="answer" ng-if="survey.question.type === 'text_short' || survey.question.type === 'url' || survey.question.type === 'email'">
+                                <input type="email" class="form-control" name="answer" ng-model="survey.answer.answer" ng-if="survey.question.type === 'email'" />
+                                <input type="url" class="form-control" name="answer" ng-model="survey.answer.answer" ng-if="survey.question.type === 'url'" />
+                                <input type="text" class="form-control" name="answer" ng-model="survey.answer.answer" ng-if="survey.question.type === 'text_short'" />
+                            </div>
+                            <!-- END TEXT SHORT | URL | EMAIL -->
+
+                            <!-- ACCEPT OWN -->
+                            <div class="answer _user" ng-if="survey.question.accept_own">
+                                <button type="button" class="survey-add btn _white no-animate" ng-click="survey.toggleOwnAnswer()" ng-show="!survey.shouldShowTextarea">Add your variant of answer</button>
+
+                                <textarea
+                                    class="form-control no-animate"
+                                    name="user-answer"
+                                    rows="8"
+                                    cols="40"
+                                    ng-model="survey.answer.answer"
+                                    ng-change="survey.changeOwnAnswer()"
+                                    show-focus="!config.isiOS && survey.shouldShowTextarea"
+                                    placeholder="Your variant of answer"
+                                    ng-show="survey.shouldShowTextarea"
+                                ></textarea>
+                            </div>
+                            <!-- END ACCEPT OWN -->
+                        </div>
+                    </div>
+                </div>
+
+                <footer ng-if="survey.isMinHeight || (config.isKeyboard && survey.isMobileVersion)" class="survey-footer _included" ng-class="{ '_skip': (survey.question.required == false) }">
+                    <button type="button" class="survey-skip btn _cyan no-animate" ng-click="survey.skipQuestion()" ng-if="survey.question.required == false">Skip</button>
+                    <button type="submit" class="survey-next btn _green no-animate" ng-if="!survey.surveyCompleted" ng-disabled="!survey.haveAnswer()">Next</button>
+                </footer>
+            </div>
+            <!-- END QUESTION BLOCK -->
+
+            <footer ng-if="!survey.isMinHeight && !(config.isKeyboard && survey.isMobileVersion)" class="survey-footer" ng-class="{ '_skip': (survey.question.required == false && !survey.surveyCompleted) }">
+                <button type="button" class="survey-skip btn _cyan no-animate" ng-click="survey.skipQuestion()" ng-if="survey.question.required == false && !survey.surveyCompleted">Skip</button>
+                <button type="submit" class="survey-next btn _green no-animate" ng-if="!survey.surveyCompleted" ng-disabled="!survey.haveAnswer()">Next</button>
+                <button type="button" class="survey-complete btn _green no-animate" ng-click="home.completeSurvey()" ng-if="survey.surveyCompleted">Complete</button>
+            </footer>
+        </form>
+
+        <div class="preloader _blue" ng-show="survey.shoulShowPreloader">
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>

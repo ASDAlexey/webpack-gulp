@@ -1,0 +1,529 @@
+.add-question-container {
+    margin-top: 30px;
+    padding-bottom: 1px;
+    //background: $color-green;
+    border-radius: 5px;
+    //transition: background-color 0.2s ease;
+
+    //&:hover {
+    //    background-color: darken($color-green, 10%);
+    //}
+}
+
+.add-question-title {
+    padding: 20px;
+    font-family: $font-sans-semibold;
+    font-size: $survey-input-font-size;
+    text-align: center;
+    text-transform: uppercase;
+    color: $color-white;
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    //background-color: transparent;
+    background: $color-green;
+    transition: background-color 0.2s ease;
+
+    &[disabled]{
+        opacity: 0.7;
+    }
+
+    &:not([disabled]):hover {
+        cursor: pointer;
+        background-color: darken($color-green, 10%);
+    }
+
+    &._opened {
+        border-radius: 5px 5px 0 0;
+    }
+
+    span {
+        padding-right: 20px;
+        background: transparent url('/assets/img/drop-arrows.png') 100% -76px no-repeat;
+        transition: all 0.2s ease;
+    }
+}
+
+.change-arrow span {
+    background-position: 100% 2px;
+}
+
+.hide-add-section {
+    display: none;
+}
+
+.add-question-form {
+    background: #F7F7F7;
+    margin: 1px 1px 0 1px;
+    padding: 36px 32px;
+    border-radius: 0 0 5px 5px;
+
+    &._overflow {
+        overflow: hidden;
+    }
+
+    &._pad-big {
+        padding: 44px 0;
+        padding-left: 80px / 1024px * 100%;
+        padding-right: 80px / 1024px * 100%;
+        @include clearing();
+    }
+
+    &._posis {
+        position: relative;
+    }
+}
+
+.add-item {
+    padding-bottom: 36px;
+    margin-bottom: 36px;
+    line-height: 0; //remove empty line
+    border-bottom: 1px dotted $color-graylight;
+    float: left;
+    width: 100%;
+
+    &._last {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+// Add question - Section Question name
+.add-option-name {
+    width: 130px / 958px * 100%;
+    line-height: $base-line-height;
+    float: left;
+    font-size: $survey-base-font-size;
+    color: $color-graydark;
+
+    &._mid {
+        line-height: 38px;
+    }
+}
+
+.add-option-info {
+    font-size: 11px;
+}
+
+.add-options-btns,
+.add-options-answers-list {
+    width: 828px / 958px * 100%;
+    display: inline-block;
+}
+
+.add-options {
+    position: relative;
+    line-height: $base-line-height;
+    font-size: 0;
+    width: 828px / 958px * 100%;
+    display: inline-block;
+}
+
+.add-options-answers-list {
+
+    .add-options {
+        width: 100%;
+    }
+}
+
+.add-options-answers-item {
+    margin-bottom: 10px;
+}
+
+.add-options-btns {
+    float: right;
+    margin-top: 24px;
+}
+
+.add-input-data {
+    float: left;
+    height: 44px;
+    padding: 12px 16px;
+    vertical-align: top;
+    color: $color-graydarker;
+    font-size: $survey-blocks-base-font-size;
+    background: $color-white;
+    border: 1px solid $color-graylight;
+}
+
+.add-input-question {
+    width: 490px / 828px * 100%;
+}
+
+.add-upload-img,
+.add-upload-video {
+    float: left;
+    width: 155px / 828px * 100%;
+    position: relative;
+    display: inline-block;
+    height: 44px;
+    margin-left: 14px / 828px * 100%;
+    vertical-align: top;
+    //@include transition(all, 0.1s, ease);
+
+}
+
+// Upload buttons styles
+.add-upload {
+    font-size: $survey-blocks-base-font-size;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    padding: 12px 0;
+    text-decoration: none;
+    position: relative;
+}
+
+.add-free-upload {
+    cursor: default;
+    color: $color-graylight;
+    background: #F4F4F4;
+    border: 1px dashed $color-graylight;
+}
+
+.add-pro-upload {
+    color: $color-graydark;
+    background: $color-white;
+    border: 1px dashed $color-graylight;
+}
+
+// Add question - Section Options, Types
+.add-options-list {
+
+    li {
+        float: left;
+        position: relative;
+        vertical-align: top;
+        width: 155px / 828px * 100%;
+        margin-left: 13.25px / 828px * 100%;
+        margin-bottom: 10px;
+
+        &:nth-child(5n+1) {
+            margin-left: 0;
+        }
+    }
+}
+
+.add-options-list2 {
+    margin-top: 14px;
+    margin-left: 130px / 958px * 100%;
+}
+
+.add-input-radio {
+    display: none;
+}
+
+.add-input-radio + label span {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 74px;
+    padding: 0px 14%;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    background-color: $color-white;
+    border: 1px solid $color-graylight;
+
+    i {
+        font-style: normal;
+        display: block;
+        @include vertical-align-text();
+    }
+}
+
+.add-input-radio:checked + label span {
+    color: $color-white;
+    background-color: $color-green;
+    border: 1px solid $color-green;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 16px;
+        height: 14px;
+        right: 5px;
+        top: 5px;
+        background: url('/assets/img/arrows.png') 0 0 no-repeat;
+        background-size: 16px;
+    }
+}
+
+.add-input-radio:disabled + label span {
+    cursor: default;
+    color: $color-graylight;
+    background: #F4F4F4;
+    border: 1px solid $color-graylight;
+}
+
+
+// Add question - Section Answers
+.add-input-answers {
+    width: 100%;
+
+    &._number {
+        width: 100px;
+    }
+
+    &._choice {
+        padding-left: 35px;
+    }
+}
+
+.add-option-answers {
+    float: left;
+    display: inline-block;
+    vertical-align: top;
+    width: 372px / 828px * 100%;
+    position: relative;
+
+    .add-opt-answ-placehol {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 100%;
+        font-size: $survey-blocks-base-font-size;
+        text-align: center;
+        padding: 12px 4px;
+    }
+}
+
+.remove-line {
+    float: left;
+    display: inline-block;
+    margin-left: 13px / 828px * 100%;
+    width: 46px / 828px * 100%;
+    height: 44px;
+    border: 1px solid $color-red;
+    background: transparent url('/assets/img/ui-table-elements.png') 50% -209px no-repeat;
+    transition: background-color 0.1s linear;
+
+    &:hover {
+        background-color: $color-red;
+        background-position: 49% -256px;
+    }
+}
+
+.add-line {
+    float: left;
+    display: inline-block;
+    margin-left: 13px / 828px * 100%;
+    width: 46px / 828px * 100%;
+    height: 44px;
+    background: $color-green url('/assets/img/ui-table-elements.png') 50% -144px no-repeat;
+    transition: background-color 0.1s linear;
+
+    &:hover {
+        background-color: darken($color-green, 10%);
+    }
+}
+
+.add-options-btns-btn {
+    padding: 14px 36px;
+    font-size: $survey-input-font-size;
+    border: 1px solid $color-green;
+    transition: background-color 0.1s linear;
+
+    &._edit,
+    &._add {
+        color: $color-white;
+        background-color: $color-green;
+
+        &:not([disabled]):hover {
+            border-color: darken($color-green, 10%);
+            background-color: darken($color-green, 10%);
+        }
+    }
+
+    &._cancel {
+        color: $color-green;
+        background-color: $color-white;
+
+        &:not([disabled]):hover {
+            color: $color-white;
+            border-color: darken($color-green, 10%);
+            background-color: darken($color-green, 10%);
+        }
+    }
+
+    &[disabled] {
+        opacity: 0.7;
+    }
+}
+
+.right-space {
+    margin-right: 12px;
+}
+
+
+// Bottom navigation buttons
+.bottom-nav-btn-list {
+    margin-top: 35px;
+    overflow: hidden;
+
+    li {
+        display: inline-block;
+    }
+}
+
+.bottom-nav-left {
+    float: left;
+
+    li {
+        margin-right: 10px;
+        margin-top: 15px;
+    }
+}
+
+.bottom-nav-right {
+    float: right;
+
+    li {
+        margin-left: 10px;
+        margin-top: 15px;
+    }
+}
+
+.bot-btn {
+    display: block;
+    padding: 16px 28px;
+    color: $color-green;
+    font-size: $survey-input-font-size;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: $color-white;
+    border: 1px solid $color-green;
+    border-radius: 5px;
+    transition: background-color 0.1s linear;
+
+    &[disabled] {
+        opacity: 0.7;
+        cursor: default;
+    }
+
+    &:not([disabled]):hover {
+        color: $color-white;
+        background-color: $color-green;
+    }
+
+    &.bot-btn-next {
+        color: $color-white;
+        background: $color-green url('/assets/img/ui-table-elements.png') 80% -388px no-repeat;
+        padding-right: 44px;
+
+        &:hover {
+            background-color: darken($color-green, 10%);
+        }
+    }
+}
+
+.bot-btn-back {
+    background: transparent url('/assets/img/ui-table-elements.png') 19% -468px no-repeat;
+    padding-left: 44px;
+
+    &:hover {
+        background-position: 19% -525px;
+    }
+}
+
+// Notification for free survey when 3 questions limit is reached
+.free-bot-notification {
+    margin-top: 20px;
+    position: relative;
+    background-color: $color-graylighter;
+
+    .notif-text {
+        padding: 12px 44px;
+        text-align: center;
+        color: $color-graydarker;
+        font-size: $survey-blocks-base-font-size;
+
+        .btn {
+            margin-left: 15px;
+            font-size: $survey-blocks-base-font-size;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.b-type-sur-pro-desc {
+    font-size: $survey-base-font-size;
+    color: $color-green;
+    font-weight: bold;
+}
+
+.have-item-sign {
+    cursor: default;
+    background-color: $color-green;
+}
+
+// Upload images and videos section
+.add-upload-block {
+    display: none;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    height: 170px;
+    text-align: center;
+    background-color: $color-white;
+    border: 1px dashed $color-graylight;
+    transition: all 0.2s ease;
+
+    .upload-block-content {
+        vertical-align: top;
+        display: inline-block;
+        width: 50%;
+        height: 160px;
+        padding-top: 110px;
+        background: transparent url('/assets/img/upload-img.jpg') 50% 35% no-repeat;
+
+        p {
+            text-align: center;
+            color: $color-graylight;
+            font-size: $survey-base-font-size;
+            display: inline-block;
+            vertical-align: top;
+
+            a {
+                color: $color-graylight;
+            }
+        }
+    }
+
+    .upload-block-video-content {
+        padding-top: 95px;
+        background: transparent url('/assets/img/upload-video.jpg') 50% 35% no-repeat;
+
+        input {
+            border: 1px solid $color-graylight;
+            width: 80%;
+            padding: 12px 16px;
+            font-size: $survey-blocks-base-font-size;
+        }
+    }
+}
+
+.show-upload {
+    margin-bottom: 180px;
+
+    .add-pro-upload {
+        height: 56px;
+        border-bottom: none;
+        z-index: 100;
+    }
+}
+
+.show-upload-block {
+    display: block;
+}
+
+.add-options-answers-list {
+    .add-upload-block {
+        width: 85.7%;
+    }
+}

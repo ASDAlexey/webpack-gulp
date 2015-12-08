@@ -1,0 +1,568 @@
+<div class="surveys _edit">
+
+    <ng-include src="'/assets/templates/balance.block.html'"></ng-include>
+
+    <div class="survey-container">
+       <ul class="s-container">
+            <!-- Add class "s-item-active" to the next element to see an active button styles -->
+            <!-- Add class "s-item-complete" to the next element to see a completed step styles -->
+             <li class="s-item" ng-class="{ 's-item-active': survey.currentStep === 1, 's-item-complete': survey.currentStep === 2 || survey.currentStep === 3 }">
+                <div class="s-step-circle">
+                    <span class="s-step-num">1</span>
+                </div>
+                <p class="s-step-title">Step 1:</p>
+                <p class="s-step-desc">Configure survey questions</p>
+            </li>
+            <li class="s-item" ng-class="{ 's-item-active': survey.currentStep === 2, 's-item-complete': survey.currentStep === 3 }">
+                <div class="s-step-circle">
+                    <span class="s-step-num">2</span>
+                </div>
+                <p class="s-step-title">Step 2:</p>
+                <p class="s-step-desc">Set filters</p>
+            </li>
+            <li class="s-item" ng-class="{ 's-item-active': survey.currentStep === 3 }">
+                <div class="s-step-circle">
+                    <span class="s-step-num">3</span>
+                </div>
+                <p class="s-step-title">Step 3:</p>
+                <p class="s-step-desc">Finish</p>
+            </li>
+        </ul>
+
+        <ul class="b-container">
+            <li class="b-item b-link" ng-init="isDisplayedDetails = false" ng-class="{ 'open-details': isDisplayedDetails }">
+                <!-- Add class "b-btn-active" to the next element to see an active button styles -->
+                <a class="b-btn b-btn-surv-type no-animate" href="" title="Switch to FREE" ng-class="{ 'b-btn-active': survey.model.type === 'free' }" ng-click="survey.switchTypeTo('free')">
+                    <span>free</span>
+                </a>
+
+                <a class="b-btn b-btn-surv-type no-animate" href="" title="Switch to PRO" ng-class="{ 'b-btn-active': survey.model.type === 'pro' }" ng-click="survey.switchTypeTo('pro')">
+                    <span>pro</span>
+                </a>
+
+                <div class="b-details" ng-show="survey.model.type === 'free'">
+                    <p>You’ve chosen a <strong>FREE</strong> survey.</p>
+                    <p>Go PRO and do more. <a class="b-details-link" href="" ng-click="isDisplayedDetails = !isDisplayedDetails">See details</a></p>
+                </div>
+
+                <div class="b-details" ng-show="survey.model.type === 'pro'">
+                    <p>You've chosen a <strong>PRO</strong> survey.</p>
+                    <p><a class="b-details-link" href="" ng-click="isDisplayedDetails = !isDisplayedDetails">See details</a></p>
+                </div>
+
+                <!-- Details dropdown block -->
+                <div class="b-details-block" ng-include="'/assets/templates/detailsSurveyTemplate.html'"></div>
+            </li>
+            <li class="b-item b-item-switchto">
+                <div class="b-item-switch-vert" ng-if="survey.model.type === 'free'">
+                    <p class="b-type-sur-desc">FREE surveys are limited to <br /> 3 questions and 100 respondents</p>
+                    <a class="b-btn b-btn-switch" href="" ng-click="survey.switchTypeTo('pro')">switch to pro</a>
+                </div>
+
+                <div class="b-item-switch-vert" ng-if="survey.model.type === 'pro'">
+                    <p class="b-type-sur-desc">Unlimited questions and <br /> responses</p>
+                    <p class="b-type-sur-pro-desc">You are fully packed. Let’s go.</p>
+                </div>
+            </li>
+            <!-- Add class "b-item-error" to the next element to see an error styles -->
+            <li class="b-item b-item-category" ng-class="{'b-item-error': survey.errors.title || survey.errors.category }">
+                <div class="b-item-vert">
+                    <form action="">
+                        <div class="b-item-field" ng-init="isDisplayedPlaceholder1 = true; isClickedPlaceholder1 = false">
+                            <div class="b-item-placeholder placeholder must-have-star" ng-show="isDisplayedPlaceholder1 && !survey.model.title.length" ng-click="isDisplayedPlaceholder1 = false; isClickedPlaceholder1 = true">Survey title</div>
+
+                            <input class="survey-input input-text" type="text" ng-blur="isDisplayedPlaceholder1 = true; isClickedPlaceholder1 = false" ng-focus="isDisplayedPlaceholder1 = false" show-focus="isClickedPlaceholder1" ng-model="survey.model.title">
+                        </div>
+
+                        <survey-dropdown survey-dropdown-tmpl="/assets/templates/dropdownTemplate.html" placeholder="Category" list="survey.CATEGORIES_OF_SURVEYS" selected="survey.model.category"></survey-dropdown>
+                    </form>
+                    <span class="required-text">Required field</span>
+                </div>
+            </li>
+        </ul>
+
+        <div ng-show="survey.currentStep === 1">
+            <!-- Survey table (st) -->
+            <div class="survey-table-container" ng-if="survey.model.questions.length">
+                <table class="survey-table">
+                    <thead>
+                        <tr>
+                            <!-- if you want to add sorting arrows wrap text to <a class="st-col-sort" href="#"></a> -->
+                            <th class="st-row-id">#</th>
+                            <th class="st-row-question">Question name</th>
+                            <th class="st-row-type">Answer type</th>
+                            <th class="st-row-answers">Answers</th>
+                            <th class="st-row-logic">Logic</th>
+                            <th class="st-row-action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat-start="question in survey.model.questions track by $index">
+                            <td class="st-cell-id" ng-class="{ '_first': $first }">{{ $index + 1 }}</td>
+                            <td class="st-cell-question">{{ question.title }}</td>
+                            <td class="st-cell-type">{{ survey.getTypeQuestion(question).title }}</td>
+                            <td class="st-cell-answers" ng-if="question.type === 'choice'">
+                                <div class="" ng-repeat="answer in question.items track by $index">{{ survey.alphabet[$index] }}) {{ answer.title }}</div>
+                            </td>
+                            <td class="st-cell-answers" ng-if="question.type === 'boolean'">
+                                <div class="">{{ survey.alphabet[0] }}) Yes</div>
+                                <div class="">{{ survey.alphabet[1] }}) No</div>
+                            </td>
+                            <td class="st-cell-answers" ng-if="question.type !== 'boolean' && question.type !== 'choice'">
+                                <div class=""></div>
+                            </td>
+                            <td class="st-cell-logic" ng-if="!survey.Logic.haveLogic(question)">No redirection logic</td>
+                            <td class="st-cell-logic" ng-if="survey.Logic.haveLogic(question)"><a href="" ng-click="survey.openEditLogic(question)">Edit logic</a></td>
+                            <td class="st-cell-action">
+                                <button class="table-btn table-btn-edit" type="button" ng-click="survey.openEditQuestion($index)">Edit</button>
+
+                                <button class="table-btn table-btn-addl" ng-click="survey.openAddLogic(question)" type="button" ng-show="!survey.Logic.haveLogic(question) && survey.model.type === 'pro'" ng-disabled="$last">Add logic</button>
+                                <button class="table-btn table-btn-addl" ng-click="survey.openEditLogic(question)" type="button" ng-show="survey.Logic.haveLogic(question) && survey.model.type === 'pro'" ng-disabled="$last">Edit logic</button>
+
+                                <div class="st-disab-container" ng-if="survey.model.type === 'free'">
+                                    <button class="table-btn table-btn-addl table-btn-disabled pro-label" type="button" disabled="disabled">Add logic</button>
+                                    <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                                    <div class="table-free-popup">
+                                        <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                                        <p>This option is available only on PRO survey</p>
+                                        <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                                    </div>
+                                </div>
+
+                                <button class="table-btn table-btn-del hide-text" type="button" ng-click="survey.removeQuestion($index)">x</button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat-end>
+                            <td colspan="6" ng-if="survey.indexEditableQuestion === survey.getIndexOfQuestion(question)">
+                                <div class="add-question-form-container _edit">
+                                    <ng-include ng-repeat="question in [survey.editableQuestion]" src="'/assets/templates/edit-question.html'"></ng-include>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add question (st) -->
+            <div class="add-question-container">
+                <button class="add-question-title" ng-class="{ 'change-arrow': survey.isDisplayedAddQuestion, '_opened': survey.isDisplayedAddQuestion }" ng-click="survey.toggleAddQuestion()" ng-disabled="survey.hasLimitReacher()">add question</button>
+
+                <div class="add-question-form-container _add hide-add-section" ng-class="{ 'hide-add-section': !survey.isDisplayedAddQuestion }">
+                    <ng-include ng-repeat="question in [survey.question]" src="'/assets/templates/edit-question.html'"></ng-include>
+                </div>
+            </div>
+
+            <!-- Notification for free survey when 3 questions limit is reached -->
+            <div class="free-bot-notification" ng-show="survey.hasLimitReacher() && !survey.isNotDisplayingLimitNotification">
+                <i class="table-popup-exit" ng-click="survey.isNotDisplayingLimitNotification = true"></i>
+
+                <div class="notif-text">You have reached three questions limit. Only PRO survey lets you create unlimited questions.
+                    <a class="btn _green" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                </div>
+
+            </div>
+            <!-- Notification END -->
+        </div>
+
+        <div ng-show="survey.currentStep === 2">
+            <!-- Timeline -->
+            <div class="add-question-container">
+                <button class="add-question-title" ng-class="{ 'change-arrow': survey.isDisplayedTimeline, '_opened': survey.isDisplayedTimeline }" ng-click="survey.isDisplayedTimeline = !survey.isDisplayedTimeline">
+                    <span>Timeline</span>
+                </button>
+
+                <div class="add-question-form-container hide-add-section" ng-class="{ 'hide-add-section': !survey.isDisplayedTimeline }">
+                    <form class="add-question-form _pad-big" action="">
+                        <p class="time-title">Select a date and time for when your survey starts and ends</p>
+
+                        <p class="time-title time-title-server-time">Your time: <span>{{ survey.getFormattedTime(survey.usertime) }}</span></p>
+
+                        <div class="time-container l-time-list" ng-class="{ 'time-container-active': survey.isDisplayedLeftTimeList }">
+                            <ul class="time-list">
+                                <li>
+                                    <input class="time-input-check" type="checkbox" name="start" id="startdate" ng-model="survey.isDisplayedLeftTimeList">
+                                    <label for="startdate"><span></span><i>Use start date</i></label>
+                                </li>
+                                <li>
+                                    <div class="time-date-text _user">
+                                        <p>From</p>
+                                    </div>
+                                    <div class="time-date-inputs">
+                                        <div class="datepicker" date-format="{{ 'dd-MMM-yy' }}" date-set="{{ survey.model.date_start }}">
+                                            <input class="time-calen time-input" ng-model="survey.date_start.date" type="text" ng-disabled="!survey.isDisplayedLeftTimeList" placeholder="Set date"/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="time-date-text _user">
+                                        <p>Starts at:</p>
+                                    </div>
+                                    <div class="time-date-inputs">
+                                        <div class="time_element">
+                                            <input class="timepicker time-input time-pick" ng-model="survey.date_start.time" placeholder="Pick up time" type='text' ng-disabled="!survey.isDisplayedLeftTimeList" name='timepicker'/>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="time-container r-time-list" ng-class="{ 'time-container-active': survey.isDisplayedRightTimeList }">
+                            <ul class="time-list">
+                                <li>
+                                    <input class="time-input-check" type="checkbox" name="end" id="enddate" ng-model="survey.isDisplayedRightTimeList">
+                                    <label for="enddate"><span></span><i>Use end date</i></label>
+                                </li>
+                                <li>
+                                    <div class="time-date-text _user">
+                                        <p>From</p>
+                                    </div>
+                                    <div class="time-date-inputs">
+                                        <div class="datepicker" date-format="{{ 'dd-MMM-yy' }}" date-set="{{ survey.model.date_end }}">
+                                            <input class="time-calen time-input" ng-model="survey.date_end.date" type="text" ng-disabled="!survey.isDisplayedRightTimeList" placeholder="Set date"/>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="time-date-text _user">
+                                        <p>Starts at:</p>
+                                    </div>
+                                    <div class="time-date-inputs">
+                                        <div class="time_element">
+                                            <input class="timepicker time-input time-pick" ng-model="survey.date_end.time" placeholder="Pick up time" type='text'  ng-disabled="!survey.isDisplayedRightTimeList" name='timepicker'/>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+
+                    <!-- Locked screen section -->
+                    <div class="free-locked-screen" ng-if="survey.model.type === 'free'">
+                        <div class="free-locked-screen-bg"></div>
+                        <div class="free-locked-screen-notif">
+                            <p>You’ve chosen a <strong>FREE</strong> survey. This option is available only on <strong>PRO</strong></p>
+                            <button class="btn _green locked-btn" ng-click="survey.switchTypeTo('pro')">Switch to pro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="add-question-container">
+                <button class="add-question-title" ng-class="{ 'change-arrow': survey.isDisplayedFilter, '_opened': survey.isDisplayedFilter }" ng-click="survey.isDisplayedFilter = !survey.isDisplayedFilter">
+                    <span>Filters</span>
+                </button>
+
+                <div class="add-question-form-container" ng-class="{ 'hide-add-section': !survey.isDisplayedFilter }">
+                    <div class="ch-wrap">
+                        <div class="ch-use">
+                            <input class="ch-input-radio" type="radio" ng-model="survey.model.filter.required" ng-value="true" name="options-group1" id="use" checked="checked">
+                            <label for="use"><span></span><i>Use filters</i></label>
+                        </div>
+                        <div class="ch-notuse">
+                            <input class="ch-input-radio" type="radio" ng-model="survey.model.filter.required" ng-value="false" name="options-group1" id="notuse">
+                            <label for="notuse"><span></span><i>Don't use filters</i></label>
+                        </div>
+                    </div>
+                    <form class="add-question-form _pad-big _posis" action="">
+                        <div class="add-item">
+                            <div class="add-option-name">
+                                <p>Gender</p>
+                                <p class="add-option-info">choose one or more</p>
+                            </div>
+                            <ul class="add-options add-options-list">
+                                <li>
+                                    <input class="add-input-radio" type="checkbox" ng-model="survey.model.filter.gender[0]" name="options-gender-group" id="male" ng-true-value="'male'" ng-false-value="''">
+                                    <label for="male"><span><i>Male</i></span></label>
+                                </li>
+                                <li>
+                                    <input class="add-input-radio" type="checkbox" ng-model="survey.model.filter.gender[1]" name="options-gender-group" id="female" ng-true-value="'female'" ng-false-value="''">
+                                    <label for="female"><span><i>Female</i></span></label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="add-item">
+                            <div class="add-option-name">
+                                <p>Relationship</p>
+                                <p class="add-option-info">choose one or more</p>
+                            </div>
+                            <ul class="add-options add-options-list">
+                                <li ng-repeat="type in survey.TYPES_OF_RELATIONSHIP track by $index">
+                                    <input class="add-input-radio" type="checkbox" name="options-rel-group" ng-attr-id="relationship-{{$index}}" ng-model="survey.model.filter.relationship[$index]" ng-true-value='"{{type}}"' ng-false-value="''">
+                                    <label ng-attr-for="relationship-{{$index}}"><span><i>{{type}}</i></span></label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="add-item">
+                            <div class="add-option-name _mid">Age</div>
+                            <ul class="add-options add-options-list">
+                                <li class="add-option-wage">
+                                    <span class="add-option-age-text">From</span>
+                                    <input class="age-input" type="text" name="options-rel-group" id="from" ng-model="survey.model.filter.age_from">
+                                </li>
+                                <li class="add-option-wage">
+                                    <span class="add-option-age-text">To</span>
+                                    <input class="age-input" type="text" name="options-rel-group" id="to" ng-model="survey.model.filter.age_to">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="add-item">
+                            <div class="add-option-name">Cities</div>
+                            <div class="add-options">
+                                <tags-input ng-model="survey.cities"></tags-input>
+                            </div>
+                        </div>
+                        <div class="add-item">
+                            <div class="add-option-name">Education <br />history</div>
+                            <div class="add-options">
+                                <tags-input ng-model="survey.education"></tags-input>
+                                <p class="tags-help">For better targeting you can use * at the beginning or/and * after. <br />
+                                Fro example Engi* or *Engi*</p>
+                            </div>
+                        </div>
+                        <div class="add-item">
+                            <div class="add-option-name">Work history</div>
+                            <div class="add-options">
+                                <tags-input ng-model="survey.work"></tags-input>
+                                <p class="tags-help">For better targeting you can use * at the beginning or/and * after. <br />
+                                Fro example Engi* or *Engi*</p>
+                            </div>
+                        </div>
+
+                        <div class="ch-notuse-bg" ng-class="{ 'ch-notuse-bg-active': !survey.model.filter.required }"></div>
+                    </form>
+
+                    <!-- Locked screen section -->
+                    <div class="free-locked-screen" ng-if="survey.model.type === 'free'">
+                        <div class="free-locked-screen-bg"></div>
+                        <div class="free-locked-screen-notif">
+                            <p>You’ve chosen a <strong>FREE</strong> survey. This option is available only on <strong>PRO</strong></p>
+                            <button class="btn _green locked-btn" ng-click="survey.switchTypeTo('pro'); survey.model.filter.required = true">Switch to pro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="survey.currentStep === 3">
+            <!--Free Summary -->
+            <div class="last-step-block" ng-if="survey.model.type === 'free'">
+                <p class="add-question-title">summary</p>
+                <div class="add-question-form-container">
+                    <form class="add-question-form last-step-form" ng-submit="survey.openConfirmationPopup()">
+                            <p class="time-title">You can choose the amount of respondents you need</p>
+
+                            <div class="slider-container">
+                            <!-- mb Slider on the last page -->
+                            <div id="ex2" style="">
+                                <div id="sl1" class="mb_slider {rangeColor:'#A0D468',negativeColor:'#A0D468', grid:1}" style="display:inline-block;*display:inherit;"></div>
+                                <span id="sl1_val" class="setVal">
+                                    <input class="val" value="100" onkeyup="$('#sl1').mbsetVal($(this).val());" ng-model="survey.model.respondents">
+                                </span>
+                            </div>
+                            </div>
+
+                            <div class="admin-settings" ng-if="survey.isAdmin()">
+                                <div class="admin-settings-block">
+                                    <label class="admin-settings-label" for="">Launch for</label>
+                                    <survey-dropdown survey-dropdown-tmpl="/assets/templates/dropdownTemplate.html" list="['ALL', 'REGISTERED']" selected="survey.model.distribution"></survey-dropdown>
+                                </div>
+
+                                <div class="admin-settings-block">
+                                    <label class="admin-settings-label" for="adminPointsPerQuestion">No. of points per question?</label>
+                                    <input class="survey-input" min="0" type="number" id="adminPointsPerQuestion" class="" ng-model="survey.model.points_per_question">
+                                </div>
+                            </div>
+
+                            <div class="edit-popup-b-list _p-center _p-sum">
+                            <div class="free-sum-cost">Survey cost: <strong>FREE</strong></div>
+                            <input type="button" class="btn _cyan locked-btn _mid" value="LAUNCH SURVEY" ng-click="survey.launchSurvey()" ng-disabled="!survey.API.isValidSurvey(survey.model)"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--Pro Summary -->
+            <div class="last-step-block" ng-if="survey.model.type === 'pro'">
+                <p class="add-question-title">survey summary</p>
+                <div class="add-question-form-container">
+                    <div class="add-question-form last-step-form">
+                        <div class="ss-totalq">Total questions: <strong>{{ survey.model.max_path }}</strong></div>
+                        <div class="ss-longest-path">
+                            <span class="ss-long-path-t">Longest path: </span>
+                            <ul class="ss-long-path-exp">
+                                <li ng-repeat="item in survey.model.questions track by $index">
+                                    <p ng-class="{ 'med-text': $index + 1 > 9 && $index + 1 < 100, 'small-text': $index + 1 > 99 }">#<span>{{ $index + 1 }}</span></p>
+                                    <p>question</p>
+                                </li>
+
+                                <!-- <li>
+                                    <p>#<span>1</span></p>
+                                    <p>question</p>
+                                </li>
+                                <li>
+                                    <p>#<span>2</span></p>
+                                    <p>question</p>
+                                </li>
+                                <li>
+                                    <p>#<span>4</span></p>
+                                    <p>question</p>
+                                </li>
+                                <li>
+                                    <p class="med-text">#<span>15</span></p>
+                                    <p>question</p>
+                                </li>
+                                <li>
+                                    <p class="small-text">#<span>110</span></p>
+                                    <p>question</p>
+                                </li> -->
+                                <li class="ss-num">
+                                    <span class="ss-for-notif">: {{ survey.model.max_path }}</span>
+                                    <!-- <span class="ss-notif" ng-init="isDisplayedPaths = false">
+                                        <a class="table-btn-sign pos-paths" href="" ng-click="isDisplayedPaths = !isDisplayedPaths">?</a>
+                                    </span> -->
+                                </li>
+                            </ul>
+                            <!-- <div class="table-free-popup sum-notif-popup pos-paths-show ie-w-fix" ng-class="{ 'show-why-disab': isDisplayedPaths }">
+                                <i class="table-popup-exit" ng-click="isDisplayedPaths = false"></i>
+                                <p>Possible paths</p>
+                                <div class="pos-paths">
+                                    <ul>
+                                        <li class="pos-paths-item">#<span>1</span></li>
+                                        <li class="pos-paths-item">#<span>2</span></li>
+                                        <li class="pos-paths-item">#<span>7</span></li>
+                                        <li class="pos-paths-item">#<span>8</span></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="pos-paths-item">#<span>1</span></li>
+                                        <li class="pos-paths-item">#<span>7</span></li>
+                                        <li class="pos-paths-item">#<span>8</span></li>
+                                    </ul>
+                                    <ul class="pos-paths-active">
+                                        <li class="pos-paths-item">#<span>1</span></li>
+                                        <li class="pos-paths-item">#<span>2</span></li>
+                                        <li class="pos-paths-item">#<span>3</span></li>
+                                        <li class="pos-paths-item">#<span>7</span></li>
+                                        <li class="pos-paths-item">#<span>8</span></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="pos-paths-item">#<span>1</span></li>
+                                        <li class="pos-paths-item">#<span>7</span></li>
+                                        <li class="pos-paths-item">#<span>5</span></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="pos-paths-item">#<span>1</span></li>
+                                        <li class="pos-paths-item">#<span>6</span></li>
+                                        <li class="pos-paths-item">#<span>7</span></li>
+                                        <li class="pos-paths-item">#<span>8</span></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pro Summary -->
+            <div class="last-step-block" ng-if="survey.model.type === 'pro'">
+                <p class="add-question-title">finish</p>
+                <div class="add-question-form-container">
+                    <form class="add-question-form last-step-form" ng-submit="survey.openConfirmationPopup()">
+                            <p class="finish-title">Choose the number of respondents for your survey</p>
+                            <p class="finish-subtitle">(note: in order to minimise statistical anomalies, we recommend at least 250 respondents)</p>
+                            <div class="slider-container">
+                            <!-- mb Slider on the last page -->
+                            <div id="ex1" style="">
+                                <div id="sl1" class="mb_slider {rangeColor:'#A0D468',negativeColor:'#A0D468', grid:1}" style="display:inline-block;*display:inherit;"></div>
+                                <span id="sl1_val" class="setVal">
+                                    <input class="val" value="250" onkeyup="$('#sl1').mbsetVal($(this).val());" ng-model="survey.model.respondents">
+                                </span>
+                            </div>
+                            </div>
+
+                            <div class="admin-settings" ng-if="survey.isAdmin()">
+                                <div class="admin-settings-block">
+                                    <label class="admin-settings-label" for="">Launch for</label>
+                                    <survey-dropdown survey-dropdown-tmpl="/assets/templates/dropdownTemplate.html" list="['ALL', 'REGISTERED']" selected="survey.model.distribution"></survey-dropdown>
+                                </div>
+
+                                <div class="admin-settings-block">
+                                    <label class="admin-settings-label" for="adminPointsPerQuestion">No. of points per question?</label>
+                                    <input class="survey-input" min="0" type="number" id="adminPointsPerQuestion" class="" ng-model="survey.model.points_per_question">
+                                </div>
+                            </div>
+
+                        <ul class="p-cum-container b-sum-container">
+                            <li>
+                                <div class="p-summary-b-text">
+                                    <div class="p-sum-bal">Longest Path:</div>
+                                    <div class="p-sum-resp">{{ survey.model.max_path }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="p-summary-b-text">
+                                    <div class="p-sum-bal">Number of Respondents:</div>
+                                    <div class="p-sum-resp">{{ survey.model.respondents }}</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="p-summary-b-text">
+                                    <div class="p-sum-bal">TOTAL Responses:</div>
+                                    <div class="p-sum-resp total-resp">{{ survey.model.cost }}
+                                        <span class="ss-notif-final" ng-init="isDisplayedFinalNotif = false">
+                                            <a class="final-notif" href="" ng-click="isDisplayedFinalNotif = !isDisplayedFinalNotif">?</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="table-free-popup sum-notif-popup sum-final-notif-popup" ng-class="{ 'show-why-disab': isDisplayedFinalNotif}">
+                            <i class="table-popup-exit" ng-click="isDisplayedFinalNotif = false"></i>
+                            <p>The Total Responses is calculated by multiplying the total number of Respondents by the Longest Path in the survey.  To launch the survey, you need to have a balance that meets or exceeds this amount.  Any unused responses will be refunded to your account at the completion of the survey.</p>
+                        </div>
+                        <div class="start-survey">
+                            <input type="button" class="btn _cyan locked-btn _mid sum-but" value="Launch survey" ng-click="survey.launchSurvey()" ng-disabled="!survey.API.isValidSurvey(survey.model)">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-nav-btn-list">
+            <ul class="bottom-nav-left">
+                <li ng-if="survey.currentStep !== 1"><a class="bot-btn bot-btn-back" href="" ng-click="survey.backStep()">Back</a></li>
+                <li ng-if="survey.currentStep === 1"><a class="bot-btn bot-btn-cancel" ui-sref="app.survey.manage">Cancel</a></li>
+            </ul>
+            <ul class="bottom-nav-right">
+                <li ng-if="survey.currentStep === 3"><a class="bot-btn bot-btn-save" href="" ng-disabled="!survey.API.isValidSurvey(survey.model)" ng-click="survey.saveSurvey()">Save</a></li>
+                <!-- <li><a class="bot-btn bot-btn-savepre" href="#">Save & Preview</a></li> -->
+                <li ng-if="survey.currentStep !== 3"><a class="bot-btn bot-btn-next" href="" ng-click="survey.nextStep()">Next</a></li>
+            </ul>
+        </div>
+
+        <!-- Popups -->
+        <div ng-include="'/assets/templates/popups/addLogicPopupTemplate.html'" ng-if="survey.model.type === 'pro'"></div>
+
+        <div ng-include="'/assets/templates/popups/summaryPopupTemplate.html'"></div>
+
+        <div ng-include="'/assets/templates/popups/paymentPopupTemplate.html'"></div>
+    </div>
+</div>
+
+<!-- BEGIN CONFIRM RESET LOGIC -->
+<script type="text/ng-template" id="confirm-reset-logic.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Are you sure?</h3>
+
+        <a class="close" href="" ng-click="$dismiss('cancel')"></a>
+    </div>
+
+    <div class="modal-body">
+        Switching to FREE will remove the PRO features you've added to your survey. Do you still want to proceed?
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn _green" ng-click="modal.yes()">Yes</button>
+        <button class="btn _dialog" ng-click="modal.no()">No</button>
+    </div>
+</script>
+<!-- END CONFIRM RESET LOGIC -->

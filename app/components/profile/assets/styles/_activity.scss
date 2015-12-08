@@ -1,0 +1,232 @@
+/* ACTIVITY TAB
+----------------------------------------------------*/
+.profile {
+    .placeholder {
+        position: relative;
+        width: 280px;
+        height: 280px;
+        margin: 100px auto;
+        border-radius: 100%;
+        border: 2px solid $color-graylight;
+        color: $color-graylight;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        background: transparent url('/assets/images/activity-placeholder.png') 50% 50% no-repeat;
+
+        .placeholder-title,
+        .placeholder-help {
+            position: absolute;
+            left: 15%;
+            width: 70%;
+        }
+
+        .placeholder-title {
+            top: 45px;
+        }
+
+        .placeholder-help {
+            bottom: 40px;
+        }
+    }
+
+    .activity-placeholder {
+
+    }
+
+    .activity-list {
+        margin-left: -8px;
+        margin-right: -8px;
+        margin-bottom: 40px;
+        margin-top: 35px;
+    }
+
+    .activity {
+        position: relative;
+        display: table;
+        //float: left;
+        margin: 8px;
+        color: $color-white;
+        font-size: 14px;
+        line-height: 16px;
+        text-decoration: none;
+        background-color: transparent;
+
+        &._square {
+            width: 186px;
+            height: 186px;
+            @media screen and (max-width: 415px) {
+                width: calc(50% - 16px);
+            }
+            .activity-link {
+                max-width: 186px;
+            }
+        }
+
+        &._tall {
+            width: 186px;
+            height: 388px;
+            @media screen and (max-width: 415px) {
+                width: calc(50% - 16px);
+            }
+            .activity-link {
+                max-width: 186px;
+            }
+        }
+
+        &._wide {
+            height: 186px;
+            width: 388px;
+            @media screen and (max-width: 415px) {
+                width: calc(100% - 16px);
+            }
+            .activity-link {
+                max-width: 388px;
+            }
+        }
+
+        .activity-date {
+            position: absolute;
+            top: 12px;
+            right: 22px;
+            text-align: right;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.2s linear;
+        }
+
+        .activity-title {
+            position: relative;
+            display: table-cell;
+            font-size: 21px;
+            line-height: 25px;
+            text-align: center;
+            vertical-align: middle;
+            opacity: 0;
+            transition: opacity 0.2s linear;
+            z-index: 2;
+        }
+
+        .activity-info {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 3;
+
+            .icon {
+                display: block;
+                float: left;
+                width: 20px;
+                height: 16px;
+                margin-right: 5px;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+
+                &._likes {
+                    background-image: url('/assets/images/icons-likes-comments.png');
+                    background-position: -58px 0px;
+                    &._liked {
+                        background-position: -86px 0px;
+                    }
+                }
+
+                &._comments {
+                    background-image: url('/assets/images/icons-likes-comments.png');
+                    background-position: 0px 0px;
+                    &._commented {
+                        background-position: -30px 0px;
+                    }
+                }
+            }
+        }
+
+        .activity-likes,
+        .activity-comments {
+            display: block;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .activity-link {
+            display: inline-block;
+            color: $color-white;
+            text-decoration: none;
+            word-break: break-word;
+            max-height: 120px;
+            overflow: hidden;
+        }
+
+        .activity-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: block;
+            width: 95px;
+            height: 95px;
+            margin-left: -48px;
+            margin-top: -48px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            opacity: 1;
+            border-radius: 100%;
+            transition: opacity 0.2s linear;
+            z-index: 1;
+        }
+
+        &:hover {
+            .activity-icon {
+                opacity: 0;
+            }
+
+            .activity-date,
+            .activity-socials,
+            .activity-title {
+                opacity: 1;
+            }
+        }
+    }
+
+    .activity-socials {
+        opacity: 0;
+        transition: opacity 0.2s linear;
+    }
+
+    .socials {
+        position: absolute;
+        bottom: 10px;
+        right: 12px;
+        z-index: 3;
+        @include list-unstyled();
+
+        .socials-item {
+            display: block;
+            float: left;
+            margin-left: 5px;
+        }
+
+        .socials-link {
+            display: block;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            @include hide-text();
+
+            &._facebook {
+                width: 9px;
+                height: 18px;
+                background-image: url('/assets/images/socials/icon-facebook-small.png');
+            }
+
+            &._twitter {
+                width: 18px;
+                height: 18px;
+                background-image: url('/assets/images/socials/icon-twitter-small.png');
+            }
+
+            &._email {
+                width: 18px;
+                height: 18px;
+                background-image: url('/assets/images/socials/icon-email-small.png');
+            }
+        }
+    }
+}

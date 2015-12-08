@@ -1,0 +1,179 @@
+<!-- Popup Step 3 payment -->
+<div class="popup p-payment">
+    <div class="edit-popup-bg"></div>
+    <div class="edit-popup-wrap">
+        <div class="edit-popup-container">
+            <div class="edit-popup-content">
+                <div class="edit-question-modal _smaller">
+                    <div class="edit-question-block">
+                        <div class="edit-popup-b-title">
+                            <h2>Payment Summary</h2>
+                            <a class="close-popup" href="" ng-click="survey.closePopup()"></a>
+                        </div>
+                        <div class="edit-popup-b-list _p-center _no-pad">
+                            <ul class="p-payment-container" ng-class="{ 'view-summary': survey.currentPaymentStep === 'summary', 'view-payment': survey.currentPaymentStep === 'payment' }">
+                                <li class="p-payment-item responses">
+                                    <form class="">
+                                        <div class="p-payment-column-left">
+                                            <span class="b-pay-text">
+                                                <span class="b-pay-val">350</span> responses
+                                            </span>
+                                        </div>
+                                        <div class="p-payment-column-right">
+                                            <div class="b-item-field" ng-class="{ 'b-item-success': survey.paymentCouponStatus === 'success', 'b-item-error': survey.paymentCouponStatus === 'error' }">
+                                                <button class="btn _green popup-btn-apply">Apply</button>
+                                                <div class="b-item-placeholder placeholder">Apply coupon code</div>
+                                                <input class="survey-input survey-input-coupon input-text must-have-star" type="text" value="XYG4#21">
+                                                <span class="b-error-msg">Invalid coupon code</span>
+                                                <span class="b-success-msg">You have successfully redeemed 200 free responses</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
+                                <li class="p-payment-item summary">
+                                    <label class="p-payment-title">Summary</label>
+                                    <form class="" action="">
+                                        <div class="p-payment-column-left">
+                                            <div class="b-pay-line">
+                                                <div class="b-item-field responses-field">
+                                                    <div>350</div>
+                                                    <span class="b-pay-label">responses</span>
+                                                </div>
+                                                <div class="b-item-field">
+                                                    <div>$0.30</div>
+                                                </div>
+                                            </div>
+                                            <div class="b-pay-line pay-discount">
+                                                <span class="b-pay-label">Coupon Discount</span>
+                                            </div>
+                                            <div class="b-pay-line pay-result">
+                                            </div>
+                                        </div>
+                                        <div class="p-payment-column-right">
+                                            <div class="b-pay-line">
+                                                <div>$165</div>
+                                            </div>
+                                            <div class="b-pay-line pay-discount">
+                                                <div>-$60</div>
+                                            </div>
+                                            <div class="b-pay-line pay-result">
+                                                <label class="b-result-label">$105</label>
+                                                <span class="b-pay-label">(USD)</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
+                                <li class="p-payment-item payment">
+                                    <div class="survey-block-edit-body">
+                                        <form>
+                                            <div class="survey-card-info">
+                                                <div class="clearfix">
+                                                    <p class="info-title">
+                                                        Credit/debit Card information
+                                                    </p>
+                                                    <div class="cards-payment">
+                                                        <a href="" class="icon-card visa"></a>
+                                                        <a href="" class="icon-card master-card"></a>
+                                                        <a href="" class="icon-card american-express"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="form-line clearfix">
+                                                    <div class="card-number">
+                                                        <input type="text" placeholder="Card Number">
+                                                    </div>
+                                                    <div class="cvc">
+                                                        <input type="text" placeholder="CVC">
+                                                    </div>
+                                                </div>
+                                                <div class="form-line clearfix">
+                                                    <div class="name-on-card">
+                                                        <input type="text" placeholder="Name On Card">
+                                                    </div>
+                                                    <div class="date-expires">
+                                                        <p class="info-subtitle">
+                                                            Expires
+                                                        </p>
+                                                        <a href="" class="icon-card back-card"></a>
+                                                        <div class="clearfix">
+                                                            <div class="date-expires-month">
+                                                                <select>
+                                                                    <option>Month</option>
+                                                                    <option></option>
+                                                                    <option></option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="date-expires-year">
+                                                                <select>
+                                                                    <option>Year</option>
+                                                                    <option></option>
+                                                                    <option></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="survey-billing-info">
+                                                <p class="info-title">
+                                                    Billing information
+                                                </p>
+                                                <p>
+                                                    The billing address should be where the cardholder's bills are sent.
+                                                </p>
+                                                <div class="form-line clearfix">
+                                                    <div class="wrap-field">
+                                                        <label class="wrap-country">
+                                                            <span class="info-subtitle">Country of billing:</span>
+                                                            <select>
+                                                                <option>Australia</option>
+                                                                <option></option>
+                                                                <option></option>
+                                                            </select>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-line clearfix">
+                                                    <div class="wrap-field">
+                                                        <input type="text" placeholder="Name or Company">
+                                                    </div>
+                                                    <div class="wrap-field">
+                                                        <input type="text" placeholder="Tax ID (optional)">
+                                                    </div>
+                                                </div>
+                                                <div class="form-line address">
+                                                    <input type="text" placeholder="Street Address">
+                                                </div>
+                                                <div class="form-line clearfix">
+                                                    <div class="wrap-field">
+                                                        <input type="text" placeholder="City">
+                                                    </div>
+                                                    <div class="wrap-field">
+                                                        <input type="text" placeholder="Zip/Post code">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="p-payment-footer">
+                                <p>
+                                    We will bill the following card: **** **** ****
+                                    <input class="survey-count-input input-text" type="text" value="4483">
+                                </p>
+                                <a href="" class="edit-card" ng-click="survey.currentPaymentStep = 'payment'">
+                                    Change credit/debit card information
+                                </a>
+                            </div>
+                            <div class="p-payment-error">Payment fails. Please try again.</div>
+
+                            <button class="btn btn-block _green popup-btn-submit _mid" ng-if="survey.currentPaymentStep === 'coupon'" ng-click="survey.currentPaymentStep = 'summary'">Proceed to payment</button>
+                            <button class="btn btn-block _green popup-btn-submit _mid" ng-if="survey.currentPaymentStep !== 'coupon'">Pay now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Popup END -->

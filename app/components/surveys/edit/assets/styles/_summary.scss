@@ -1,0 +1,235 @@
+.last-step-block {
+    width: 850px / 1024px * 100%;
+    margin: 20px auto 0 auto;
+    padding-bottom: 1px;
+    background: $color-green;
+    border-radius: 5px;
+}
+
+.last-step-form {
+    padding-left: 86px / 850px * 100%;
+    padding-right: 86px / 850px * 100%;
+    position: relative;
+}
+
+.slider-container {
+    margin-top: 70px;
+}
+
+.free-sum-cost {
+    margin: 20px 0;
+}
+
+.ss-totalq {
+    margin-bottom: 40px;
+    color: $color-graydarker;
+}
+
+.ss-longest-path {
+    color: $color-graydarker;
+
+    .ss-for-notif,
+    .ss-long-path-t {
+        display: inline-block;
+        position: relative;
+        @include vertical-align-text();
+        top: 0;
+    }
+
+    .ss-longimg {
+        width: 366px;
+        height: 41px;
+        margin: 0 20px;
+        display: inline-block;
+        background: url('/assets/img/long-path.jpg') 50% 100% no-repeat;
+    }
+}
+
+.ss-notif {
+    display: inline-block;
+    width: 14px;
+    height: 20px;
+    position: relative;
+}
+
+.start-survey {
+    text-align: center;
+}
+
+.sum-notif-popup {
+    padding: 14px 20px;
+    top: 8px;
+    right: 8px;
+    width: initial;
+    text-align: left;
+
+    p {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+}
+
+.finish-title {
+    text-align: center;
+    margin-bottom: 5px;
+    color: $color-graydarker;
+}
+
+.finish-subtitle {
+    text-align: center;
+    font-size: 13px;
+}
+
+.ss-notif-final {
+    display: inline-block;
+    width: 10px;
+    height: 15px;
+    position: relative;
+}
+
+.final-notif {
+    @extend .table-btn-sign;
+}
+
+.sum-final-notif-popup {
+    padding: 20px 0;
+    width: 350px / 676px * 100%;
+    padding-left: 30px / 676px * 100%;
+    padding-right: 30px / 676px * 100%;
+}
+
+.sum-but {
+    margin-top: 20px;
+}
+
+.b-sum-container {
+    margin-top: 50px;
+    position: relative;
+    float: left;
+    width: 100%;
+    clear: both;
+
+    li:last-child::before {
+        width: 55%;
+        left: 56%;
+    }
+
+    .p-sum-bal {
+        width: 380px / 676px * 100%;
+        font-size: $survey-input-font-size;
+    }
+
+    .p-sum-resp {
+        width: 274px / 676px * 100%;
+        font-size: $survey-input-font-size;
+    }
+
+    .edit-popup-b-list {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+// Possible paths popup. Summary section
+.pos-paths {
+
+    .pos-paths-item {
+        display: inline-block;
+        color: $color-graydark;
+        font-size: $survey-blocks-base-font-size;
+
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 22px;
+            height: 6px;
+            margin: 0 6px 0 3px;
+            background: transparent url('/assets/img/paths.png') 0 0 no-repeat;
+        }
+
+        &:first-child::before {
+            display: none;
+        }
+    }
+
+    .pos-paths-active {
+
+        li {
+            color: $color-graydarker;
+            font-weight: bold;
+
+            &::before {
+                background-position: -90px 0;
+            }
+        }
+    }
+}
+
+.ss-long-path-exp {
+    display: inline-block;
+    margin: 0 10px;
+
+    li {
+        position: relative;
+        width: 38px;
+        height: 45px;
+        display: inline-block;
+        text-align: center;
+        margin-left: 46px;
+        margin-top: 5px;
+        background: transparent url('/assets/img/docIcon.png') left top no-repeat;
+
+        &::before {
+            content: '';
+            display: inline-block;
+            background: transparent url('/assets/img/docIconArrow.png') left top no-repeat;
+            width: 34px;
+            height: 4px;
+            left: -42px;
+            top: 40%;
+            position: absolute;
+        }
+
+        &:first-child {
+            margin-left: 0;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        p {
+            position: absolute;
+            top: 26px;
+            left: 1px;
+            font-size: 7px;
+            width: 100%;
+            color: $color-graydark;
+
+            &:first-child {
+                top: 12px;
+                font-size: $survey-input-font-size;
+            }
+
+            &.small-text {
+                font-size: 12px;
+            }
+
+            &.med-text {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .ss-num {
+        margin: 0;
+        width: initial;
+        height: initial;
+        background: none;
+        margin: 0 12px;
+
+        &::before {
+            display: none;
+        }
+    }
+}

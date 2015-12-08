@@ -10,64 +10,30 @@ var webpackConfig = require("./webpack.config.js"),
 var notifier = require('node-notifier');
 var browserSync = require('browser-sync').create(pkg.name);
 var Q = require('q');
+var gulpLoadPlugins = require('gulp-load-plugins');
+var merge = require('deepmerge');
+var config = require('./config');
 
-/*// The development server (the recommended option for development)
- gulp.task("default", ["webpack-dev-server"]);
+var plugins = gulpLoadPlugins({
+    rename: {
+        'gulp-minify-css': 'minifyCss',
+        'gulp-rev-easy': 'reveasy'
+    }
+});
+var currentConfig = {},
+    isProduction = false,
+    configPrivate,
+    configShared,
+    configApp,
+    configAdmin;
 
- // Build and watch cycle (another option for development)
- // Advantage: No server required, can run app from filesystem
- // Disadvantage: Requests are not blocked until bundle is available,
- //               can serve an old app on refresh
- gulp.task("build-dev", ["webpack:build-dev"], function() {
- gulp.watch(["app/!**!/!*"], ["webpack:build-dev"]);
- });
+initBuildConfig();
 
- // Production build
- gulp.task("build", ["webpack:build"]);
-
- gulp.task("webpack:build", function(callback) {
- // modify some webpack config options
- var myConfig = Object.create(webpackConfig);
- myConfig.plugins = myConfig.plugins.concat(
- new webpack.DefinePlugin({
- "process.env": {
- // This has effect on the react lib size
- "NODE_ENV": JSON.stringify("production")
- }
- }),
- new webpack.optimize.DedupePlugin(),
- new webpack.optimize.UglifyJsPlugin()
- );
-
- // run webpack
- webpack(myConfig, function(err, stats) {
- if(err) throw new gutil.PluginError("webpack:build", err);
- gutil.log("[webpack:build]", stats.toString({
- colors: true
- }));
- callback();
- });
- });
-
- // modify some webpack config options
- var myDevConfig = Object.create(webpackConfig);
- myDevConfig.devtool = "sourcemap";
- myDevConfig.debug = true;
-
- // create a single instance of the compiler to allow caching
- var devCompiler = webpack(myDevConfig);
-
- gulp.task("webpack:build-dev", function(callback) {
- // run webpack
- devCompiler.run(function(err, stats) {
- if(err) throw new gutil.PluginError("webpack:build-dev", err);
- gutil.log("[webpack:build-dev]", stats.toString({
- colors: true
- }));
- callback();
- });
- });*/
-
+function initBuildConfig() {
+    configShared = config.shared;
+    configApp = merge(configShared, config.app);
+    configAdmin = merge(configShared, config.admin);
+}
 
 // Static server + livereload
 gulp.task('browser-sync', function () {
@@ -125,9 +91,64 @@ gulp.task("webpack-dev-server", function (callback) {
     });
 });
 
+// concat and copy files of vendors
+gulp.task("vendor", function () {
+    var vendors = [],
+        cssFilter = plugins.filter(['*.css']),
+        jsFilter = plugins.filter(['*.js']);
+
+
+    for (var vendor in currentConfig.vendors) {
+        if (currentConfig.vendors.hasOwnProperty(vendor)) {
+            vendors.push(currentConfig.vendors[vendor]);
+        }
+    }
+
+    // build vendor css files
+    if (currentConfig.files.cssVendorsFilename) {
+        gulp.src(vendors)
+            .pipe(cssFilter)
+            .pipe(plugins.concat(currentConfig.files.cssVendorsFilename))
+            .pipe(plugins.if(isProduction, plugins.minifyCss()))
+            .pipe(plugins.size())
+            .pipe(gulp.dest(currentConfig.paths.dest));
+    }
+
+    // build vendor js files
+    gulp.src(vendors)
+        .pipe(jsFilter)
+        .pipe(plugins.concat(currentConfig.files.jsVendorsFilename))
+        .pipe(plugins.if(isProduction, plugins.ngmin()))
+        .pipe(plugins.if(isProduction, plugins.uglify()))
+        .pipe(plugins.size())
+        .pipe(gulp.dest(currentConfig.paths.dest))
+    ;
+});
+
+// clean the output folders of app
+gulp.task('clean-app', function () {
+    currentConfig = configApp;
+    console.log(configApp.paths.dest + '/*', '!' + configAdmin.paths.dest);
+    return gulp.src([configApp.paths.dest + '/*', '!' + configAdmin.paths.dest], {read: false})
+        .pipe(plugins.clean());
+});
+
+// clean the output folders of admin
+gulp.task('clean-admin', function () {
+    currentConfig = configAdmin;
+
+    return gulp.src(configAdmin.paths.dest, {read: false})
+        .pipe(plugins.clean());
+});
+
 // serve-dev
 gulp.task('serve-dev', function () {
+    isProduction = false;
     runSequence(
-        ["webpack-dev-server"]
+        'clean-app',
+        'vendor',
+        'clean-admin',
+        'vendor',
+        'webpack-dev-server'
     );
 });

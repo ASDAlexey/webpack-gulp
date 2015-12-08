@@ -1,0 +1,391 @@
+@import '../../../../assets/styles/helpers/helpers';
+
+/* WELCOME TOUR
+----------------------------------------------------*/
+.welcome {
+    position: relative;
+    height: 900px;
+    width: 1200px;
+    margin: 0 auto;
+
+    .home {
+        &._loading {
+            .chip {
+                &.chip_survey {
+                    margin-top: -37px;
+                    margin-left: -37px;
+                }
+
+                &.chip_chat,
+                &.chip_store,
+                &.chip_answers,
+                &.chip_weather,
+                &.chip_friends {
+                    margin-top: -50px;
+                    margin-left: -50px;
+                }
+
+                &.chip_place {
+                    opacity: 0;
+                }
+
+                .chip-title {
+                    opacity: 0;
+
+                    &._loading {
+                        opacity: 1;
+                        transform: translateY(-25%);
+                    }
+                }
+            }
+        }
+
+        &._animated {
+            .chip {
+                transition: margin 0.2s ease-out, opacity 0.3s linear 0.3s, background-color 0.2s linear, border-color 0.2s linear;
+
+                .chip-title {
+                    transition: opacity 0.2s linear 0.3s;
+
+                    &._loading {
+                        transition: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .chip.chip_place {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .jelly-points {
+        position: absolute;
+    }
+
+    .welcome-profile {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        width: 40px;
+        height: 1px;
+    }
+
+    .chip.chip_survey[data-index="1"] {
+        width: 66px;
+        height: 66px;
+        margin-top: -355px;
+        margin-left: 174px;
+        border-color: $color-blue;
+        background: $color-blue url('/assets/images/icon-survey.png') 50% 50% no-repeat;
+    }
+
+    .jcPopup-wrap {
+        &.fade {
+            transition: opacity 0.2s linear;
+
+            &.in {
+                transition: opacity 0.5s 0.7s linear;
+            }
+        }
+    }
+}
+
+.jcPopup-wrap {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $index-modal;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    text-align: center;
+    background-color: $color-white;
+
+    &:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+}
+
+.jcPopup {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    max-width: 370px;
+    min-width: 250px;
+    color: $color-gray;
+
+    &._large {
+        max-width: 602px;
+        width: 90%;
+
+        .jcPopup-header {
+            height: 66px;
+        }
+
+        .jcPopup-title {
+            font-size: 36px;
+            line-height: 66px;
+        }
+
+        .jcPopup-body {
+            padding-top: 45px;
+            padding-bottom: 35px;
+            font-size: 34px;
+            line-height: 42px;
+        }
+    }
+
+    &._intro {
+        .jcPopup-body {
+            padding-bottom: 75px;
+        }
+    }
+
+    &._third {
+        max-width: 420px;
+        width: 420px;
+
+        .jcPopup-body {
+            padding-bottom: 65px;
+            //font-size: 18px;
+            //line-height: 21px;
+        }
+    }
+
+    .jcPopup-header {
+        background-color: $color-green;
+        color: $color-white;
+        height: 34px;
+        border: 2px solid $color-graylight;
+        border-bottom-width: 1px;
+        border-radius: $border-radius-xlarge $border-radius-xlarge 0 0;
+    }
+
+    .jcPopup-title {
+        font-size: 19px;
+        line-height: 34px;
+        width: 100%;
+        vertical-align: middle;
+        padding: 0 20px;
+        @include ellipsis();
+    }
+
+    .jcPopup-body {
+        padding: 15px 20px;
+        font-size: 21px;
+        line-height: 25px;
+        background-color: $color-white;
+        border: 2px solid $color-graylight;
+        border-top-width: 0;
+        border-radius:  0 0 $border-radius-xlarge $border-radius-xlarge;
+
+        p {
+            margin: 0;
+        }
+
+        strong {
+            font-weight: 400;
+            color: $color-green;
+        }
+    }
+
+    .jcPopup-footer {
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        width: 100%;
+        padding: 0 20px;
+
+        .btn {
+            font-size: 12px;
+        }
+    }
+}
+
+.popover {
+    position: absolute;
+    z-index: $index-popover;
+}
+
+.tour-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: $index-popover - 1;
+}
+
+// Arrows
+// .arrow is outer, .arrow:after is inner
+$popover-arrow-width:                 20px;
+$popover-arrow-color:                 $color-white;
+$popover-arrow-outer-width:           $popover-arrow-width + 2;
+$popover-arrow-outer-color:           $color-graylight;
+
+.popover {
+    &.top     { margin-top: -$popover-arrow-width; }
+    &.right   { margin-left: $popover-arrow-width; }
+    &.bottom  { margin-top: $popover-arrow-width; }
+    &.left    { margin-left: -$popover-arrow-width; }
+}
+
+.jcPopup-arrow,
+.popover > .arrow {
+    &,
+    &:after {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+    }
+}
+
+.jcPopup-arrow,
+.popover > .arrow {
+    border-width: $popover-arrow-outer-width;
+}
+
+.jcPopup-arrow:after,
+.popover > .arrow:after {
+    border-width: $popover-arrow-width;
+    content: "";
+}
+
+.popover {
+  &.top > .arrow {
+    left: 50%;
+    margin-left: -$popover-arrow-outer-width;
+    border-bottom-width: 0;
+    border-top-color: $popover-arrow-outer-color;
+    bottom: -$popover-arrow-outer-width + 2;
+
+    &:after {
+      content: " ";
+      bottom: 2px;
+      margin-left: -$popover-arrow-width;
+      border-bottom-width: 0;
+      border-top-color: $popover-arrow-color;
+    }
+  }
+  &.right > .arrow {
+    top: 50%;
+    left: -$popover-arrow-outer-width + 2;
+    margin-top: -$popover-arrow-outer-width;
+    border-left-width: 0;
+    border-right-color: $popover-arrow-outer-color;
+
+    &:after {
+      content: " ";
+      left: 2px;
+      bottom: -$popover-arrow-width;
+      border-left-width: 0;
+      border-right-color: $popover-arrow-color;
+    }
+  }
+  &.bottom > .arrow {
+    left: 50%;
+    margin-left: -$popover-arrow-outer-width;
+    border-top-width: 0;
+    border-bottom-color: $popover-arrow-outer-color;
+    top: -$popover-arrow-outer-width + 2;
+
+    &:after {
+      content: " ";
+      top: 2px;
+      margin-left: -$popover-arrow-width;
+      border-top-width: 0;
+      border-bottom-color: $color-green;
+    }
+  }
+
+  &.left > .arrow {
+    top: 50%;
+    right: -$popover-arrow-outer-width + 2;
+    margin-top: -$popover-arrow-outer-width;
+    border-right-width: 0;
+    border-left-color: $popover-arrow-outer-color;
+
+    &:after {
+      content: " ";
+      right: 2px;
+      border-right-width: 0;
+      border-left-color: $popover-arrow-color;
+      bottom: -$popover-arrow-width;
+    }
+  }
+}
+
+.jcPopup-arrow {
+    &._bottom {
+        left: 170px;
+        margin-left: -$popover-arrow-outer-width;
+        border-bottom-width: 0;
+        border-top-color: $popover-arrow-outer-color;
+        bottom: -$popover-arrow-outer-width + 2;
+
+        &:after {
+          content: " ";
+          bottom: 2px;
+          margin-left: -$popover-arrow-width;
+          border-bottom-width: 0;
+          border-top-color: $popover-arrow-color;
+        }
+    }
+}
+
+@media screen and (max-width: $break-phone-landscape) {
+    .jcPopup {
+
+        &._large {
+
+            .jcPopup-title {
+                font-size: 22px;
+                line-height: 66px;
+            }
+
+            .jcPopup-body {
+                font-size: 22px;
+                line-height: 28px;
+            }
+        }
+
+        .jcPopup-title {
+            font-size: 19px;
+            line-height: 34px;
+        }
+
+        .jcPopup-body {
+            font-size: 21px;
+            line-height: 25px;
+        }
+    }
+}
+
+@media screen and (min-width: 1034px) {
+    .welcome {
+        width: 100%;
+
+        .jelly-points {
+            right: 50%;
+            margin-right: -460px;
+        }
+
+        .welcome-profile {
+            right: 50%;
+            margin-right: -498px;
+        }
+    }
+}

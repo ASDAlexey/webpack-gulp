@@ -1,0 +1,134 @@
+<div class="profile">
+    <div class="profile-header user">
+        <div class="container">
+            <div ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+                <div class="user-preview">
+                    <div class="wrapper-img" ng-if="user.model.avatar && !user.errors.length">
+                        <div ng-class="{'loaded':profile.Resource.getResourceURL(user.model.avatar.path)}" data-ng-style="{'background-image':'url('+profile.Resource.getResourceURL(user.model.avatar.path)+')'}" class="user-photo" ng-attr-alt="{{ user.model.information.firstname }} {{ user.model.information.lastname }}"></div>
+                        <div class="spinner"></div>
+                    </div>
+
+                    <div class="wrapper-img" ng-if="user.model.avatar && user.errors.length && user.lastLoadedAvatar">
+                        <div ng-class="{'loaded':profile.Resource.getResourceURL(user.lastLoadedAvatar)}" data-ng-style="{'background-image':'url('+profile.Resource.getResourceURL(user.lastLoadedAvatar)+')'}" class="user-photo" ng-attr-alt="{{ user.model.information.firstname }} {{ user.model.information.lastname }}"></div>
+                        <div class="spinner"></div>
+                    </div>
+                    <img src="/assets/images/avatar.png" ng-if="!user.model.avatar || (user.errors.length && !user.lastLoadedAvatar)" class="user-photo">
+
+                    <div class="user-photo avatar" editbox editbox-type="file" editbox-model="user.model.avatar" editbox-action="user.updateAvatar()"></div>
+
+                    <button type="button" class="avator-remove" data-ng-if="user.model.avatar && !user.errors.length || (user.errors.length && user.lastLoadedAvatar)" data-ng-click="user.removeAvatar(user.model.avatar)">
+                        <span class="icon-remove"></span>
+                    </button>
+
+                    <h2 class="user-title">
+                        <span class="user-nickname" editbox editbox-type="text" editbox-model="user.model.information.nickname" editbox-placeholder="Nickname" editbox-action="user.updateUser()" editbox-ellipsis="..."></span>
+
+                        <span class="user-name">(
+                            <span editbox editbox-type="text" editbox-model="user.model.information.firstname" editbox-placeholder="Firstname" editbox-action="user.updateUser()" editbox-ellipsis="..."></span>
+                            <span editbox editbox-type="text" editbox-model="user.model.information.lastname" editbox-placeholder="Lastname" editbox-action="user.updateUser()" editbox-ellipsis="..."></span>
+                        )</span>
+                    </h2>
+                </div>
+
+                <div class="user-details">
+                    <div class="user-btns">
+                        <a href="" ui-sref="app.profile.friends" class="user-btn user-friends">
+                            <span class="user-icon _friends"></span>
+                            {{ profile.countFriends }}
+                        </a>
+
+                        <a ui-sref="app.store" class="user-btn user-points" ng-if="user.getJellyPoints() >= 0">
+                            <span class="user-icon _points"></span>
+                            {{ user.getJellyPoints() | currency : "" : 0 }}
+                        </a>
+                    </div>
+
+                    <h3 class="user-status" editbox editbox-type="text" editbox-model="user.model.information.status" editbox-placeholder="Tagline" editbox-action="user.updateUser()" editbox-ellipsis="..."></h3>
+
+                    <div class="user-location">
+                        <div class="location _country" editbox editbox-type="country" editbox-model="user.model.information.country" editbox-placeholder="Country" editbox-action="user.updateCountry()"></div>
+
+                        <div class="location _state" editbox editbox-type="state" ng-if="user.model.information.country.name != 'Singapore'" editbox-model="user.model.information.state" editbox-placeholder="State" editbox-action="user.updateState()" editbox-attrs="{ country: user.model.information.country }"></div>
+
+                        <div class="location _city" editbox editbox-type="city" ng-if="user.model.information.country.name != 'Singapore'" editbox-model="user.model.information.city" editbox-placeholder="City" editbox-action="user.updateUser()" editbox-attrs="{ state: user.model.information.state }"></div>
+                    </div>
+
+                    <div class="user-birthday" editbox editbox-type="date" editbox-model="user.model.information.birthday" editbox-placeholder="Birthday" editbox-action="user.updateUser()"></div>
+                </div>
+            </div>
+
+            <div ng-if="!profile.Auth.hasPermissionToEdit(profile.userId)">
+                <div class="user-preview">
+                    <div class="wrapper-img" ng-if="profile.user.avatar">
+                        <div ng-class="{'loaded':profile.Resource.getResourceURL(profile.user.avatar.path)}"
+                             data-ng-style="{'background-image':'url('+profile.Resource.getResourceURL(profile.user.avatar.path)+')'}"
+                             class="user-photo"></div>
+                        <div class="spinner"></div>
+                    </div>
+                    <img src="/assets/images/avatar.png" ng-if="!profile.user.avatar" class="user-photo">
+
+                    <h2 class="user-title">
+                        <span class="user-nickname ellipsis" ng-if="profile.user.information.nickname">{{ profile.user.information.nickname }}</span>
+
+                        <span class="user-name" ng-if="profile.user.information.firstname && profile.user.information.lastname">
+                            <span class="ellipsis">({{ profile.user.information.firstname }}</span>
+                            <span class="ellipsis">{{ profile.user.information.lastname }})</span>
+                        </span>
+
+                        <span class="user-name" ng-if="profile.user.information.firstname && !profile.user.information.lastname">
+                            <span class="ellipsis">({{ profile.user.information.firstname }})</span>
+                        </span>
+
+                        <span class="user-name" ng-if="!profile.user.information.firstname && profile.user.information.lastname">
+                            <span class="ellipsis">({{ profile.user.information.lastname }})</span>
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="user-details">
+                    <div class="user-btns">
+                        <a href="" ui-sref="app.profile.friends" class="user-btn user-friends" ng-if="profile.isUserFriend && profile.countFriends >= 0">
+                            <span class="user-icon _friends"></span>
+                            {{ profile.countFriends }}
+                        </a>
+
+                        <a ui-sref="app.store" class="user-btn user-points" ng-if="profile.isUserFriend && profile.points >= 0">
+                            <span class="user-icon _points"></span>
+                            {{ profile.points | currency : "" : 0 }}
+                        </a>
+                    </div>
+
+                    <h3 class="user-status">{{ profile.user.information.status }}</h3>
+
+                    <div class="user-location" ng-if="profile.user.information.country || profile.user.information.state || profile.user.information.city">
+                        <div class="location _country" ng-if="profile.user.information.country">{{ profile.user.information.country.name || profile.user.information.country.ascii }}</div>
+                        <div class="location _state" ng-if="profile.user.information.state">{{ profile.user.information.state.name || profile.user.information.state.ascii }}</div>
+                        <div class="location _city" ng-if="profile.user.information.city">{{ profile.user.information.city.name || profile.user.information.city.ascii }}</div>
+                    </div>
+
+                    <div class="user-birthday" ng-if="profile.user.information.birthday">{{ profile.user.information.birthday | date : "d MMMM yyyy" }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-body tabs">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li ui-sref-active="active">
+                    <a href="" ui-sref="app.profile.activity">Activity</a>
+                </li>
+
+                <li ng-class="{ active: profile.$state.includes('app.profile.friends') && !profile.isSearchState }">
+                    <a href="" ui-sref="app.profile.friends">Friends</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <ui-view></ui-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

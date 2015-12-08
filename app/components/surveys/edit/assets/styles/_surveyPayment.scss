@@ -1,0 +1,204 @@
+.survey-details-edit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 100%;
+    background: $color-white;
+}
+
+.survey-block-edit {
+    background: #71af89;
+}
+
+.survey-block-edit {
+    width: 408px;
+    margin: auto;
+    padding-bottom: 15px;
+    letter-spacing: -0.02em;
+}
+
+.survey-details-edit-title {
+    padding-top: 9px;
+    color: $color-white;
+    text-align: center;
+    font-family: 'Open Sans Semibold', sans-serif;
+    font-size: 20px;
+}
+
+.survey-details-edit-subtitle {
+    color: $color-white;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 16px;
+}
+
+.survey-block-edit-body {
+    width: 350px;
+    margin: 34px auto 25px;
+    padding: 29px 15px 15px 15px;
+    background: #f1f1f1;
+    p {
+        font-size: 11px;
+        font-family: $font-sans-semibold;
+    }
+    .info-title {
+        margin: 10px 0; 
+        font-size: 12px;
+        font-family: $font-sans-semibold;
+        color: $color-graydark;
+    }
+    .info-subtitle {
+        display: block;
+        margin: 0 0 4px;
+        font-size: 10px;
+        line-height: 1;
+        font-family: $font-sans-semibold;
+    }
+}
+
+.survey-card-info {
+    padding-bottom: 4px;
+    border-bottom: 1px solid #d5d5d5;
+    .clearfix {
+        position: relative;
+    }
+}
+
+.survey-billing-info {
+    margin-top: 1px;
+    border-top: 1px solid #f5f5f5;
+    p {
+        margin-top: 0;
+        margin-bottom: 20px;
+        letter-spacing: -0.05em;
+    }
+    .info-title {
+        margin-bottom: 4px;
+    }
+    .wrap-field {
+        float: right;
+        width: 153px;
+        height: 30px;
+        &:first-child {
+            float: left;
+        }
+    }
+}
+
+.cards-payment {
+    position: absolute;
+    top: 15px;
+    right: 0;
+}
+
+.icon-card {
+    display: inline-block;
+    width: 23px;
+    height: 17px;
+    background: url("/assets/img/icons.png") no-repeat;
+    &.visa {
+        background-position: 0 -72px;
+    }
+    &.master-card {
+        background-position: -28px -72px;
+    }
+    &.american-express {
+        background-position: -56px -72px;
+    }
+    &.back-card {
+        position: absolute;
+        top: -7px;
+        right: 0;
+        background-position: -84px -72px;
+    }
+}
+
+
+
+.form-line {
+    margin-bottom: 12px;
+    &.address {
+        height: 30px;
+    }
+}
+
+.p-payment-container {
+    input[type="text"] {
+        width: 100%;
+        height: 100%;
+        padding-left: 6px;
+        font-size: 12px;
+        color: $color-black;
+    }
+
+    select {
+        width: 100%;
+        color: $color-gray;
+        font-size: 10px;
+        background-color: $color-white;
+    }
+}
+
+.card-number {
+    float: left;
+    width: 265px;
+    height: 30px;
+}
+
+.cvc {
+    float: right;
+    width: 45px;
+    height: 30px;
+}
+
+.name-on-card {
+    float: left;
+    width: 177px;
+    height: 30px;
+}
+
+.date-expires {
+    float: right;
+    width: 128px;
+    margin-top: -4px;
+}
+
+.date-expires-month {
+    float: left;
+    width: 64px;
+}
+
+.date-expires-year {
+    float: right;
+    width: 60px;
+}
+
+.wrap-country {
+    width: 100%;
+}
+
+.payment-terms {
+    color: #8fc7c6;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.btn {
+    &._greendark{
+        width: 100%;
+        background-color: #7dbb91;
+        border-color: #89a891;
+        color: #fff !important;
+        font-weight: bold;
+        letter-spacing: -.04em;
+        border-radius: $border-radius-small;
+        &:hover {
+            color: #fff;
+            border-color: #87c940;
+            background-color: #75ad87;
+        }
+    }
+
+}

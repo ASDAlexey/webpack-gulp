@@ -1,0 +1,225 @@
+<div class="account">
+    <div class="settings-heading _line">
+        <h2 class="settings-title">Account details</h2>
+        <p class="settings-subtitle">Auto fill your information to save time. You can <a href="" ng-click="settings.importFromFacebook()">import data from Facebook</a> and <a href="" ng-click="settings.importFromLinkedIn()">LinkedIn</a></p>
+    </div>
+
+    <div class="settings-form form">
+        <div class="form-row">
+            <label class="form-label">Facebook</label>
+            <div class="form-fields">
+                <span class="btn _primary _square _border-gray _size-sm" ng-click="settings.importFromFacebook()">Import</span>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">LinkedIn</label>
+            <div class="form-fields">
+                <span class="btn _primary _square _border-gray _size-sm" ng-click="settings.importFromLinkedIn()">Import</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-form form">
+        <div class="form-row">
+            <label class="form-label">Your Name</label>
+            <div class="form-fields">
+                <span class="editable _text _one-half" editbox editbox-type="text" editbox-model="user.model.information.firstname" editbox-placeholder="Firstname" editbox-action="user.updateUser()"></span>
+                <span class="editable _text _one-half" editbox editbox-type="text" editbox-model="user.model.information.lastname" editbox-placeholder="Lastname" editbox-action="user.updateUser()"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Your Nickname</label>
+            <div class="form-fields">
+                <span class="editable _text" editbox editbox-type="text" editbox-model="user.model.information.nickname" editbox-placeholder="Nickname" editbox-action="user.updateUser()"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Your Email</label>
+            <div class="form-fields">
+                <span class="editable _text" editbox editbox-type="text" editbox-model="user.model.email" editbox-action="user.updateUser()"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Your Password</label>
+            <div class="form-fields">
+                <span
+                    class="editable _label"
+                    ng-init="shouldDisplayPassword = false"
+                    ng-click="shouldDisplayPassword = !shouldDisplayPassword"
+                    ng-show="!shouldDisplayPassword"
+                >Change your password</span>
+
+                <form class="settings-password" ng-class="{ _opened: shouldDisplayPassword }" ng-show="shouldDisplayPassword" ng-submit="user.changePassword(); shouldDisplayPassword = false">
+                    <div class="form-row password-row">
+                        <label class="form-label" for="currentPassword">Current password:</label>
+                        <div class="form-fields">
+                            <input type="password" id="currentPassword" class="form-control _text" ng-model="user.password.current" required>
+                        </div>
+                    </div>
+                    <div class="form-row password-row">
+                        <label class="form-label" for="newPassword">New password:</label>
+                        <div class="form-fields">
+                            <input type="password" id="newPassword" class="form-control _text" ng-model="user.password.new" required>
+                        </div>
+                    </div>
+                    <div class="form-row password-row">
+                        <label class="form-label" for="confirmPassword">Confirm new password:</label>
+                        <div class="form-fields">
+                            <input type="password" id="confirmPassword" class="form-control _text" ng-model="user.password.confirm" required>
+                        </div>
+                    </div>
+                    <div class="form-row password-row">
+                        <div class="form-fields">
+                            <button type="submit" class="btn _primary _square _border-gray pull-right" ng-disabled="!user.password.current || !user.password.new || !user.password.confirm || (user.password.new !== user.password.confirm)">Change password</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Status</label>
+            <div class="form-fields">
+                <span class="editable _status _success">{{ user.model.status|userStatus }}</span>
+                <button ng-if="user.model.status == 'not_verified'" ng-disabled="settings.isDisabled" class="verify-resend-btn" ng-click="settings.resendVerifyEmail()">Resend verification email</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Your Location</label>
+            <div class="form-fields">
+                <span class="editable _text _one-third" editbox editbox-type="country" editbox-model="user.model.information.country" editbox-placeholder="Country" editbox-action="user.updateCountry()"></span>
+
+                <span class="editable _text _one-third" editbox editbox-type="state" ng-if="user.model.information.country.name != 'Singapore'" editbox-model="user.model.information.state"  editbox-placeholder="State" editbox-action="user.updateState()" editbox-attrs="{ country: user.model.information.country }"></span>
+
+                <span class="editable _text _one-third" editbox editbox-type="city" ng-if="user.model.information.country.name != 'Singapore'" editbox-model="user.model.information.city"  editbox-placeholder="City" editbox-action="user.updateUser()" editbox-attrs="{ state: user.model.information.state }"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Your Gender</label>
+            <div class="form-fields">
+                <span class="editable _text _radios">
+                    <div class="radio">
+                        <input type="radio" id="genderMale" name="gender" ng-model="user.model.information.gender" value="male" ng-change="user.updateUserViaQueue()">
+                        <label for="genderMale">Male</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" id="genderFemale" name="gender" ng-model="user.model.information.gender" value="female" ng-change="user.updateUserViaQueue()">
+                        <label for="genderFemale">Female</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" id="genderOther" name="gender" ng-model="user.model.information.gender" value="other" ng-change="user.updateUserViaQueue()">
+                        <label for="genderOther">Other</label>
+                    </div>
+                </span>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Date of Birth</label>
+            <div class="form-fields">
+                <span class="editable _text" editbox editbox-type="date" editbox-model="user.model.information.birthday" editbox-placeholder="Birthday" editbox-action="user.updateUser()"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-heading">
+        <h3 class="settings-title">Additional details</h3>
+        <p class="settings-subtitle">Fill out this information to receive more surveys and special rewards.</p>
+    </div>
+
+    <div class="settings-form form">
+        <div class="form-row">
+            <label class="form-label">Relationships</label>
+            <div class="form-fields">
+                <select class="form-control inline editable _fixed" ng-options="item for item in settings.TYPES_OF_RELATIONSHIP" ng-model="user.model.information.relationships" ng-change="user.updateUser()"></select>
+            </div>
+        </div>
+
+        <fieldset class="form-fieldset">
+            <legend>Current Work:</legend>
+            <div class="form-row">
+                <label class="form-label">Employment Status</label>
+                <div class="form-fields">
+                <span class="editable _text _radios">
+                    <div class="radio">
+                        <input type="radio" id="employed" name="employed" ng-model="user.model.information.employed" value="1" ng-change="user.updateUserViaQueue()">
+                        <label for="employed">Employed</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" id="notEmployed" name="employed" ng-model="user.model.information.employed" value="0" ng-change="user.updateUserViaQueue()">
+                        <label for="notEmployed">Not Employed</label>
+                    </div>
+                </span>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label">Company</label>
+                <div ng-if="user.model.information.employed != true" class="form-fields">
+                    <span class="editable _readonly _text _fixed">{{ user.model.information.company }} <i ng-hide="user.model.information.company">Company</i></span>
+                </div>
+                <div ng-if="user.model.information.employed == true" class="form-fields">
+                    <span class="editable _text _fixed" editbox editbox-type="text" editbox-model="user.model.information.company" editbox-placeholder="Company" editbox-action="user.updateUser()"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label">Position</label>
+                <div ng-if="user.model.information.employed != true" class="form-fields">
+                    <span class="editable _readonly _text _fixed">{{ user.model.information.position }} <i ng-hide="user.model.information.position">Position</i></span>
+                </div>
+                <div ng-if="user.model.information.employed == true" class="form-fields">
+                    <span class="editable _text _fixed" editbox editbox-type="text" editbox-model="user.model.information.position" editbox-placeholder="Position" editbox-action="user.updateUser()"></span>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-fieldset">
+            <legend>Highest Education:</legend>
+            <div class="form-row">
+                <label class="form-label">School/University</label>
+                <div class="form-fields">
+                    <span class="editable _text _fixed" editbox editbox-type="text" editbox-model="user.model.information.education" editbox-placeholder="Education" editbox-action="user.updateUser()"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label" >Degree</label>
+                <div class="form-fields">
+                    <span class="editable _text _fixed" editbox editbox-type="text" editbox-model="user.model.information.degree" editbox-placeholder="Degree" editbox-action="user.updateUser()"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label">Graduated</label>
+                <div class="form-fields">
+                    <div class="checkbox">
+                        <input type="checkbox" id="graduated" ng-model="user.model.information.graduated" ng-change="user.updateUser()">
+                        <label for="graduated"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label">Time Period</label>
+                <div class="form-fields">
+                    <select
+                        class="form-control inline editable _year"
+                        ng-model="user.model.information.time_from"
+                        ng-options="year for year in user.years.from track by year"
+                        ng-change="user.updateUser()"
+                    >
+                        <option value disabled selected>From</option>
+                    </select>
+
+                    to
+
+                    <select
+                        class="form-control inline editable _year"
+                        ng-model="user.model.information.time_to"
+                        ng-options="year for year in user.years.to track by year"
+                        ng-change="user.updateUser()"
+                    >
+                        <option value disabled selected>To</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

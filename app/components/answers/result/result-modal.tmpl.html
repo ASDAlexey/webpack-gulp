@@ -1,0 +1,62 @@
+<a href="" class="close answers-close ng-scope" ng-click="$dismiss('cancel')">Close</a>
+
+<div class="modal-body">
+    <div class="table-responsive">
+        <!-- BEGIN TEXT_LONG, TEXT_SHORT, EMAIL, URL -->
+        <table class="answers-table table table-hover table-bordered" ng-if="_.indexOf(['text_long', 'text_short', 'email', 'url'], question.type) > -1">
+            <thead>
+                <tr>
+                    <th class="answers-th">#</th>
+                    <th class="answers-th">Answer</th>
+                    <!-- <th class="answers-th">Count</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key, value) in question.items track by $index">
+                    <td style="width: 65px">{{ $index + 1 }}</td>
+                    <td class="text-left">{{ key }}</td>
+                    <!-- <td style="width: 65px">{{ value }}</td> -->
+                </tr>
+            </tbody>
+        </table>
+        <!-- END TEXT_LONG, TEXT_SHORT, EMAIL, URL -->
+
+        <!-- BEGIN RATING -->
+        <table class="answers-table table table-hover table-bordered" ng-if="question.type === 'rating'">
+            <thead>
+                <tr>
+                    <th class="answers-th">#</th>
+                    <th class="answers-th">Answer</th>
+                    <th class="answers-th">Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key, value) in question.items track by key">
+                    <td style="width: 65px">{{ $index + 1 }}</td>
+                    <td class="text-left"><rating class='answer-rating' ng-model="key" max="10" readonly="true" state-on="'i-rating _star'" state-off="'i-rating _star-empty'"></rating></td>
+                    <td style="width: 140px" class="answer-count">{{ value }} out of {{ question.total }} ({{ value / question.total  * 100 | number: 2 }}%)</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- END RATING -->
+
+        <!-- BEGIN CHOICE -->
+        <table class="answers-table table table-hover table-bordered" ng-if="question.type === 'choice'">
+            <thead>
+                <tr>
+                    <th class="answers-th">#</th>
+                    <th class="answers-th">Answer</th>
+                    <th class="answers-th">Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key, value) in (_.extend({}, question.items.choice, question.items.own)) track by $index">
+                    <td style="width: 65px">{{ $index + 1 }}</td>
+                    <td class="text-left">{{ key }}</td>
+                    <td style="width: 140px" class="answer-count">{{ value }} out of {{ question.total }} ({{ value / question.total  * 100 | number: 2 }}%)</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- END CHOICE -->
+    </div>
+</div>

@@ -1,0 +1,230 @@
+<div class="chat" ng-controller="Chat as chat">
+    <!-- BEGIN DIALOGS -->
+    <div class="chat-users" jqyoui-draggable data-drag="true" data-jqyoui-options="{ containment: 'body', handle: '.chat-header' }" ng-if="home.shouldShowChat">
+        <header class="chat-header">
+            <div class="chat-heading">Chat</div>
+
+            <div class="chat-btn _close" ng-click="home.closeModalWindows()"></div>
+
+            <div class="chat-btn _new" ng-click="chat.newChat()"></div>
+        </header>
+
+        <div class="chat-dialogs">
+            <div class="chat-search search">
+                <div class="form-group">
+                    <input type="search" class="form-control search-input" placeholder="Search" autocomplete="off" ng-model="chat.queryDialog" ng-change="chat.filterDialogs()">
+
+                    <div class="search-submit"></div>
+                </div>
+            </div>
+
+            <div class="chat-list" on-size-changed="chat.rebuildDialogsScrollbar()" ng-class="{ _scrollbar: dialogsScrollbar }">
+                <div class="chat-scroll" ng-scrollbar rebuild-on="scrollbar:rebuild:dialogs" is-bar-shown="dialogsScrollbar">
+                    <div class="user" ng-repeat="room in chat.filteredDialogs track by room.user.id" on-last-repeat="chat.rebuildDialogsScrollbar()" ng-click="chat.toggleChat(room.user)" ng-class="{ _active: chat.isActiveUser(room.user) }">
+                        <div class="user-avatar">
+                            <img ng-if="room.user.avatar" ng-src="{{ chat.Resource.getResourceURL(room.user.avatar.path) }}">
+                            <img src="/assets/images/avatar.png" ng-if="!room.user.avatar" >
+                            <span class="user-unread" ng-if="!chat.mutedUsers[room.user.id] && room.unread_messages > 0">{{ room.unread_messages | cutNum:99:'+' }}</span>
+                        </div>
+
+                        <div class="user-info">
+                            <div class="user-name">
+                                <span class="user-date" ng-if="room.last_message.date">{{ chat.getRelativeDate(room.last_message.date) }}</span>
+
+                                {{ chat.getTitleOfRoom(room.user) }}
+                            </div>
+
+                            <div class="user-message">
+                                <span ng-if="room.last_message.sender.id === user.model.id">Me: </span>
+                                {{ room.last_message.message }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="!chat.filteredDialogs.length" class="user-no-result">No results found...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="preloader" ng-show="chat.loadingChats">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <!-- END DIALOGS -->
+
+    <!-- BEGIN NEW CHAT -->
+    <div class="chat-users _new" jqyoui-draggable data-drag="true" data-jqyoui-options="{ containment: 'body', handle: '.chat-header' }" ng-if="chat.mode === 'new'">
+        <header class="chat-header">
+            <div class="chat-heading">New Chat</div>
+
+            <div class="chat-btn _close" ng-click="chat.mode = 'dialogs'"></div>
+        </header>
+
+        <div class="chat-new">
+            <div class="chat-search search">
+                <div class="form-group">
+                    <label for="searchUser" class="search-label">To:</label>
+
+                    <input type="search" class="form-control search-input" show-focus="chat.mode === 'new'" placeholder="" autocomplete="off" id="searchUser" ng-model="chat.queryUser" ng-model-options="{ debounce: 500 }" ng-change="chat.searchUsers(chat.queryUser)">
+                </div>
+            </div>
+
+            <div class="chat-list" on-size-changed="chat.rebuildUsersScrollbar()" ng-class="{ _scrollbar: usersScrollbar }">
+                <div class="chat-scroll" ng-scrollbar rebuild-on="scrollbar:rebuild:users" is-bar-shown="usersScrollbar">
+                    <!-- BEGIN FRIENDS LIST -->
+                    <div
+                        class="user"
+                        ng-repeat="item in chat.firendsList track by item.id"
+                        on-last-repeat="chat.rebuildUsersScrollbar()"
+                        ng-click="chat.openChat(item)"
+                        ng-class="{ _active: chat.isActiveUser(item) }"
+                        ng-if="!chat.queryUser"
+                    >
+                        <div class="user-avatar">
+                            <img ng-if="item.avatar" ng-src="{{ chat.Resource.getResourceURL(item.avatar.path) }}">
+                            <img src="/assets/images/avatar.png" ng-if="!item.avatar" >
+                        </div>
+
+                        <div class="user-info">
+                            <div class="user-name">
+                                {{ chat.getTitleOfRoom(item) }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END FRIENDS LIST -->
+
+                    <!-- BEGIN SEARCH LIST -->
+                    <div
+                        class="user"
+                        ng-repeat="item in chat.searchedUsers track by item.id"
+                        on-last-repeat="chat.rebuildUsersScrollbar()"
+                        ng-click="chat.openChat(item)"
+                        ng-class="{ _active: chat.isActiveUser(item) }"
+                        ng-if="chat.queryUser"
+                    >
+                        <div class="user-avatar">
+                            <img ng-if="item.avatar" ng-src="{{ chat.Resource.getResourceURL(item.avatar.path) }}">
+                            <img src="/assets/images/avatar.png" ng-if="!item.avatar" >
+                        </div>
+
+                        <div class="user-info">
+                            <div class="user-name">
+                                {{ chat.getTitleOfRoom(item) }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SEARCH LIST -->
+                </div>
+            </div>
+        </div>
+
+        <div class="preloader _users" ng-show="chat.loadingUsers">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <!-- END NEW CHAT -->
+
+    <!-- BEGIN CHAT WINDOW -->
+    <div
+        class="chat-window"
+        ng-class="{ '_active': chat.activeWindow.id === item.id }"
+        ng-repeat="item in chat.windows track by item.id"
+        jqyoui-draggable
+        data-drag="true"
+        data-jqyoui-options="{ containment: 'body', handle: '.chat-header' }"
+        on-focus="chat.focusOnChat(item)"
+    >
+        <header class="chat-header">
+            <div class="chat-btn _close" ng-click="chat.toggleChat(item.user)"></div>
+
+            <div class="chat-heading">{{ chat.getTitleOfRoom(item.user) }}</div>
+
+            <div class="chat-btn _menu menu" click-anywhere-but-here="item.isOpenMenu = false">
+                <div class="menu-button" ng-click="item.isOpenMenu = !item.isOpenMenu">
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                </div>
+
+                <ul class="menu-list list-unstyled" ng-show="item.isOpenMenu">
+                    <li class="menu-item">
+                        <a href="" class="menu-link" ng-if="!chat.mutedUsers[item.user.id]" ng-click="chat.openMuteDialog(item)">Mute Chat...</a>
+                        <a href="" class="menu-link" ng-if="chat.mutedUsers[item.user.id]" ng-click="chat.openMuteDialog(item)">Unmute chat...</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="chat-messages" on-size-changed="chat.rebuildMessagesScrollbar(item)" ng-class="{ '_scrollbar': messagesScrollbar,  '_small': item.isEnterMessage }">
+            <div class="chat-scroll" ng-scrollbar bottom rebuild-on="scrollbar:rebuild:chat-{{item.id}}" is-bar-shown="messagesScrollbar">
+                <div class="message" ng-repeat="message in item.messages" on-last-repeat="chat.rebuildMessagesScrollbar(item)" ng-class="{ _self: {{ message.sender.id === user.model.id }} }">
+                    <a href="" ui-sref="app.profile.activity({ userId: message.sender.id })" class="message-avatar">
+                        <img ng-src="{{ chat.Resource.getResourceURL(message.sender.avatar.path) }}" ng-if="message.sender.avatar">
+                        <img src="/assets/images/avatar.png" ng-if="!message.sender.avatar">
+                    </a>
+
+                    <div class="message-content">
+                        <div class="message-text">
+                            <a href="" ui-sref="app.profile.activity({ userId: message.sender.id })" class="message-author">{{ chat.getTitleOfRoom(message.sender) }}</a>
+
+                            {{ message.message }}
+
+                            <span class="message-date">{{ chat.getRelativeDate(message.date) }}</span>
+                            <span class="message-points" ng-attr-title="You received {{item.points[message.id]}} points for this message" ng-if="item.points[message.id] > 0">+{{ item.points[message.id] }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-send" ng-class="{ _focused: item.isEnterMessage }">
+            <textarea
+                class="chat-input"
+                show-focus="!config.isiOS && item.isEnterMessage"
+                ng-model="item.message"
+                ng-keypress="chat.sendMessage($event, item)"
+                ng-focus="item.isEnterMessage = true; chat.rebuildMessagesScrollbar(item)"
+                ng-blur="item.isEnterMessage = false; chat.rebuildMessagesScrollbar(item)"
+            ></textarea>
+        </div>
+
+        <div class="preloader" ng-show="item.isLoading">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <!-- END CHAT WINDOW -->
+</div>
+
+<!-- BEGIN MUTE DIALOG -->
+<script type="text/ng-template" id="chat-mute.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Mute Chat</h3>
+    </div>
+
+    <div class="modal-body">
+        Your chat will be muted and you will no longer receive notifications on new chat messages unless you unmute this person.
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn _dialog" ng-click="modal.mute()">Mute</button>
+        <button class="btn _dialog" ng-click="modal.cancel()">Cancel</button>
+    </div>
+</script>
+<!-- END MUTE DIALOG -->
+
+<!-- BEGIN UNMUTE DIALOG -->
+<script type="text/ng-template" id="chat-unmute.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Unmute Chat</h3>
+    </div>
+
+    <div class="modal-body">
+        Your chat will be unmuted and you will receive notifications on new chat messages.
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn _dialog" ng-click="modal.unmute()">Unmute</button>
+        <button class="btn _dialog" ng-click="modal.cancel()">Cancel</button>
+    </div>
+</script>
+<!-- END UNMUTE DIALOG -->

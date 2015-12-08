@@ -1,0 +1,296 @@
+/* FRIENDS TAB
+----------------------------------------------------*/
+.profile {
+
+    .friends {
+        position: relative;
+        padding-top: 35px;
+
+        .friends-search {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 310px;
+        }
+
+        .friends-list {
+            margin-top: 20px;
+            @include list-unstyled();
+        }
+
+        .friends-item {
+            display: block;
+            width: 20%;
+            float: left;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        .friends-link {
+            color: $base-font-color;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .friend {
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+        &._other {
+            &.active {
+                .friend-img {
+                    border-color: #FFCE54;
+                }
+            }
+        }
+        &._out{
+            &.active {
+                .friend-img {
+                    border-color: #fff;
+                }
+            }
+        }
+        &._approved {
+            &.active{
+                .friend-img {
+                    border-color: #fff;
+                }
+            }
+            .friend-img {
+                border-color: $color-green;
+            }
+
+            &:hover {
+                .friend-name {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        &._approved {
+
+        }
+
+        &._in,
+        &._out {
+            .friend-img {
+                border-color: $color-yellow;
+            }
+        }
+
+        &._in:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            display: block;
+            margin-left: 19px; // (.friend-img width / 2) + .friend-img border - width of this icon
+            width: 36px;
+            height: 36px;
+            z-index: 1;
+            background-position: 50% 50%;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBFQ0IxNDI0ODczQjExRTQ4NkNGODRDNjdBM0E2MEY4IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBFQ0IxNDI1ODczQjExRTQ4NkNGODRDNjdBM0E2MEY4Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEVDQjE0MjI4NzNCMTFFNDg2Q0Y4NEM2N0EzQTYwRjgiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEVDQjE0MjM4NzNCMTFFNDg2Q0Y4NEM2N0EzQTYwRjgiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz73U/1KAAADjUlEQVR42sRYSUyTQRR+/BTZwUgacAEUNRSqRI2IgnowBOTgwWAgyslIMEY8uMQjBw8mmpi4YBQOykmNRi8eDMET4pa4xIhKjYJLjCwKKlhWW7/xf91M238G2vKSr3+mnXnzdd687Y9yPttBirIEKAc2AnlANpDMvw0DH4E3QAfQCvSoKI+SJBQNVAH1wAaxTlK/E3gINALXgT9GCzQJpaVAJ3AFKFYgQzy3mNd2sq5pE4oDmoA2wEIzFwvramLdSoTMQDtQR6GXOtZtliUkJt4DCil8Ush7mI0IJQC3gVwKv+TyXgnBCJ0BiihyUsR7+iUkPKCWIi+13t6neT3PGi5NXoFQeJpo7vpQkzrHsc5NqJqjbnBJhNnjFuJpCTUhCwdeN6H9wU+mgGjBTqLUtTy2YlyD8bpQkqp3pQ6Rm94HjcCrbwRW87yKMwQkbYsOUyqRvZvoSwvR5JAsIaFkmQkfWw3TQc8povgsoiScTFI+0e+3SKMviMZ7PWQykBPnV3vWxGYQpazCXz2O+TbZNFMuTFZiOPXHI6KvyI3DL/Wx/Z0+Hmzn6JXjS8adkhFiMveomK1EELJKTx/9oJvCRcwlE98DmyZmngqhfGGyTOnpP5/oEJK+HZd7JZFjjKgfAbcTKcp6kWhO2jQKCrdkm7yKK4Wgf0I3k0tSkZq6TxJ1HSIqaPFcSacDpr2mojlJUyaTUelLxiU5R1F+2Yl6b3r5Deox55SSeo3LTnkJFnsSlhINdXhpjyHK2ke0/Jh+wY1lRBD6rEQo2D8Wv2mxfgyBJLD4oIz2T4LQayVCfbc8scdbJgfhhajv0ysD3I48Ge2vNO4O5MUxoV/W/2W8H2ZJ1D1O9WQ9cl/jVsUp1wAdRnBvgBNF+zkB5EfrBcSkPnjbET+EHDKpo1UQQqSjB4ZkzBXGZUd0vE5KmO5bm6r/inap2+X25w3TzKLdko0PTi9lDeLPVd/vTUlGKxv/TeOBaOIaArY7wnOmRvA0yZESm4u75hj1fDcVNLp0MQefzrWU+6bZkDLX3t6R+i5weRbIXPI+CM1P1fY4gmTEXgeCpWIkI9oG2CJAxsZ72Y1qgwFgM/A0jGSe8h4Dsr09wi5tAprDQKaZ3y31q779ED67lz3AFiITlbHOsZm8H2rjMncXR1OnIhGxpoZ1GIaVqGm+0qvgYxeBFO0IpfBvv0QJwYFOJO07qq/0/gowAMvb2VwpTlckAAAAAElFTkSuQmCC);
+        }
+
+        .friend-img {
+            display: inline-block;
+            overflow: hidden;
+            width: 110px;
+            height: 110px;
+            border-radius: 100%;
+            border: 7px solid transparent;
+            transition: border 1s ease-out .2s;
+            img {
+                margin: -7px 0 0 -7px;
+            }
+
+            &._avatar {
+                img {
+                    width: 110px;
+                    height: 110px;
+//                    margin: -25% 0 0 -25%;
+                }
+            }
+        }
+
+        .friend-name {
+            margin-top: 15px;
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .friend-actions {
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        width: 96px;
+        height: 96px;
+        margin-left: -48px;
+        border-radius: 100%;
+        opacity: 0;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: opacity 0.2s linear;
+
+        &._transparent {
+            background-color: transparent;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .friend-btn {
+            margin: 36% 5px 0;
+            padding: 0;
+            border: 0;
+            height: 32px;
+            width: 32px;
+            background-position: 50% 50%;
+            background-color: transparent;
+            background-repeat: no-repeat;
+
+            &._approve,
+            &._add {
+                background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1NzFlZmVjZi0yNmQ0LTZkNDQtOTg5Ni0yYjhlN2UzZTMwMzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDE5MDE4REI3RTg0MTFFNEI4OERBRERCRjZDRDA0NUUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDE5MDE4REE3RTg0MTFFNEI4OERBRERCRjZDRDA0NUUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTcxZWZlY2YtMjZkNC02ZDQ0LTk4OTYtMmI4ZTdlM2UzMDMxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3MWVmZWNmLTI2ZDQtNmQ0NC05ODk2LTJiOGU3ZTNlMzAzMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmkziTwAAAHMSURBVHjaYvz//z/DQAImhgEG9HKAKRAfAuKfQPwQiEuBmBEsA4oCGmNzIP76HxOsAGJWRhqnARUgPgbEojjkW2jpAFGo5Sp41LyglQO4gHgfEJsTUPebFomQDYhXE2E5CJygdgiAUvZiII4mQu0vILajdopv/08c+AfE0WDPU9HyzP/Eg2aYPmpZ7gfEf4i0fAkQM1LTAbgKGmzgBBBzIeun1HIVIH5FpOX3gVgU3QwWpFQJYlsAsSAoewDxayIKmu14Sjlk8BGI/bCaCXWJGhBfQXLtNyDOweNzLmhwEgNAacMDl1kgQgKIH+PQPAGImdE0sQHxThJSfCa+aAQRywgYsA6IOaEaGKGpmFgwhVA6YiAyBR+HJqB2EizfjCX0MDDIR++gCY8QeAXEYkQWyZeB2Baa+Ai2iHYTaSixloMc6kWM5bBcIAPNo9QAX6EFE9FlCYwhDcRXKbQcVMGEkVqYIXOEgfgUBQ6oIKc0RRfgBeK9ZFi+hNziHJsgOxBvIMHyA9DCiWoOYIDm3wVEWH4bWwVDDQfASr0+PJZ/gNYhDLRyAAzXYrH8JxA7UaMxQ6zCYCA+B8RvgfgwENtQqylH657R4O8dAwQYAPGYMy/vrpYrAAAAAElFTkSuQmCC);
+            }
+
+            &._reject,
+            &._cancel {
+                background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpDN0QyOEFFNDA3MjA2ODExODIyQUVGRkY0OEU5REM4QyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGNEI4NjcyNzdFODMxMUU0QkRFRkYxMzQ4NDZFQUYwQSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpGNEI4NjcyNjdFODMxMUU0QkRFRkYxMzQ4NDZFQUYwQSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QzdEMjhBRTQwNzIwNjgxMTgyMkFFRkZGNDhFOURDOEMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QzdEMjhBRTQwNzIwNjgxMTgyMkFFRkZGNDhFOURDOEMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5Ev+5vAAACHElEQVR42rSXOUsDQRiGNxE88EgpVoJWKl5VJIm2GkX9BXZaWvkTvBARGxE8ERULFTEgHqUXYq2iYGPnieTwRHR9P5mRsGZ3v9msA0+TnfneJzs7s7MeXdc10cKgBWSAHRABvxddaIWgE5SAKzANrjUSAOP637YMMsX1dPGDe0P9R/qdLoZ187bugkQdiJrUP6UOY7p1i6QhEbAI/2lezIPHZu7awCrIVJzzINgCPstekGjWeW1D4U4EQYxR80IOmGNKbDIkQiDOqPUsH0IiA8wrSGSZhNeDBKPGE2j42QKSBqtIbIFsh+EJ0VczCkgJ7nRsgxwxrkH8K054KDkz1W0kiVkFiSYxn3Ytbgw3EyC8ChKcFhMrQ+MKSIkZl8IDZjl269kDptIIj1qFcwSkxKTD8Dq7+tw9nSQmFMP9nNpe5r5O54I18MXsfw5OeJV5d6ARvChOwS7IdWMKaJ2/OnwI9+wk7MLpsPKW5jIkiTwnAm6Ey7YP8lUEWsA7o/ADWGRKHIACjkCrQnitWKKjTIlDo4QxvJ0ZTifcGsPYEQUJXyoBbvgdqDaZumGmxJGUkAPbFMKrbFYOV+KYJGhAKfN9TuGVzI1riCmxRJ37GB1vQYXiN8Ego+6nxnjn34Byhx8mA3YG1Kn7n8Il/VbHNE3sUJcpLl6DMpc+TntNBHpkhyKwIN7jdHJdAcUuhUs6wBn4oC8i0EW/fwswAJO32Yvodi2AAAAAAElFTkSuQmCC);
+            }
+        }
+
+        .friend-remove {
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+            cursor: pointer;
+
+            .icon-remove {
+                width: 20px;
+                height: 20px;
+                background-size: 20px 20px;
+            }
+        }
+    }
+
+    .friends-invite {
+        position: absolute;
+        top: 8px;
+        right: 330px;
+    }
+
+    .search {
+
+        .search-label {}
+
+        .search-input {
+            width: 310px;
+            padding-right: 34px;
+        }
+
+        .search-submit {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 0;
+            width: 34px;
+            background: transparent url('/assets/images/icon-search.png') 50% 50% no-repeat;
+        }
+    }
+}
+
+.invite-modal {
+
+    .modal-dialog {
+        max-width: 350px
+    }
+
+    .invite {
+        padding: 30px 20px;
+    }
+
+    .invite-text {
+        margin: 0 0 20px;
+    }
+
+    .invite-form {
+        overflow: hidden;
+
+        label {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        input[type="email"] {
+            float: left;
+            width: 75%;
+
+            &.ng-dirty.ng-invalid {
+                border-color: $color-red;
+            }
+        }
+
+        button[type="submit"] {
+            clear: both;
+            float: left;
+            width: 40%;
+            margin-top: 5px;
+            margin-left: 25%;
+        }
+    }
+}
+
+@media screen and (max-width: $break-tablet-portrait) {
+    .profile {
+
+        .friends {
+            padding-top: 90px;
+
+            .friends-search {
+                top: 20px;
+                left: 50%;
+                margin-left: -150px;
+            }
+
+            .friends-invite {
+                top: 65px;
+                right: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .friends-item {
+                width: 33.3333333%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $break-phone-landscape) {
+    .profile {
+
+        .friends {
+
+            .friends-item {
+                width: 50%;
+            }
+        }
+    }
+}

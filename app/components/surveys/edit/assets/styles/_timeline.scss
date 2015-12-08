@@ -1,0 +1,185 @@
+.time-container {
+    width: 480px / 1024px * 100%;
+    padding-top: 25px;
+    padding-left: 30px / 1024px * 100%;
+    padding-right: 30px / 1024px * 100%;
+    background-color: transparent;
+    border: 1px solid $color-graylight;
+}
+
+.time-container-active {
+    background-color: #FAFDF7;
+    border: 1px solid $color-green;
+}
+
+.time-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.time-title-server-time {
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.time-input-check[type="checkbox"] {
+    display: none;
+}
+
+.time-input-check[type="checkbox"] + label span {
+    float: left;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid $color-graylight;
+}
+
+.time-input-check[type="checkbox"]:checked + label span {
+    background-color: #fff;
+    border: 2px solid $color-green;
+    background: url('/assets/img/ui-table-elements.png') 50% -736px no-repeat;
+}
+
+.time-input-check[type="checkbox"] + label span + i {
+    font-style: normal;
+    font-size: $survey-blocks-base-font-size;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.time-list {
+
+    li {
+        margin-bottom: 25px;
+        @include clearing();
+
+        &:first-child {
+            padding-left: 106px / 390px * 100%;
+        }
+    }
+}
+
+.l-time-list {
+    float: left;
+}
+
+.r-time-list {
+    float: right;
+}
+
+.time-date-text {
+    width: 106px / 390px * 100%;
+    float: left;
+    text-align: right;
+    padding-right: 15px / 390px * 100%;
+    line-height: 1em;
+    margin-top: 6px;
+
+    p::after {
+        content: '*server time';
+        display: inline-block;
+        line-height: 0;
+        font-size: 10px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    &._user {
+        p::after {
+            content: '*your time';
+        }
+    }
+}
+
+.time-date-inputs {
+    width: 284px / 390px * 100%;
+    float: left;
+
+    span {
+        margin: 0 2%;
+    }
+}
+
+.time-input {
+    padding: 12px 18px;
+    font-size: $survey-base-font-size;
+    border: 1px solid $color-graylight;
+    background: $color-white;
+
+    &:disabled {
+        background-color: $color-graylighter;
+    }
+}
+
+.time-calen {
+    width: 100%;
+    padding-left: 44px;
+    background-image: url('/assets/img/cal.png');
+    background-position: 10px 8px;
+    background-repeat: no-repeat;
+}
+
+.time-hour {
+    width: 64px / 270px * 100%;
+    padding: 12px;
+    text-align: center;
+
+    &::after {
+        content: ':';
+        display: inline-block;
+        width: 10px;
+    }
+}
+
+.time-min {
+    width: 62px / 270px * 100%;
+    padding: 12px;
+    text-align: center;
+}
+
+.dropdown-time {
+    width: 34%;
+    float: right;
+
+    .survey-input {
+    padding: 12px;
+
+        .dd-arrowdown {
+            width: 36px;
+
+            &::after {
+                right: 11px;
+                border-width: 8px 6px 0 6px;
+            }
+        }
+    }
+
+    .list-show .dropdown-list {
+        min-height: 62px;
+        padding: 0;
+    }
+}
+
+.dropdown-list-hide {
+    display: none !important;
+}
+
+.dropdown-display-disabled {
+    background-color: $color-graylighter;
+
+    .dd-arrowdown {
+        background-color: $color-graylighter;
+    }
+}
+
+.list-show .dropdown-list {
+    overflow: hidden;
+}
+
+.dropdown-list {
+    &._drop-scroll{
+        overflow: hidden !important;
+    }
+}

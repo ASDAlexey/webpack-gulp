@@ -1,0 +1,100 @@
+{
+  "app": {
+    "files": {
+      "indexFilename": "app.html",
+      "entryFilename": "app.js",
+      "jsOutputFilename": "app.js",
+      "cssOutputFilename": "app.css",
+      "jsVendorsFilename": "vendors.js",
+      "cssVendorsFilename": "vendors.css"
+    },
+    "paths": {
+      "root": "app",
+      "components": "app/components",
+      "dest": "dist/"
+    },
+    "vendors": {
+      "angularSanitize": "bower_components/angular-sanitize/angular-sanitize.js",
+      "countUp": "bower_components/countUp.js/countUp.js",
+      "masonry": "bower_components/masonry/dist/masonry.pkgd.js",
+      "angularMasonry": "bower_components/angular-masonry/angular-masonry.js",
+      "moment": "bower_components/moment/moment.js",
+      "ellipsis": "bower_components/jQuery.dotdotdot/src/js/jquery.dotdotdot.js",
+      "ngFacebook": "bower_components/ng-facebook/ngFacebook.js",
+      "ngLinkedIn": "bower_components/ngLinkedIn/ngLinkedIn.js",
+      "bootstrap": "bower_components/bootstrap/dist/js/bootstrap.js",
+      "bootstrapTour": "bower_components/bootstrap-tour/build/js/bootstrap-tour.js",
+      "angularBsTour": "bower_components/angular-bootstrap-tour/dist/angular-bootstrap-tour.js",
+      "angularDragdrop": "bower_components/angular-dragdrop/src/angular-dragdrop.js",
+      "ngRelativeDate": "bower_components/angular-relative-date/angular-relative-date.js",
+      "angularStripe": "bower_components/angular-stripe/release/angular-stripe.js",
+      "angularFilter": "bower_components/angular-filter/dist/angular-filter.js",
+      "jqueryTextfill": "bower_components/jquery-textfill/source/jquery.textfill.js",
+      "hammerJs": "bower_components/hammerjs/hammer.js",
+      "unorm": "bower_components/unorm/lib/unorm.js",
+      "ngFastclick": "bower_components/ng-fastclick/dist/index.js",
+      "hello": "bower_components/hello/dist/hello.all.js"
+    },
+    "project": {
+      "title": "JellyChip"
+    }
+  },
+  "admin": {
+    "files": {
+      "indexFilename": "index.html",
+      "entryFilename": "admin.js",
+      "jsOutputFilename": "admin.js",
+      "cssOutputFilename": "admin.css",
+      "jsVendorsFilename": "vendors.js",
+      "cssVendorsFilename": "vendors.css"
+    },
+    "paths": {
+      "root": "admin",
+      "components": "admin/components",
+      "dest": "dist/admin"
+    },
+    "project": {
+      "title": "JellyChip"
+    },
+    "vendors": {
+      "bootstrap": "bower_components/bootstrap/dist/css/bootstrap.css",
+      "bootstrap-datepicker": "bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+      "bootstrap-datepicker-css": "bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css",
+      "ngPaginations": "bower_components/angular-utils-pagination/dirPagination.js"
+    }
+  },
+  "shared": {
+    "ignoreFiles": [
+      "*.scss"
+    ],
+    "paths": {
+      "public": "/",
+      "static": "static",
+      "shared": "shared",
+      "sharedComponents": "shared/components",
+      "bowerComponents": "bower_components",
+      "nodeModules": "node_modules",
+      "assets": "assets"
+    },
+    "supportedBrowsers": "[\"> 1%\", \"last 5 version\", \"IE >= 9\"]",
+    "localServer": {
+      "https": true,
+      "host": "0.0.0.0",
+      "port": "8080",
+      "httpsPort": "443"
+    },
+    "vendors": {
+      "underscore": "bower_components/underscore/underscore.js",
+      "jquery": "bower_components/jquery/dist/jquery.js",
+      "jquery-ui": "bower_components/jquery-ui/jquery-ui.js",
+      "angular": "bower_components/angular/angular.js",
+      "angular-animate": "bower_components/angular-animate/angular-animate.js",
+      "angular-ui-router": "bower_components/angular-ui-router/release/angular-ui-router.js",
+      "angular-resource": "bower_components/angular-resource/angular-resource.js",
+      "ui-bootstrap": "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+      "ui-router-tabs": "bower_components/angular-ui-router-tabs/src/ui-router-tabs.js",
+      "angular-toaster": "bower_components/angularjs-toaster/toaster.js",
+      "angular-toasterCss": "bower_components/angularjs-toaster/toaster.css"
+    }
+  }
+}

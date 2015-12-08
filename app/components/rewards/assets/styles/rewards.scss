@@ -1,0 +1,125 @@
+@import '../../../../assets/styles/helpers/helpers';
+//bem block rewards
+.rewards-modal-bg{
+    opacity: 0;
+    visibility: hidden;
+    @include tn(.7s);
+    position: absolute;
+    z-index: 99;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,.85);
+    &.active{
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.rewards {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0) rotateX(180deg);
+    transform-origin: 0% 50% -50%;
+    @include tn(.7s);
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1) rotateX(0deg);
+    }
+    &, * {
+        box-sizing: border-box;
+    }
+    background: rgb(255, 255, 255);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUxJSIgc3RvcC1jb2xvcj0iIzk4Y2I2NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5OGNiNjciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 50%, rgb(152, 203, 103) 50%, rgb(152, 203, 103) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(255, 255, 255)), color-stop(50%, rgb(255, 255, 255)), color-stop(50%, rgb(152, 203, 103)), color-stop(100%, rgb(152, 203, 103)));
+    background: -webkit-linear-gradient(top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 50%, rgb(152, 203, 103) 50%, rgb(152, 203, 103) 100%);
+    background: -o-linear-gradient(top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 50%, rgb(152, 203, 103) 50%, rgb(152, 203, 103) 100%);
+    background: -ms-linear-gradient(top, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 50%, rgb(152, 203, 103) 50%, rgb(152, 203, 103) 100%);
+    background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 50%, rgb(152, 203, 103) 50%, rgb(152, 203, 103) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#98cb67', GradientType=0);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    top: 50%;
+    margin-top: -250px;
+    margin-left: -250px;
+    border: 2px solid #aaa;
+    padding: 82px 47px 66px;
+    text-align: center;
+    &__no-gradient {
+        background: none;
+        background-color: #fff;
+    }
+    &__wrapper-img {
+        margin: 0 auto;
+        background-image: url(../images/present.png);
+        background-repeat: no-repeat;
+        background-position: center top;
+        width: 161px;
+        height: 163px;
+    }
+    &__title {
+        color: #98CB67;
+        @include os(36px);
+    }
+    &__close {
+        cursor: pointer;
+        border-radius: 50%;
+        border: none;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: -27px;
+        background-color: #fff;
+        background-image: url(../images/close.png);
+        background-position: center top;
+        width: 54px;
+        height: 54px;
+        @include tn();
+        &:hover {
+            transform: rotate(-360deg);
+        }
+    }
+    &__text {
+        margin: 33px 0;
+        @include os(60px, 1, 700);
+        color: #23B0D9;
+        &__light {
+            @include os(30px, 1, 700);
+            color: #fff;
+        }
+        &__short {
+            width: 245px;
+            margin: 51px auto 0;
+        }
+    }
+    &__open {
+        background: none;
+        border: none;
+        position: fixed;
+        z-index: 101;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        background-color: #98CB67;
+    }
+    &__current-day {
+        background: none;
+        border:1px solid #ccc;
+        position: fixed;
+        z-index: 101;
+        left: 0;
+        bottom: 50px;
+        width: 50px;
+        height: 30px;
+        cursor: pointer;
+    }
+}
+

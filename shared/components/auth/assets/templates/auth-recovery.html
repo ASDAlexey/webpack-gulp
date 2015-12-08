@@ -1,0 +1,22 @@
+<a href="#" class="close" ng-click="$dismiss('cancel')">Close</a>
+<div class="popup">
+    <p class="popup-message popup-fieldset">
+        Lost your password?
+        <br>
+        Please enter your email address. You will receive a link to create a new password.
+    </p>
+
+    <form class="popup-form" name="userRecovery" method="post" autocomplete="on">
+        <div class="form-group popup-fieldset">
+            <input class="form-control" type="email" name="userEmail" placeholder="Your Email Address" ng-model="auth.email" required>
+        </div>
+
+        <div class="form-group popup-fieldset">
+            <input class="btn _red" type="submit" value="Reset password" ng-click="auth.recovery()" ng-disabled="!userRecovery.$valid || (auth.formStatus === 'sending')">
+        </div>
+
+        <div class="popup-link popup-fieldset">
+            <a href="#" ng-click="auth.Auth.showLoginPopup()">Back to log-in</a>
+        </div>
+    </form>
+</div>

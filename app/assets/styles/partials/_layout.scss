@@ -1,0 +1,13 @@
+/* LAYOUT
+----------------------------------------------------*/
+.container {
+    max-width: 1034px;
+    min-width: 320px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+@media screen and (max-width: $break-phone-landscape) {
+    .container {
+        padding: 0 10px;
+    }
+}

@@ -1,0 +1,33 @@
+<div data-ng-cloak>
+    <div class="rewards-modal-bg" data-ng-class="{'active':rewards.isOpen}" data-ng-click="rewards.close()"></div>
+    <section class="rewards"
+             data-ng-class="{'active':rewards.isOpen,'rewards__no-gradient':rewards.rewardsData.day=='31'}">
+        <button class="rewards__close" data-ng-click="rewards.close()"></button>
+        <h1 class="rewards__title" ng-bind="rewards.getTitle(rewards.rewardsData.day)"></h1>
+
+        <p class="rewards__text">+<span ng-bind="rewards.getPoints(rewards.rewardsData.day)">10</span> points</p>
+
+        <div class="timeline" ng-if="rewards.rewardsData.day!=='31'">
+            <span class="timeline__indicator"
+                  style="width:{{rewards.getPercent(rewards.rewardsData.day,rewards.props.diapazon)}}%"
+                  data-ng-class="{'timeline__indicator__red':rewards.props.diapazon==1,'timeline__indicator__blue':rewards.props.diapazon==2}"></span>
+            <ul class="timeline__list">
+                <li data-ng-if="rewards.props.diapazon==0" data-ng-repeat="item in _.range(rewards.getRange('start'),rewards.getRange('end'),1)"
+                    class="timeline__item">Day {{item}}
+                </li>
+                <li data-ng-if="rewards.props.diapazon==1" data-ng-repeat="item in _.range(rewards.getRange('start'),rewards.getRange('end'),2)"
+                    class="timeline__item">Day {{item}}
+                </li>
+                <li data-ng-if="rewards.props.diapazon==2" class="timeline__item">Day 7</li>
+                <li data-ng-if="rewards.props.diapazon==2" class="timeline__item">Day 14</li>
+                <li data-ng-if="rewards.props.diapazon==2" class="timeline__item">Day 30</li>
+            </ul>
+        </div>
+        <p class="rewards__text rewards__text__light rewards__text__short" ng-if="rewards.rewardsData.day!=='31'">Here’s
+            your daily reward</p>
+
+        <div class="rewards__wrapper-img" ng-if="rewards.rewardsData.day=='31'">
+            <span></span>
+        </div>
+    </section>
+</div>

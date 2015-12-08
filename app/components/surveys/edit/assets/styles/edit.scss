@@ -1,0 +1,136 @@
+@import '../../../../../assets/styles/helpers/helpers';
+
+.survey-container {
+    max-width: 1024px;
+    @include center-block();
+}
+
+.surveys._edit {
+    padding-bottom: 100px;
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    label {
+        width: 100%;
+    }
+
+    .placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: text;
+        width: 100%;
+        height: 100%;
+    }
+
+    .must-have-star::after {
+        content: "*";
+        display: inline-block;
+        color: $color-red;
+        margin-right: 4px;
+    }
+
+    .pro-label::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 42px;
+        height: 32px;
+        background: url('/assets/img/label.png') 0 0 no-repeat;
+    }
+
+    .soon-label::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 57px;
+        height: 44px;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAAAsCAYAAADfAxCtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABEFJREFUeNrcmT1PFFEUhu8uiwgCLoJAUBQSCYWJYmGkhNYKoqUm0NhYyJZW6i8QCxsbSGwlUtlCibEQ7YgmECFEEGRBsoiA8T6XOZObYfnavbM7cpLJDLOzZJ553/NxZ2OqAPHww1SH3j1XxYmZRAEA+/RuqEiAo3pLxUKES3rq9RUJMPXyZvsgB7EQ7Yl67FVtWak5v7y5VRB76q1XA07KiXgIgD16NyaAnXXV6nZTbaHUG9fbDRuQSDgGxJ4D8nd5SVy1VVWo19PflQB/WllXGzt/wwB8puGeZvsg4TD/3uqtS+yJNS9WnPYt2t1QY/Z3L9X70I4i7dlzfL8L4o7yb1oAiQvlZepO83k1l/mtQcvMubGFFbPZOerInq0HAeZdeDTggN3/sOaXXxlzTB7OZTZVRSKuriUr1cTSmrpeU2k+59hBDGq41FEujOVhT6pnjyiT2d5Rj69e1hAb5vj98pqxKOqRg+dOlaqff7ZcVFjs2a8BR4/6hViO9vTbg6i2C7CtVTujxhfTqqs+aeCBezE166rYTHr5N3OcL8WOCdjn2RMljQ2xIIXkwZUm9W5+2Vh2Y2fHt6Rt4ULZM+fC47WHIQEkUIc2QWsAFEUnllYNmBQcG5Dr8rBnKtenEzti/vnNHQD75u+3Nvp/U2gAHZn9YfIyaFGUBx7Fj2HP/mBzd6qkBuzy2kOHfZ72ABwqEqhI2yAAoLgIIFAUIK79nF73B4QjxDDtNV/AA4cBDcj08EQml866s2ZP1UQ1qiigAKEQcDT/YP4BKwqK4t0NyYMqbdobroddNdPYYe1BLAkEaqHKyOyiseWrr/O+SrYFAbpVW22gZQDgHMcUKqDLS0pM1T1suHYO6bUHxrMWu8GL1aQnYtexhbT+rHxPfnGtjG5yTKXlWnJW/s8+az/yL+16qI0H2gMFpoWbQz2xGDcoIfkmlg0G6jGEi1XffFs09uRhUF0lj7Os/XrDAPQhNeCQ3R4A5OZ48sCgngBzk1TOYHuQtkGPxJJ2TkoRQt1AxZ3xlkaDYa6/EhrwY7B6ys1JcHPYjumFodu2qFgS4Laq3T7IQ5CRDngpMAHA0OyZrbruAaQo2FGRKDHKZhvNqLrSNsg9ezB/1N6sq/Fqtr6479ovNLsGAwWwLDZFieDKnvNyDiXtPJMKCjDVM7DiSHu9r2CA+0JSAbk5hmzyLKjivZZGvzVwrf0QUB0lc137hWXXrLFbPfcO1qhIcbGLEaAM6MBxnodSTHvm/fpDco+GDhSgTC8UJwADKh577RcJSFHObuoUGewcAMxp7RcZSIlsI12+a7/IQUrxiZo9nb+tC9izO2qALiGdrf0iZ9cw1n5Rg3TyaiLKdh2Nsj1dKJkKe2lUTMhQXk1Eya6jKsvvfidJyaIO12FDHvq73/9u16Kt/Qql5H9vz4MgIzlcu4SMzNovlPB+kjvR8U+AAQCFA08F8lN6FAAAAABJRU5ErkJggg==);
+    }
+
+    .custom-file-input input[type="file"] {
+        position: fixed;
+        top: -1000px;
+    }
+
+    .custom-file-input {
+        width: 70px;
+        display: inline-block;
+        padding: 0 6px 0 4px;
+        outline: none;
+        white-space: nowrap;
+        -webkit-user-select: none;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: $survey-base-font-size;
+        color: $color-graylight;
+    }
+    .custom-file-input:hover {
+        text-decoration: none;
+    }
+
+    .custom-file-input:active::before {
+        text-decoration: none;
+    }
+
+    .admin-settings {
+        padding-top: 50px;
+        position: relative;
+        float: left;
+        clear: both;
+        width: 100%;
+    }
+
+    .admin-settings-block {
+        float: left;
+        width: 50%;
+        padding: 0 10px;
+    }
+
+    .admin-settings-label {
+        margin-bottom: 5px;
+    }
+
+    @import 'header';
+    @import 'steps';
+    @import 'blocks';
+    @import 'detailsDropdown';
+    @import 'surveyTable';
+    @import 'addQuestion';
+    @import 'popups';
+    @import 'timeline';
+    @import 'filters';
+    @import 'summary';
+    @import 'surveyPayment';
+
+    //UI elements
+    @import 'ui/dropdown';
+    @import 'ui/datePicker';
+    @import 'ui/tagsInput';
+    @import 'ui/mbSlider';
+    @import 'ui/timePicker';
+    // @import 'ui/RangeSliderIon';
+    // @import 'ui/slider';
+
+    //Screens
+    @import 'screens/1024';
+    @import 'screens/960';
+    @import 'screens/768';
+    @import 'screens/640';
+    @import 'screens/480';
+}

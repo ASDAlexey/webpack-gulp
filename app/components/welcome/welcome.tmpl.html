@@ -1,0 +1,82 @@
+<div
+    class="welcome"
+    tour
+    template="welcome.tourTemplate"
+    on-end="welcome.handlerEndTour(tour)"
+    on-start="welcome.handlerStartTour(tour)"
+    on-next="welcome.handlerNextTour(tour)"
+    on-prev="welcome.handlerPrevTour(tour)"
+    on-shown="welcome.handlerShownTour(tour)"
+    backdrop="false"
+    storage="false"
+    container=".welcome"
+>
+    <div class="home _loading" ng-class="{ _loading: welcome.isDomLoading, _animated: !welcome.isDomLoading }">
+        <a ui-sref="app.profile.activity({ userId: user.model.id })" class="chip _fill chip_profile _green">
+            <h3 class="chip-title" ng-show="!welcome.isDomLoading">Profile</h3>
+            <h3 class="chip-title _loading" ng-show="welcome.isDomLoading">Welcome<br>Home</h3>
+        </a>
+        <a href="#" class="chip _fill chip_chat _red">
+            <h3 class="chip-title">Chat</h3>
+        </a>
+        <a ui-sref="app.store" class="chip _fill chip_store _green" tour-step title="{{ welcome.steps[3].title }}" content="{{ welcome.steps[3].content }}" placement="{{ welcome.steps[3].placement }}" order="4">
+            <h3 class="chip-title">Store</h3>
+        </a>
+        <a href="#" class="chip _fill chip_answers _blue">
+            <h3 class="chip-title">Answers</h3>
+        </a>
+        <a href="#" class="chip _fill chip_weather _cyan">
+            <h3 class="chip-title">Weather</h3>
+        </a>
+        <a href="#" class="chip _fill chip_friends _yellow" tour-step title="{{ welcome.steps[4].title }}" content="{{ welcome.steps[4].content }}" placement="{{ welcome.steps[4].placement }}" template="'{{ welcome.steps[4].template }}'" order="5">
+            <h3 class="chip-title">Friends</h3>
+        </a>
+
+        <a class="chip chip_survey" title="Survey" data-index="1" href="" tour-step title="{{ welcome.steps[2].title }}" content="{{ welcome.steps[2].content }}" placement="{{ welcome.steps[2].placement }}" order="3" template="'{{ welcome.steps[2].template }}'">
+            <h3 class="chip-title">Survey</h3>
+        </a>
+
+        <div
+            class="welcome-profile"
+            tour-step
+            title="{{ welcome.steps[1].title }}"
+            content="{{ welcome.steps[1].content }}"
+            placement="{{ welcome.steps[1].placement }}"
+            order="2"
+        ></div>
+
+        <div
+            class="jelly-points"
+            tour-step
+            title="{{ welcome.steps[0].title }}"
+            content="{{ welcome.steps[0].content }}"
+            placement="{{ welcome.steps[0].placement }}"
+            order="1"
+        >
+            <count-up
+                from="{{ user.points.from }}"
+                to="{{ user.points.to }}"
+                decimals="0"
+                duration="3"
+                delay="0"
+                options="user.couterOptions"
+                callback="user.animationPointsCompleted()"
+            ></count-up>
+        </div>
+    </div>
+
+    <div class="jcPopup-wrap fade" ng-class="{in: welcome.shouldShowWelcome && !welcome.isDomLoading }" ng-show="welcome.shouldShowWelcome">
+        <div class="jcPopup _large">
+            <header class="jcPopup-header">
+                <div class="jcPopup-title">Welcome to JellyChip</div>
+            </header>
+
+            <div class="jcPopup-body">
+                <p>Make a real difference to people all around the world.  Earn points and buy gifts that change lives.</p>
+                <br>
+                <br>
+                <button class="btn _green _size-lg" ng-click="tour.restart(true); welcome.hideModalWindow()">Get Started</button>
+            </div>
+        </div>
+    </div>
+</div>

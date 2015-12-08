@@ -1,15 +1,23 @@
 'use strict';
-
+var _ = require('lodash');
 var ExtractTextPlugin = require("extract-text-webpack-plugin"),
     path = require("path"),
     webpack = require('webpack'),
-    HtmlPlugin = require('html-webpack-plugin');
+    HtmlPlugin = require('html-webpack-plugin'),
+    isProduction = false;
+var config = require('./config.json');
+var vendorsShared = _.values(config.shared.vendors);
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+function addRoot(n) {
+    return './' + n;
+}
 module.exports = {
-    context: path.join(__dirname, "app"),
+    //context: path.join(__dirname, "app"),
+    context: path.join(__dirname, 'app'),
     entry: {
         //main: ['webpack-dev-server/client', 'webpack/hot/dev-server', './main'],
         //main: [path.join(__dirname, 'node_modules', 'webpack-dev-server', 'client'), './main'],
+        // vendors: _.map(vendorsShared, addRoot),
         app: [ // --inline --hot
             'webpack-dev-server/client?http://localhost:8080',
             'webpack/hot/dev-server',
@@ -32,7 +40,7 @@ module.exports = {
      watchOptions: {
      aggregateTimeout: 100
      },*/
-    devtool: 'cheap-inline-module-sourse-map',
+    devtool: 'source-map',
     /* resolve: {
      extensions: ['', '.js', '.styl']
      },*/
@@ -53,7 +61,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loaders: ['style', 'css?sourceMap', 'sass?resolve url?sourceMap']
+                loaders: ['style', 'css?sourceMap', 'autoprefixer-loader?browsers=last 5 version', 'sass?sourceMap']
             },
             {
                 test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
@@ -69,7 +77,11 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('[name].css', {allChunks: true, disable: true}),
-        //new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            __DEV__: JSON.stringify(JSON.parse(!isProduction)),
+            __PROD__: JSON.stringify(JSON.parse(isProduction)),
+            __CONFIG__: JSON.stringify({"title": "JellyChip"})
+        }),
         new webpack.HotModuleReplacementPlugin(),
         // Этот файл будет являться "корневым" index.html
         new HtmlPlugin({

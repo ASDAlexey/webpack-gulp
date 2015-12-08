@@ -1,0 +1,101 @@
+<div class="survey-invoice-info">
+    <div class="invoice-window">
+
+        <a href="" class="invoice-close-icon" ng-click="$dismiss('cancel')"></a>
+
+        <h2>
+            Thank you.
+        </h2>
+
+        <div class="invoice-data clearfix">
+                <span>
+                    Invoice number: {{ invoice.invoice.id | orderNum : 7 }}
+                </span>
+                <span>
+                    {{ invoice.invoice.date | date : 'dd MMM yyyy' }}
+                </span>
+        </div>
+
+        <div class="survey-data clearfix">
+                <span>
+                    {{ invoice.invoice.comment }}
+                </span>
+                <span>
+                    {{ invoice.invoice.amount / 100 | currency }}
+                </span>
+        </div>
+
+        <div class="vat-block clearfix">
+                <span>
+                    {{ invoice.invoice.tax_details }}
+                </span>
+                <span ng-if="invoice.invoice.tax">
+                    {{ invoice.invoice.tax / 100 | currency }}
+                </span>
+                <span ng-if="!invoice.invoice.tax">
+                    n/a
+                </span>
+        </div>
+
+        <div class="total-sum clearfix">
+                <span>
+                    TOTAL
+                </span>
+                <span>
+                    {{ invoice.invoice.total / 100 | currency }}
+                </span>
+        </div>
+
+        <div class="clearfix">
+            <div class="info-invoice-for">
+                <p>
+                    Invoice for:
+                </p>
+                <p class="bold">
+                    {{ invoice.user.username }}
+                </p>
+                <p ng-if="invoice.user.information.city">
+                    {{ invoice.user.information.city.name }}
+                </p>
+                <p ng-if="invoice.user.information.state">
+                    {{ invoice.user.information.state.name }}
+                </p>
+                <p ng-if="invoice.user.information.country">
+                    {{ invoice.user.information.country.name }}
+                </p>
+                <p>
+                    <a href="mailto:{{ invoice.user.email }}" class="mail-invoice-for">{{ invoice.user.email }}</a>
+                </p>
+            </div>
+            <div class="info-from">
+                <p>
+                    From
+                </p>
+                <p class="bold">
+                    JellyChip
+                </p>
+                <p class="bold">
+                    ABN 95 169 293 065
+                </p>
+                <p>
+                    Unit 2 Stutt Avenue
+                </p>
+                <p>
+                    Doncaster 3108
+                </p>
+                <p>
+                    Australia
+                </p>
+                <p>
+                    <a href="mailto:survey@jellychip.com" class="mail-from">survey@jellychip.com</a>
+                </p>
+            </div>
+        </div>
+
+        <p class="footer-invoice-info">
+            JellyChip Pte Ltd. ABN 95 169 293 065 / Unit 2 Stutt Avenue, Doncaster 3108, Australia
+        </p>
+
+    </div>
+
+</div>

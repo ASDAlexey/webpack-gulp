@@ -1,0 +1,60 @@
+$index-preloader: 9999 !default;
+$color-white: #fff !default;
+$color-green: #A0D468 !default;
+$color-blue: #5A9AEF !default;
+$color-cyan: #65D1DE !default;
+
+/* PRELOADER
+----------------------------------------------------*/
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    padding: 0;
+    border-radius: 30px;
+    border: 3px solid $color-green;
+    animation: pulsate 1s ease-out;
+    animation-iteration-count: infinite;
+}
+
+.preloader {
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $index-preloader;
+    background-color: $color-white;
+
+    &._blue {
+        .spinner {
+            border-color: $color-blue;
+        }
+    }
+
+    &._cyan {
+        .spinner {
+            border-color: $color-cyan;
+        }
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}

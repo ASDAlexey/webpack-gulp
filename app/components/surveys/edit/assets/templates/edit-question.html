@@ -1,0 +1,241 @@
+<form class="add-question-form _overflow" action="" name="questionForm" ng-submit="survey.saveQuestion($event)" novalidate>
+    <div class="add-item">
+        <div class="add-option-name">Question name</div>
+        <div class="add-options add-option-1">
+            <input class="add-input-data add-input-question" type="text" name="" ng-model="question.title" required="required">
+
+            <div class="add-upload-img soon-label">
+                <a class="add-upload add-free-upload" href="#" ng-click="">Upload image</a>
+            </div>
+
+            <!-- <div class="add-upload-img pro-label" ng-if="survey.model.type === 'free'">
+                <a class="add-upload add-free-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload image</a>
+                <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                <div class="table-free-popup">
+                    <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                    <p>This option is available only on PRO survey</p>
+                    <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                </div>
+            </div> -->
+
+            <!-- <div class="add-upload-img" ng-if="survey.model.type === 'pro'">
+                <a class="add-upload add-pro-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload image</a>
+                <a class="table-btn-sign have-item-sign" href="#">2</a>
+            </div>
+            <div class="add-upload-block" ng-if="survey.model.type === 'pro'">
+                <div class="upload-block-content">
+                    <p>Drag and drop your images here or
+                        <label class="custom-file-input">
+                            <input type="file" />
+                            <span>browse it</span>
+                        </label>
+                    </p>
+                </div>
+            </div> -->
+
+            <div class="add-upload-img soon-label">
+                <a class="add-upload add-free-upload" href="#" ng-click="">Upload video</a>
+            </div>
+
+            <!-- <div class="add-upload-video pro-label" ng-if="survey.model.type === 'free'">
+                <a class="add-upload add-free-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload video</a>
+                <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                <div class="table-free-popup">
+                    <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                    <p>This option is available only on PRO survey</p>
+                    <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                </div>
+            </div>
+
+            <div class="add-upload-video" ng-if="survey.model.type === 'pro'">
+                <a class="add-upload add-pro-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload video</a>
+                <a class="table-btn-sign have-item-sign" href="#">1</a>
+            </div>
+            <div class="add-upload-block add-respvideo" ng-if="survey.model.type === 'pro'">
+                <div class="upload-block-content upload-block-video-content">
+                    <input type="text" name="" id="" placeholder="Paste YouTube URL here">
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="add-item">
+        <div class="add-option-name">Answer type</div>
+        <ul class="add-options add-options-list">
+            <li ng-repeat="type in survey.TYPES_OF_QUESTIONS | filter: { access: 'free' } track by $index">
+                <input class="add-input-radio" type="radio" name="options-group1" ng-attr-id="question-{{type.value}}" ng-model="question.type" ng-value="type.value" ng-change="survey.changeTypeOfQuestion(question)">
+                <label ng-attr-for="question-{{type.value}}"><span><i>{{type.title}}</i></span></label>
+            </li>
+
+            <li ng-repeat="type in survey.TYPES_OF_QUESTIONS | filter: { access: 'pro' } track by $index" ng-if="type.value !== 'url'">
+                <input class="add-input-radio" type="radio" name="options-group1" ng-attr-id="question-{{type.value}}" ng-model="question.type" ng-value="type.value" ng-change="survey.changeTypeOfQuestion(question)" ng-disabled="survey.model.type === 'free'">
+                <label ng-class="{ 'pro-label': survey.model.type === 'free' }" ng-attr-for="question-{{type.value}}"><span><i>{{type.title}}</i></span></label>
+
+                <div ng-if="survey.model.type === 'free'">
+                    <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                    <div class="table-free-popup">
+                        <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                        <p>This option is available only on PRO survey</p>
+                        <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro'); question.type = type.value">switch to Pro</a>
+                    </div>
+                </div>
+            </li>
+
+            <li ng-repeat="type in survey.TYPES_OF_QUESTIONS | filter: { access: 'pro' } track by $index" ng-if="type.value === 'url'">
+                <input class="add-input-radio" type="radio" name="options-group1" ng-attr-id="question-{{type.value}}" ng-value="type.value" disabled='disabled'>
+                <label class="soon-label" ng-attr-for="question-{{type.value}}"><span><i>{{type.title}}</i></span></label>
+            </li>
+
+            <!-- <li ng-repeat="type in survey.TYPES_OF_QUESTIONS | filter: { access: 'pro' } track by $index" ng-if="survey.model.type === 'free'">
+                <input class="add-input-radio" type="radio" name="options-group1" ng-attr-id="question-{{type.value}}" disabled="disabled">
+                <label class="pro-label" ng-attr-for="question-{{type.value}}"><span><i>{{type.title}}</i></span></label>
+
+
+            </li> -->
+        </ul>
+        <!-- <ul class="add-options add-options-list add-options-list2">
+            <li ng-if="survey.model.type === 'free'">
+                <input class="add-input-radio" type="radio" name="options-group1" id="email" disabled="disabled">
+                <label class="pro-label" for="email"><span><i>Email input</i></span></label>
+                <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                <div class="table-free-popup">
+                    <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                    <p>This option is available only on PRO survey</p>
+                    <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                </div>
+            </li>
+
+            <li ng-if="survey.model.type === 'pro'">
+                <input class="add-input-radio" type="radio" name="options-group1" id="email" ng-model="question.type" value="email" ng-change="survey.changeTypeOfQuestion(question)">
+                <label for="email"><span><i>Email input</i></span></label>
+            </li>
+
+            <li ng-if="survey.model.type === 'free'">
+                <input class="add-input-radio" type="radio" name="options-group1" id="website" disabled="disabled">
+                <label class="pro-label" for="website"><span><i>Website input</i></span></label>
+                <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                <div class="table-free-popup">
+                    <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                    <p>This option is available only on PRO survey</p>
+                    <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                </div>
+            </li>
+
+            <li ng-if="survey.model.type === 'pro'">
+                <input class="add-input-radio" type="radio" name="options-group1" id="website" ng-model="question.type" value="url" ng-change="survey.changeTypeOfQuestion(question)">
+                <label for="website"><span><i>Website input</i></span></label>
+            </li>
+        </ul> -->
+    </div>
+
+    <div class="add-item" ng-class="{ '_last': question.type !== 'choice' && question.type !== 'rating'}">
+        <div class="add-option-name">Options</div>
+        <ul class="add-options add-options-list">
+            <li>
+                <input class="add-input-radio" type="checkbox" name="options-group2" id="reqanswer" ng-model="question.required">
+                <label for="reqanswer"><span><i>User is required to answer</i></span></label>
+            </li>
+            <li ng-show="question.type === 'choice'">
+                <input class="add-input-radio" type="checkbox" name="options-group2" id="randomize" ng-model="question.randomize">
+                <label for="randomize"><span><i>Randomize answers</i></span></label>
+            </li>
+            <li ng-show="question.type === 'choice'">
+                <input class="add-input-radio" type="checkbox" name="options-group2" id="otheroption" ng-model="question.accept_own">
+                <label for="otheroption"><span><i>Add OTHER option</i></span></label>
+            </li>
+            <li ng-show="question.type === 'choice'">
+                <input class="add-input-radio" type="checkbox" name="options-group2" id="mselection" ng-model="question.multiple">
+                <label for="mselection"><span><i>Multiple answer selection</i></span></label>
+            </li>
+        </ul>
+    </div>
+
+    <div class="add-item" ng-class="{ '_last': question.type === 'choice' || question.type === 'rating'}" ng-if="question.type === 'choice' || question.type === 'rating'">
+        <div class="add-option-name" ng-if="question.type === 'choice'">Answers</div>
+        <div class="add-option-name" ng-if="question.type === 'rating'">Max size</div>
+
+        <div class="add-options-answers-list" ng-if="question.type === 'rating'">
+            <div class="add-options-answers-item">
+                <div class="add-options add-option-1">
+                    <div class="add-option-answers">
+                        <input class="add-input-data add-input-answers _number" type="number" min="2" max="10" name="question_size" ng-model="question.size" ng-change="survey.Question.fixSizeOfRating(question, 2, 10)" no-validation>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="add-options-answers-list" ng-if="question.type === 'choice'">
+            <li class="add-options-answers-item" ng-repeat="answer in question.items track by $index">
+                <div class="add-options add-option-1">
+                    <div class="add-option-answers">
+                        <input class="add-input-data add-input-answers _choice" type="text" name="" ng-model="question.items[$index].title" required="required">
+                        <div class="add-opt-answ-placehol">{{ survey.alphabet[$index] }})</div>
+                    </div>
+
+                    <div class="add-upload-img soon-label">
+                        <a class="add-upload add-free-upload" href="#" ng-click="">Upload image</a>
+                    </div>
+
+                    <!-- <div class="add-upload-img pro-label" ng-if="survey.model.type === 'free'">
+                        <a class="add-upload add-free-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload image</a>
+                        <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                        <div class="table-free-popup">
+                            <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                            <p>This option is available only on PRO survey</p>
+                            <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                        </div>
+                    </div>
+
+                    <div class="add-upload-img" ng-if="survey.model.type === 'pro'">
+                        <a class="add-upload add-pro-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload image</a>
+                        <a class="table-btn-sign have-item-sign" href="#">1</a>
+                    </div>
+                    <div class="add-upload-block" ng-if="survey.model.type === 'pro'">
+                        <div class="upload-block-content">
+                            <p>Drag and drop your images here or
+                                <label class="custom-file-input">
+                                    <input type="file" />
+                                    <span>browse it</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div> -->
+
+                    <div class="add-upload-img soon-label">
+                        <a class="add-upload add-free-upload" href="#" ng-click="">Upload video</a>
+                    </div>
+
+                    <!-- <div class="add-upload-video pro-label" ng-if="survey.model.type === 'free'">
+                        <a class="add-upload add-free-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload video</a>
+                        <a class="table-btn-sign" href="" ng-click="survey.showHelpPopup($event)">?</a>
+                        <div class="table-free-popup">
+                            <i class="table-popup-exit" ng-click="survey.hideHelpPopup($event)"></i>
+                            <p>This option is available only on PRO survey</p>
+                            <a class="btn _green btn-disab" href="" ng-click="survey.switchTypeTo('pro')">switch to Pro</a>
+                        </div>
+                    </div>
+
+                    <div class="add-upload-video" ng-if="survey.model.type === 'pro'">
+                        <a class="add-upload add-pro-upload" href="#" ng-click="survey.toggleUploadBlock($event)">Upload video</a>
+                        <a class="table-btn-sign have-item-sign" href="#">1</a>
+                    </div>
+                    <div class="add-upload-block add-respvideo" ng-if="survey.model.type === 'pro'">
+                        <div class="upload-block-content upload-block-video-content">
+                            <input type="text" name="" id="" placeholder="Paste YouTube URL here">
+                        </div>
+                    </div> -->
+
+                    <a class="remove-line" href="" ng-if="question.items.length !== 1" ng-click="survey.Question.removeItemFromChoice(question, $index)"></a>
+                    <a class="add-line" href="" ng-if="$last" ng-click="survey.Question.addItemToChoice(question)"></a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="add-options-btns">
+        <button class="add-options-btns-btn _add right-space" type="submit" ng-disabled="!questionForm.$valid">Add</button>
+        <button class="add-options-btns-btn _edit right-space" type="submit" ng-disabled="!questionForm.$valid">Edit</button>
+
+        <button class="add-options-btns-btn _cancel _cancel-edit" type="button" ng-click="survey.closeEditQuestion()">Cancel</button>
+        <button class="add-options-btns-btn _cancel _cancel-add" type="button" ng-click="survey.isDisplayedAddQuestion = false">Cancel</button>
+    </div>
+</form>

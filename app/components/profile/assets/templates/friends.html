@@ -1,0 +1,213 @@
+<div class="friends">
+    <div class="friends-invite" ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+        <a href="" ng-click="profile.showInvite()">Invite a friend</a>
+    </div>
+
+    <form class="friends-search search form-inline" ng-submit="profile.search()" ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+        <div class="form-group">
+            <input type="text" id="searchFriends" class="form-control search-input" ng-model="profile.searchQuery" placeholder="Search for friends" required>
+
+            <button type="submit" class="search-submit btn"></button>
+        </div>
+    </form>
+
+    <ul class="friends-list" ng-if="!profile.isSearchState">
+        <li class="friends-item friend" ng-repeat="item in profile.in track by $index" ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+            <div class="friend _in">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{ profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn _approve" ng-click="profile.approve(item.id)"></button>
+                    <button type="button" class="friend-btn _reject" ng-click="profile.reject(item.id)"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friends-link friend-name">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+        </li>
+
+        <li class="friends-item friend" ng-repeat="item in profile.out track by $index" ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+            <div class="friend _out">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{ profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn _cancel" ng-click="profile.cancel(item.id)"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friend-name friends-link">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+        </li>
+
+        <li class="friends-item friend" ng-repeat="item in profile.friends track by $index">
+            <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friends-link friend _approved">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{ profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions _transparent" ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+                    <button type="button" class="friend-remove" ng-click="profile.remove(item, $event)">
+                        <span class="icon-remove"></span>
+                    </button>
+                </div>
+
+                <div class="friend-name">{{ profile.getNameOfUser(item) }}</div>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="friends-list" ng-if="profile.isSearchState && profile.Auth.hasPermissionToEdit(profile.userId)">
+        <li class="friends-item friend" ng-repeat="item in profile.searchIn track by $index">
+            <div class="friend _in" data-ng-if="!item.isDecided">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{  profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn _approve" ng-click="profile.approveAfterSearch(item)"></button>
+                    <button type="button" class="friend-btn _reject" ng-click="profile.rejectAfterSearch(item)"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friends-link friend-name">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+            <div class="friend _other" data-ng-class="{'active':item.isAddToTemp}" data-ng-if="item.isDecided && item.decide=='reject'">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{ profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn _add" ng-click="profile.addAfterSearch(item.id,'searchIn')"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friend-name friends-link">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+            <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friends-link friend _approved" data-ng-if="item.isDecided && item.decide=='approve'">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{  profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions _transparent" ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+                    <button type="button" class="friend-remove" ng-click="profile.removeAfterSearch(item, $event,'searchIn')">
+                        <span class="icon-remove"></span>
+                    </button>
+                </div>
+
+                <div class="friend-name">{{ profile.getNameOfUser(item) }}</div>
+            </a>
+        </li>
+
+        <li class="friends-item friend" ng-repeat="item in profile.searchOut track by $index">
+            <div class="friend _out" data-ng-if="!item.deleted" data-ng-class="{'active':item.isAddToTemp}">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{  profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn" data-ng-class="(item.isAddToTemp)?'_add':'_cancel'" ng-click="profile.cancelAfterSearch(item.id,'searchOut',item.isDelete);"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friend-name friends-link">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+            <div class="friend _other" data-ng-if="item.deleted" data-ng-class="{'active':item.isAddToTemp}">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{ profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn" data-ng-class="(!item.isAddToTemp)?'_add':'_cancel'" ng-click="profile.addAfterSearch(item.id,'searchOut')"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friend-name friends-link">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+        </li>
+
+        <li class="friends-item friend" ng-repeat="item in profile.searchFriends track by $index">
+            <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friends-link friend _approved" data-ng-if="!item.isUnfriend">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{  profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions _transparent" ng-if="profile.Auth.hasPermissionToEdit(profile.userId)">
+                    <button type="button" class="friend-remove" ng-click="profile.removeAfterSearch(item, $event,'searchFriends')">
+                        <span class="icon-remove"></span>
+                    </button>
+                </div>
+
+                <div class="friend-name">{{ profile.getNameOfUser(item) }}</div>
+            </a>
+            <div class="friend _other" data-ng-class="{'active':item.isAddToTemp}" data-ng-if="item.isUnfriend">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{ profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn _add" ng-click="profile.addAfterSearch(item.id,'searchFriends')"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friend-name friends-link">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+        </li>
+
+        <li class="friends-item friend" ng-repeat="item in profile.searchOther track by $index">
+            <div class="friend _other" data-ng-class="{'active':item.isAddToTemp}">
+                <div class="friend-img" ng-class="{ '_avatar': item.avatar }">
+                    <img src="/assets/images/placeholder-user.png" ng-if="!item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                    <img ng-src="{{ profile.Resource.getResourceURL(item.avatar.path) }}" ng-if="item.avatar" ng-attr-alt="{{ profile.getNameOfUser(item) }}">
+                </div>
+
+                <div class="friend-actions">
+                    <button type="button" class="friend-btn" data-ng-class="(!item.isAddToTemp)?'_add':'_cancel'" ng-click="profile.addAfterSearch(item.id,'searchOther')"></button>
+                </div>
+
+                <a ui-sref="app.profile.activity({ 'userId': item.id })" class="friend-name friends-link">{{ profile.getNameOfUser(item) }}</a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- BEGIN CONFIRM DIALOG -->
+<script type="text/ng-template" id="confirm-remove-friend.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Are you sure?</h3>
+    </div>
+
+    <div class="modal-body">
+        Are you sure you would like to unfriend <strong>{{ modal.userName }}</strong>?
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn _dialog" ng-click="modal.yes()">Yes</button>
+        <button class="btn _dialog " ng-click="modal.no()">No</button>
+    </div>
+</script>
+<!-- END CONFIRM DIALOG -->
+
+<!-- BEGIN INVITE MODAL -->
+<script type="text/ng-template" id="invite-modal.html">
+    <div class="invite">
+        <p class="invite-text" ng-if="modal.query">
+            <strong>{{ modal.query }}</strong> was not found. Would you like to invite this person?
+        </p>
+
+        <form class="invite-form" name="inviteForm" novalidate ng-submit="modal.send()">
+            <label for="inviteEmail">Email:</label>
+
+            <input type="email" id="inviteEmail" class="form-control invite-input" name="inviteEmail" ng-model="modal.email" placeholder="" required>
+
+            <button type="submit" class="invite-submit btn _green" ng-disabled="!inviteForm.$valid">Invite</button>
+        </form>
+    </div>
+</script>
+<!-- END INVITE MODAL -->

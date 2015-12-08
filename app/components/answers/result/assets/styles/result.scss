@@ -1,0 +1,88 @@
+@import '../../../../../assets/styles/helpers/helpers';
+
+/* ANSWERS DETAILS
+----------------------------------------------------*/
+.answers._detail {
+    position: relative;
+    padding: 30px 0;
+}
+
+.answers._detail,
+.answers-modal {
+
+    .answers-title {
+        font-size: 32px;
+        line-height: 40px;
+        margin-bottom: 20px;
+        padding-right: 40px;
+        color: $color-green;
+    }
+
+    .answers-downloads {
+        position: absolute;
+        top: 35px;
+        right: 0;
+    }
+
+    .answer {
+        margin-bottom: 5px;
+    }
+
+    .answer-link {
+        display: block;
+        margin-top: 5px;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .answer-count {
+        color: $color-green;
+    }
+
+    .answer-rating {
+        display: block;
+        width: 340px;
+    }
+
+    .answers-table {
+        width: 100%;
+        text-align: center;
+        color: #969696;
+
+        thead tr {
+            text-transform: uppercase;
+        	background: #66d0de;
+        	border: 1px solid #66d0de;
+        }
+
+        th {
+        	padding: 14px 0;
+    		color: #feffff;
+        	font-weight: 400;
+        }
+
+        td {
+        	border: 1px solid #cecccd;
+        	padding: 10px 5px;
+        	font-size: 12px;
+        }
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    .answers-close {
+        top: -20px;
+        right: -15px;
+        z-index: 1;
+        background-color: $color-red;
+
+        &:hover {
+            background-color: darken($color-red, 10%);
+        }
+    }
+}

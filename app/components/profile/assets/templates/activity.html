@@ -1,0 +1,59 @@
+<div ng-if="!profile.hasAchievements()" class="acitvity-empty placeholder">
+    <div class="placeholder-title">There are no gifts here yet!</div>
+    <div class="placeholder-help">Use your points to buy gifts for people in need</div>
+</div>
+
+<div
+    masonry
+    item-selector=".activity"
+    masonry-options="{ transitionDuration: 0 }"
+    column-width=".activity"
+    reload-on-show
+    preserve-order
+    load-images="false"
+    class="activity-list"
+    ng-if="profile.hasAchievements()"
+>
+    <div
+        masonry-brick
+        class="activity"
+        ng-class="profile.getTypeGift(achievement.gift)"
+        ng-style="{ 'background-color': '#{{ achievement.colour }}' }"
+        ng-repeat="achievement in profile.achievements track by achievement.id"
+    >
+        <div class="activity-date">{{ achievement.date | date : 'd MMM yy' }}</div>
+
+        <h4 class="activity-title">
+            <a ui-sref="app.achievement({achievementId: achievement.id})" class="activity-link" dotdotdot="achievement.gift.name">{{ achievement.gift.name }}</a>
+        </h4>
+
+        <div class="activity-icon" ng-style="{ 'background-image': 'url({{ profile.Resource.getResourceURL(achievement.gift.icon.path) }})' }"></div>
+
+        <div class="activity-info">
+            <a href="" ng-if="!profile.Auth.isLogged()" ng-click="profile.Auth.showLoginPopup()" class="activity-likes activity-link">
+                <span class="icon _likes"></span>
+                {{ achievement.likes }}
+            </a>
+            <a href="" ng-if="profile.Auth.isLogged()" ng-click="profile.likeAchievement(achievement)" class="activity-likes activity-link">
+                <span class="icon _likes" ng-class="{_liked: profile.isLiked(achievement) }"></span>
+                {{ achievement.likes }}
+            </a>
+            <a class="activity-comments activity-link" href="" ui-sref="app.achievement({achievementId: achievement.id})">
+                <span class="icon _comments" ng-class="{_commented: profile.isCommented(achievement) }"></span>
+                {{ achievement.comments }}
+            </a>
+        </div>
+
+        <ul class="activity-socials socials">
+            <li class="socials-item">
+                <a  href ng-click="profile.shareFb(achievement)" class="socials-link _facebook">facebook</a>
+            </li>
+            <li class="socials-item">
+                <a  href ng-click="profile.shareTweet(achievement)" class="socials-link _twitter">twitter</a>
+            </li>
+            <li class="socials-item">
+                <a  href="{{ profile.shareEmail(achievement) }}" class="socials-link _email">email</a>
+            </li>
+        </ul>
+    </div>
+</div>

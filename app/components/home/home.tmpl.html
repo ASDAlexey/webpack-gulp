@@ -1,0 +1,89 @@
+<div class="home wrapper-chips" scroll-to-center scroll-to=".scroll-area">
+    <div class="scroll-area _loading" ng-class="{ _loading: !home.isLoaded, _loaded: home.isLoaded }">
+
+        <a ui-sref="app.profile.activity({ userId: user.model.id })" class="chip _fill chip_profile _green">
+            <h3 class="chip-title">Profile</h3>
+        </a>
+        <a href="" class="chip _fill chip_chat _red" ng-click="home.shouldShowChat = !home.shouldShowChat">
+            <h3 class="chip-title">Chat</h3>
+            <span class="chip-notification" ng-if="home.unreadedMessages > 0">{{ home.unreadedMessages | cutNum: 99: '+' }}</span>
+        </a>
+        <a ui-sref="app.store" class="chip _fill chip_store _green">
+            <h3 class="chip-title">Store</h3>
+        </a>
+        <a ui-sref="app.answers" class="chip _fill chip_answers _blue">
+            <h3 class="chip-title">Answers</h3>
+        </a>
+        <a href="" class="chip _fill chip_weather _cyan" ng-click="home.shouldShowWeather = !home.shouldShowWeather">
+            <h3 class="chip-title">Weather</h3>
+        </a>
+        <a ui-sref="app.profile.friends({ 'userId': user.model.id })" class="chip _fill chip_friends _yellow">
+            <h3 class="chip-title">Friends</h3>
+            <span class="chip-notification" ng-if="home.inFriends > 0">{{ home.inFriends | cutNum: 99: '+' }}</span>
+        </a>
+
+        <a
+            class="chip chip_survey"
+            ng-class="{ '_completed': item.status === 'COMPLETED' }"
+            href=""
+            ng-repeat="item in home.subscriptions track by $index | limitTo: home.surveysLimit"
+            data-index="{{ $index }}"
+            ng-click="home.toggleSurvey(item)"
+            ng-attr-title="{{ item.survey.title }}"
+        >
+            <h3 class="chip-title">Survey</h3>
+        </a>
+
+        <span
+            class="chip chip_place _red"
+            ng-repeat="place in _.range(16)"
+            data-index="{{$index}}"
+            ng-class="{active: home.isShowMode || home.isNotEmptyBookmarks(home.bookmarks[$index])}"
+            ng-if="home.bookmarks"
+        >
+            <a class="bookmark" ng-class="{ _active: home.isShowMode }"
+               ng-if="home.isNotEmptyBookmarks(home.bookmarks[$index])" ng-href="{{home.bookmarks[$index].link}}"
+               target="_blank" ng-click="home.clickBookmark($event, home.bookmarks[$index])"
+               ng-attr-title="{{ home.bookmarks[$index].name }}"
+            >
+                <h4 class="chip-title no-animate" ng-if="home.bookmarks[$index].name && !home.bookmarks[$index].isLoaded">
+                    {{ home.bookmarks[$index].name | capitalize }}
+                </h4>
+
+                <h4 class="chip-title no-animate" ng-if="!home.bookmarks[$index].name && !home.bookmarks[$index].isLoaded">
+                    {{ home.bookmarks[$index].link | domain | capitalize }}
+                </h4>
+
+                <div ng-class="{'active': home.bookmarks[$index].isLoaded}" class="bookmark__preloader _cyan">
+                    <div class="spinner"></div>
+                </div>
+            </a>
+
+            <div class="chip-editbox" ng-if="home.isShowMode" editbox editbox-is-home="true" editbox-display="false"
+                 editbox-type="bookmark"
+                 editbox-is-loaded="home.bookmarks[$index].isLoaded"
+                 editbox-additional-model="home.bookmarks[$index].name" editbox-model="home.bookmarks[$index].link"
+                 editbox-action="home.bookmarks[$index].isLoaded = true; user.updateUser()"></div>
+        </span>
+
+        <div class="modal-wrap" ng-if="home.shouldShowWeather || home.shouldShowChat" ng-click="home.closeModalWindows()"></div>
+
+        <ng-include src="'/assets/templates/weather.html'" ng-if="home.shouldShowWeather"></ng-include>
+        <ng-include src="'/assets/templates/chat.html'"></ng-include>
+        <ng-include src="'/assets/templates/survey.html'" ng-if="home.shouldShowSurvey"></ng-include>
+    </div>
+
+    <count-up
+            class="jelly-points"
+            from="{{ user.points.from }}"
+            to="{{ user.points.to }}"
+            decimals="0"
+            duration="3"
+            delay="0"
+            options="user.couterOptions"
+            callback="user.animationPointsCompleted()"
+            fixed-element
+    ></count-up>
+
+    <a href="#" class="bookmarks-edit" fixed-element ng-class="{active: home.isShowMode}" ng-click="home.toggleBookmarksVisibility()"></a>
+</div>

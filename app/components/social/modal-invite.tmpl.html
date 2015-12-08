@@ -1,0 +1,266 @@
+<ng-switch on="invite.step">
+    <!-- BEGIN FORM OF INVITING BY EMAIL -->
+    <div class="invite-import _step-0" ng-switch-when="0">
+        <div class="modal-header">
+            <h3 class="modal-title">Invite Friends</h3>
+
+            <a class="close" href="" ng-click="$dismiss('cancel')"></a>
+        </div>
+
+        <div class="modal-body">
+            <div>
+                <p class="invite-text">Invite your contacts</p>
+
+                <ul class="invite-services list-unstyled">
+                    <li class="invite-service" ng-click="invite.selectService('gmail')">
+                        <img src="/assets/images/gmail-logo.png" alt="Gmail" title="Gmail">
+                        <p class="invite-serviceLabel">Gmail</p>
+                    </li>
+                    <li class="invite-service" ng-click="invite.selectService('yahoo')">
+                        <img src="/assets/images/yahoo-logo.png" alt="Yahoo" title="Yahoo">
+                        <p class="invite-serviceLabel">Yahoo</p>
+                    </li>
+                    <li class="invite-service" ng-click="invite.selectService('outlook')">
+                        <img src="/assets/images/outlook-logo.png" alt="Outlook" title="Outlook">
+                        <p class="invite-serviceLabel">Outlook</p>
+                    </li>
+                    <li class="invite-service" ng-click="invite.selectService('hotmail')">
+                        <img src="/assets/images/hotmail-logo.png" alt="Hotmail" title="Hotmail">
+                        <p class="invite-serviceLabel">Hotmail</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<form name="emailForm" ng-submit="invite.selectFriends()" novalidate>
+                <p class="invite-text">Enter your <strong>Gmail</strong>, <strong>Yahoo</strong>, <strong>Outlook</strong> or <strong>Hotmail</strong> email address to import and add multiple friends:</p>
+
+                <input type="email" id="user-email" class="form-control invite-input" ng-model="invite.userEmail" placeholder="Your email address">
+
+                <div class="clearfix">
+                    <button type="submit" class="invite-btn btn _green" ng-disabled="!invite.userEmail || invite.formSending || !emailForm.$valid">Continue</button>
+                </div>
+            </form>-->
+        </div>
+
+        <footer class="modal-footer">
+            <button type="button" ng-click="invite.closeModal()" class="btn _link">Skip this step</button>
+        </footer>
+    </div>
+    <!-- END FORM OF INVITING BY EMAIL -->
+
+    <!-- BEGIN FORM OF SELECTING METHOD -->
+    <div class="invite-import _step-1" ng-switch-when="1">
+        <div class="modal-header">
+            <h3 class="modal-title">Invite Friends</h3>
+
+            <a class="close" href="" ng-click="$dismiss('cancel')"></a>
+        </div>
+
+        <div class="modal-body">
+            <form name="inviteForm" ng-submit="invite.invite()" novalidate>
+                <p class="invite-text">Send an invite to a friend and get <strong>+50 points</strong> when they join!</p>
+
+                <input type="email" id="friend-email" class="form-control invite-input" ng-model="invite.friendEmail" placeholder="Your friend’s email address">
+
+                <div class="clearfix">
+                    <button type="submit" class="invite-btn btn _green" ng-disabled="!invite.friendEmail || invite.formSending || !inviteForm.$valid">Invite</button>
+                </div>
+            </form>
+
+            <div class="invite-or"></div>
+
+            <div>
+                <p class="invite-text">Invite your contacts</p>
+
+                <ul class="invite-services list-unstyled">
+                    <li class="invite-service" ng-click="invite.selectService('gmail')">
+                        <img src="/assets/images/gmail-logo.png" alt="Gmail" title="Gmail">
+                        <p class="invite-serviceLabel">Gmail</p>
+                    </li>
+                    <li class="invite-service" ng-click="invite.selectService('yahoo')">
+                        <img src="/assets/images/yahoo-logo.png" alt="Yahoo" title="Yahoo">
+                        <p class="invite-serviceLabel">Yahoo</p>
+                    </li>
+                    <li class="invite-service" ng-click="invite.selectService('outlook')">
+                        <img src="/assets/images/outlook-logo.png" alt="Outlook" title="Outlook">
+                        <p class="invite-serviceLabel">Outlook</p>
+                    </li>
+                    <li class="invite-service" ng-click="invite.selectService('hotmail')">
+                        <img src="/assets/images/hotmail-logo.png" alt="Hotmail" title="Hotmail">
+                        <p class="invite-serviceLabel">Hotmail</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<form name="emailForm" ng-submit="invite.selectFriends()" novalidate>
+                <p class="invite-text">Enter your <strong>Gmail</strong>, <strong>Yahoo</strong>, <strong>Outlook</strong> or <strong>Hotmail</strong> email address to import and add multiple friends:</p>
+
+                <input type="email" id="user-email" class="form-control invite-input" ng-model="invite.userEmail" placeholder="Your email address">
+
+                <div class="clearfix">
+                    <button type="submit" class="invite-btn btn _green" ng-disabled="!invite.userEmail || invite.formSending || !emailForm.$valid">Continue</button>
+                </div>
+            </form>-->
+        </div>
+    </div>
+    <!-- END FORM OF SELECTING METHOD -->
+
+    <!-- BEGIN FORM OF EXISTING USERS -->
+    <div class="invite-import _step-2"  ng-switch-when="2">
+        <div class="modal-header">
+            <h3 class="modal-title">Add your Friends on JellyChip</h3>
+        </div>
+
+        <div class="modal-body" ng-class="{ _scrollbar: listUsersScrollbar }">
+            <header class="invite-description">
+                <p class="invite-text">We found <strong>{{ _.size(invite.existingUsers) }} people</strong> that you already know on JellyChip. Select who you’d like to add:</p>
+            </header>
+
+            <form class="invite-form" novalidate>
+                <div class="invite-formHeader">
+                    <div class="checkbox">
+                        <input
+                            type="checkbox"
+                            id="selectedAllExistingUsers"
+                            ng-model="invite.selectedAllUser"
+                            ng-click="invite.changeAllUsers(invite.existingUsers)"
+                        />
+                        <label for="selectedAllExistingUsers">Select All</label>
+                    </div>
+
+                    <p class="invite-countSelected">{{ invite.getSelectedUsers().length }} selected</p>
+                </div>
+
+                <div class="invite-listUsers" ng-class="{ _scrollbar: listUsersScrollbar }" on-size-changed="invite.rebuildListUsersScrollbar()">
+                    <div class="invite-scroll" ng-scrollbar rebuild-on="scrollbar:rebuild:inviteListUsers" is-bar-shown="listUsersScrollbar" >
+                        <div
+                            class="invite-user"
+                            ng-repeat="(email, user) in invite.existingUsers track by email"
+                            ng-click="invite.selectUser(email, user); invite.changeSelectedUsers(invite.existingUsers)"
+                            on-last-repeat="invite.rebuildListUsersScrollbar();"
+                        >
+                            <div class="checkbox">
+                                <input
+                                    type="checkbox"
+                                    ng-model="invite.selectedUsers[email]"
+                                    ng-true-value="{{ user }}"
+                                    ng-false-value="null"
+                                >
+                                <label></label>
+                            </div>
+
+                            <div class="invite-UserAvatar">
+                                <img ng-if="user.avatar" ng-src="{{ invite.Resource.getResourceURL(user.avatar.path) }}" ng-attr-alt="{{ invite.User.getUsername(user) }}">
+                                <img ng-if="!user.avatar" src="/assets/images/avatar.png" ng-attr-alt="{{ invite.User.getUsername(user) }}">
+                            </div>
+
+                            <h4 class="invite-userName">
+                                <span class="invite-userFullname" dotdotdot="invite.User.getUsername(user)">{{ invite.User.getUsername(user) }}</span>
+                                <span class="invite-userNickname" dotdotdot="user.information.nickname" ng-show="user.information.nickname && invite.User.getUsername(user) !== user.information.nickname">({{ user.information.nickname }})</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <footer class="modal-footer">
+            <button type="button" ng-click="invite.skipStep(2)" class="btn _link">Skip this step</button>
+            <button type="button" ng-click="invite.addFriends()" class="invite-btn btn _green" ng-disabled="!invite.getSelectedUsers().length || invite.formSending">Add friend(s)</button>
+        </footer>
+    </div>
+    <!-- END FORM OF EXISTING USERS -->
+
+    <!-- BEGIN FORM OF MISSING USERS -->
+    <div class="invite-import _step-3"  ng-switch-when="3">
+        <div class="modal-header">
+            <h3 class="modal-title">Add your Friends on JellyChip</h3>
+        </div>
+
+        <div class="modal-body" ng-class="{ _scrollbar: listUsersScrollbar }">
+            <header class="invite-description">
+                <p class="invite-text">Now, invite your other friends to join JellyChip and <strong>change lives</strong> with you!</p>
+            </header>
+
+            <form class="invite-form" novalidate>
+                <div class="invite-my">
+                    <label for="myFirstname" class="invite-text">1. What’s your name?</label>
+
+                    <input type="text" id="myFirstname" class="form-control invite-input" ng-model="invite.myFirstname" placeholder="First Name">
+                    <input type="text" id="myLastname" class="form-control invite-input" ng-model="invite.myLastname" placeholder="Last Name">
+                </div>
+
+                <div class="invite-formHeader">
+                    <div class="checkbox">
+                        <input
+                            type="checkbox"
+                            id="selectedAllMissingUsers"
+                            ng-model="invite.selectedAllUser"
+                            ng-click="invite.changeAllUsers(invite.missingUsers)"
+                        />
+                        <label for="selectedAllMissingUsers">Select All</label>
+                    </div>
+
+                    <p class="invite-countSelected">{{ invite.getSelectedUsers().length }} selected</p>
+                </div>
+
+                <div class="invite-listUsers" ng-class="{ _scrollbar: listUsersScrollbar }" on-size-changed="invite.rebuildListUsersScrollbar()">
+                    <div class="invite-scroll" ng-scrollbar rebuild-on="scrollbar:rebuild:inviteListUsers" is-bar-shown="listUsersScrollbar" >
+                        <div
+                            class="invite-row"
+                            ng-class="{ _active: invite.selectedUsers[$index] }"
+                            ng-repeat="user in invite.missingUsers track by $index"
+                            ng-click="invite.selectUser($index, user); invite.changeSelectedUsers(invite.missingUsers)"
+                            on-last-repeat="invite.rebuildListUsersScrollbar()"
+                        >
+                            <div class="invite-cell _checkbox">
+                                <div class="checkbox">
+                                    <input
+                                        type="checkbox"
+                                        ng-model="invite.selectedUsers[$index]"
+                                        ng-true-value="{{ user }}"
+                                        ng-false-value="null"
+                                    >
+                                    <label class="invite-dotdotdot" dotdotdot="user.fullName">{{ user.fullName }}</label>
+                                </div>
+                            </div>
+
+                            <div class="invite-cell _email">
+                                <div class="invite-dotdotdot" dotdotdot="user.email">{{ user.email }}</div>
+                            </div>
+                            <div class="invite-cell _points">+50 points</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <footer class="modal-footer">
+            <button type="button" ng-click="invite.skipStep(3)" class="btn _link">Skip this step</button>
+            <button type="button" ng-click="invite.inviteFriends()" class="invite-btn btn _green" ng-disabled="!invite.getSelectedUsers().length || invite.formSending">Invite</button>
+        </footer>
+    </div>
+    <!-- END FORM OF MISSING USERS -->
+
+    <!-- BEGIN FORM OF GREETINGS -->
+    <div class="invite-import _step-4" ng-switch-when="4">
+        <div class="modal-header">
+            <h3 class="modal-title">Import Contacts</h3>
+        </div>
+
+        <div class="modal-body">
+            <p class="invite-text">Great work! We’ve just sent your friends an invite!</p>
+
+            <div class="invite-img">
+                <img src="/assets/images/jelly-dog.png" alt="Great work!">
+            </div>
+
+            <p class="invite-text">When they join and verify their account, we’ll reward you with <strong>+50 points</strong>.</p>
+        </div>
+
+        <footer class="modal-footer">
+            <button type="button" ng-click="invite.closeModal()" class="invite-btn btn _green">Yay!</button>
+        </footer>
+    </div>
+    <!-- END FORM OF GREETINGS -->
+</ng-switch>

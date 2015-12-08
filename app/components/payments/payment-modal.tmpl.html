@@ -1,0 +1,115 @@
+<a href="" class="close" ng-click="$dismiss('cancel')">Close</a>
+<div class="popup payment">
+    <header class="payment-header">
+        <h2 class="payment-title">Payment</h2>
+    </header>
+
+    <div class="payment-body">
+        <div class="payment-summary">
+            <table class="payment-table summary">
+                <caption class="summary-title">Summary</caption>
+
+                <tr class="summary-row">
+                    <td class="summary-col _responses">
+                        <div class="summary-value">
+                            <input type="number" class="form-control inline summary-responses" min="0"
+                                   name="modal-responses" ng-model="modal.responses"
+                                   ng-change="modal.fixCountResponses(modal.getResponses())" no-validation>
+                        </div>
+                        <span class="summary-desc _block">responses</span>
+                    </td>
+                    <td class="summary-col _multiplier">x</td>
+                    <td class="summary-col _price">
+                        <div class="summary-value">{{ modal.costOfResponse | currency: "$" }}</div>
+                    </td>
+                    <td class="summary-col _equal">=</td>
+                    <td class="summary-col _result">
+                        <div class="summary-value">{{ modal.responses * modal.costOfResponse | currency: "$" }}</div>
+                    </td>
+                </tr>
+
+                <tr class="summary-row _summary">
+                    <td colspan="3">
+
+                    </td>
+                    <td class="summary-col _equal">=</td>
+                    <td class="summary-col _result">
+                        <div class="summary-value _inline">{{ modal.responses * modal.costOfResponse | currency: "$"
+                            }}
+                        </div>
+                        <span class="summary-desc">(USD)</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form ng-submit="modal.pay()" novalidate>
+            <div class="payment-card card">
+                <div class="clearfix">
+                    <div class="card-title pull-left">Credit/debit Card information</div>
+
+                    <ul class="card-types list-unstyled pull-right">
+                        <li class="card-type icon-card _visa"
+                            ng-class="{ '_disabled': modal.getTypeOfCard() !== 'Visa' }"></li>
+                        <li class="card-type icon-card _master-card"
+                            ng-class="{ '_disabled': modal.getTypeOfCard() !== 'MasterCard' }"></li>
+                        <li class="card-type icon-card _american-express"
+                            ng-class="{ '_disabled': modal.getTypeOfCard() !== 'American Express' }"></li>
+                    </ul>
+                </div>
+
+                <div class="card-line clearfix">
+                    <div class="card-number">
+                        <input class="form-control" type="text" placeholder="Card Number" ng-model="modal.card.number"
+                               required>
+                    </div>
+                    <div class="card-cvc">
+                        <input class="form-control" type="text" placeholder="CVC" ng-model="modal.card.cvc" required>
+
+                        <span class="icon-card _back-card"></span>
+                    </div>
+                </div>
+
+                <div class="card-line clearfix">
+                    <div class="card-name">
+                        <input class="form-control" type="text" placeholder="Name On Card" ng-model="modal.card.name"
+                               required>
+                    </div>
+
+                    <div class="card-expires expires">
+                        <div class="card-subtitle">Card Expiry</div>
+                        <div class="expires-month">
+                            <input class="form-control ng-pristine ng-untouched ng-isolate-scope ng-invalid ng-invalid-required"
+                                   ng-class="{'valid-card':modal.isValidExpiry()}"
+                                   type="text" placeholder="MM" ng-model="modal.card.exp_month" required=""
+                                   id="month"
+                                   data-only-numbers
+                                   data-highlight-error="modal.isValidMonth"
+                                   data-input-name="month"
+                                   data-value="modal.card.exp_month"
+                                   data-year="modal.card.exp_year"
+                                   data-add-zero
+                                   only-count-numbers="2">
+                        </div>
+                        <div class="expires-year">
+                            <input class="form-control ng-pristine ng-untouched ng-isolate-scope ng-invalid ng-invalid-required"
+                                   type="text"
+                                   ng-class="{'valid-card':modal.isValidExpiry()}"
+                                   placeholder="YY" ng-model="modal.card.exp_year" required=""
+                                   data-only-numbers
+                                   data-highlight-error="modal.isValidYear"
+                                   data-input-name="year"
+                                   data-value="modal.card.exp_year"
+                                   data-month="modal.card.exp_month"
+                                   data-add-zero
+                                   only-count-numbers="2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" name="button" class="payment-btn btn _green"
+                    ng-disabled="modal.responses <= 0 || !modal.isValidCard() || modal.isLoading || !(modal.isValidYear && modal.isValidMonth)">
+                Pay now
+            </button>
+        </form>
+    </div>
+</div>

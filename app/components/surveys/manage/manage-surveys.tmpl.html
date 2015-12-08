@@ -1,0 +1,115 @@
+<div class="surveys _manage">
+
+	<ng-include src="'/assets/templates/balance.block.html'"></ng-include>
+
+	<div class="container">
+
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a ui-sref="app.survey.manage">Manage Surveys</a>
+			</li>
+			<li>
+				<a ui-sref="app.invoice.list">Invoices</a>
+			</li>
+		</ul>
+
+		<div class="table-responsive">
+			<table class="table table-hover table-bordered">
+				<thead>
+				<tr class="thead-surveys">
+					<th>Status</th>
+					<th class="col-id"># ID</th>
+					<th class="col-name">Name</th>
+					<th class="col-type">Type</th>
+					<th>Start Date</th>
+					<th>Responses</th>
+					<th class="col-results">Results</th>
+					<th>Privacy</th>
+					<th class="col-notes">Notes</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+				<tbody>
+
+				<tr ng-if="!survey.list.length">
+					<td colspan="10">
+						<div class="surveys-message" ng-if="!survey.list.length">
+							You don't have any surveys.
+							<div>
+								<a class="btn" ui-sref="app.survey.create">Create a survey</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr ng-repeat="item in survey.list track by $index">
+					<td class="">
+						<span class="survey-status" ng-class="survey.getColorOfStatus(item.status.code)" ng-hide="item.status.code === 'APPROVED' && item.date_start">{{ survey.getTitleOfStatus(item.status.code) }}</span>
+						<span class="survey-status" ng-class="survey.getColorOfStatus(item.status.code)" ng-show="item.status.code === 'APPROVED' && item.date_start">Approved, scheduled to start</span>
+					</td>
+					<td class="">
+						<span>#{{ item.id }}</span>
+					</td>
+					<td class="">
+						<div class="survey-name">{{ item.title }}</div>
+					</td>
+					<td class="">
+						<span>{{ item.type | uppercase }}</span>
+					</td>
+					<td class="">
+						<span>{{ survey.getFormattedDate(item.date_start) }}</span>
+					</td>
+					<td class="">
+						<span>{{ item.polled_count }}/{{ item.respondents }}</span>
+					</td>
+					<td class="">
+						<span class="icon-file _xlsx" ng-if="!((item.type === 'free' || item.owner.id === user.model.id ) && item.status.code === 'COMPLETED')"></span>
+						<a href="" ng-click="survey.downloadResults(item, 'csv')" class="icon-file _xlsx _available" ng-if="(item.type === 'free' || item.owner.id === user.model.id) && item.status.code === 'COMPLETED'"></a>
+					</td>
+					<td class="survey-privacy">
+						<div ng-if="item.type === 'free' && item.status.code !== 'COMPLETED'">public</div>
+						<a ui-sref="app.answers.result({ 'surveyId': item.id })" ng-if="item.type === 'free' && item.status.code === 'COMPLETED'">public</a>
+						<div class="" ng-if="item.type === 'pro' && item.owner.id != user.id">private</div>
+					</td>
+					<td class="survey-notes">
+						<button type="button" class="btn btn-default _red no-animate" ng-if="item.status.reason" ng-click="survey.showReason(item)">
+							Feedback
+						</button>
+					</td>
+					<td class="action-cell">
+						<a href="" class="survey-pause" ng-click="survey.suspend(item)" ng-if="item.status.code === 'ACTIVE'">pause</a>
+						<a href="" ng-click="survey.withdraw(item)" ng-if="item.status.code === 'APPROVED'">withdraw</a>
+						<a href="" ng-click="survey.resume(item)" ng-if="item.status.code === 'SUSPENDED'">resume</a>
+						<a href="" ng-click="survey.submit(item)" ng-if="item.status.code === 'NEW'">submit</a>
+						<a href="" ui-sref="app.survey.edit({ surveyId: item.id })" ng-if="item.status.code === 'NEW' || item.status.code === 'APPROVED' || item.status.code === 'REJECTED'">edit</a>
+						<a href="" class="survey-delete" ng-click="survey.delete(item)">delete</a>
+					</td>
+				</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+		<!-- FEEDBACK modal window -->
+
+		<div class="survey-overlay" ng-show="survey.isDisplaedReason">
+			<div class="survey-center-block">
+				<div class="survey-feedback-modal">
+					<div class="survey-feedback-header">
+						<h3>{{ survey.modal.title }}</h3>
+						<a href="" class="survey-close-icon" ng-click="survey.hideReason()"></a>
+					</div>
+
+					<div class="survey-feedback-body">
+						<p>{{ survey.modal.content }}</p>
+
+						<div class="box-btn">
+							<button type="button" class="btn btn-default _red" ng-click="survey.hideReason()">ok</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

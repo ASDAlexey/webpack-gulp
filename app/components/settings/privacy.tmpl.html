@@ -1,0 +1,58 @@
+<div class="privacy">
+    <div class="settings-heading _line">
+        <h2 class="settings-title">Privacy</h2>
+    </div>
+
+    <div class="privacy-form form">
+        <div class="form-row">
+            <label class="form-label">Show City</label>
+            <div class="form-fields">
+                <select class="form-control inline" ng-model="user.model.privacy.city" ng-change="user.updateUser()">
+                    <option value="public">Public</option>
+                    <option value="friend">Friends</option>
+                    <option value="only_me">Only me</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Show State</label>
+            <div class="form-fields">
+                <select class="form-control inline" ng-model="user.model.privacy.state" ng-change="user.updateUser()">
+                    <option value="public">Public</option>
+                    <option value="friend">Friends</option>
+                    <option value="only_me">Only me</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Show Country</label>
+            <div class="form-fields">
+                <select class="form-control inline" ng-model="user.model.privacy.country" ng-change="user.updateUser()">
+                    <option value="public">Public</option>
+                    <option value="friend">Friends</option>
+                    <option value="only_me">Only me</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Show Name</label>
+            <div class="form-fields">
+                <select class="form-control inline" ng-model="user.model.privacy.name" ng-change="user.updateUser()">
+                    <option value="public">Public</option>
+                    <option value="friend">Friends</option>
+                    <option value="only_me">Only me</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="form-label">Show Date of Birth</label>
+            <div class="form-fields">
+                <select class="form-control inline" ng-model="user.model.privacy.birth" ng-change="user.updateUser()">
+                    <option value="public">Public</option>
+                    <option value="friend">Friends</option>
+                    <option value="only_me">Only me</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,180 @@
+<div class="notification" ng-init="showAllSettings = false">
+    <div class="settings-heading _line">
+        <h2 class="settings-title">Notifications</h2>
+        <p class="settings-subtitle">You’ll receive:</p>
+    </div>
+
+    <div class="notification-form form">
+        <div class="form-row">
+            <div class="radio">
+                <input type="radio" id="receive1" name="receive" value="Set Jelly Experience" ng-model="settings.currentMapOfNotification" ng-change="settings.changeNotifications()">
+                <label for="receive1">Set Jelly Experience - All notifications, except the ones you unsubscribe from</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="radio">
+                <input type="radio" id="receive2" name="receive" value="Semi-Set Jelly Experience" ng-model="settings.currentMapOfNotification" ng-change="settings.changeNotifications()">
+                <label for="receive2">Semi-Set Jelly Experience - Important notifications about you or activity you’ve missed</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="radio">
+                <input type="radio" id="receive3" name="receive" value="No Jelly Experience" ng-model="settings.currentMapOfNotification" ng-change="settings.changeNotifications()">
+                <label for="receive3">No Jelly Experience - Only notifications about your account, security and privacy</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="radio">
+                <input type="radio" id="receive4" name="receive" value="Custom" ng-model="settings.currentMapOfNotification">
+                <label for="receive4">Custom</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-form form">
+        <fieldset class="form-fieldset">
+            <legend>You’ve subscribed to emails about:</legend>
+            <div class="form-row">
+                <label class="form-label _size-lg">JellyChip product updates</label>
+                <div class="form-fields">
+                    <div class="checkbox _yes">
+                        <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email1" ng-model="user.model.notification.jellychip_product_updates">
+                        <label for="email1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label _size-lg">Company achievements</label>
+                <div class="form-fields">
+                    <div class="checkbox _yes">
+                        <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email2" ng-model="user.model.notification.company_achievements">
+                        <label for="email2"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label _size-lg">Your birthday</label>
+                <div class="form-fields">
+                    <div class="checkbox _yes">
+                        <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email3" ng-model="user.model.notification.users_happy_birthday">
+                        <label for="email3"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="form-label _size-lg">One year anniversary on JellyChip</label>
+                <div class="form-fields">
+                    <div class="checkbox _yes">
+                        <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email4" ng-model="user.model.notification.one_year_anniversary_for_users">
+                        <label for="email4"></label>
+                    </div>
+                </div>
+            </div>
+
+            <span class="btn _primary _square _border-gray _size-sm" ng-class="{hide: showAllSettings}" ng-click="showAllSettings = true">See all 15</span>
+
+            <div ng-show="showAllSettings">
+                <div class="form-row">
+                    <label class="form-label _size-lg">JellyChip’s birthday</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email5" ng-model="user.model.notification.jellychip_birthday">
+                            <label for="email5"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">Survey complete</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email6" ng-model="user.model.notification.survey_complete">
+                            <label for="email6"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">7 days inactive</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email7" ng-model="user.model.notification.at_7_days_inactive">
+                            <label for="email7"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">Survey threshold email</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email8" ng-model="user.model.notification.survey_threshold_email">
+                            <label for="email8"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">Points notifications</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email9" ng-model="user.model.notification.points_notification">
+                            <label for="email9"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">FREE to PRO offer</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email10" ng-model="user.model.notification.free_to_pro_offer">
+                            <label for="email10"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">Monthly update</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email11" ng-model="user.model.notification.periodic_update">
+                            <label for="email11"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">Public holiday</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email12" ng-model="user.model.notification.public_holiday">
+                            <label for="email12"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">Survey Approved</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email13" ng-model="user.model.notification.survey_approved">
+                            <label for="email13"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">Your achievements</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email14" ng-model="user.model.notification.your_achievements">
+                            <label for="email14"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label _size-lg">World crisis notifications</label>
+                    <div class="form-fields">
+                        <div class="checkbox _yes">
+                            <input type="checkbox" ng-change="user.updateUserViaQueue()" id="email15" ng-model="user.model.notification.world_crisis">
+                            <label for="email15"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+</div>

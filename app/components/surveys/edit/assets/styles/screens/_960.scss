@@ -1,0 +1,19 @@
+@media screen and (max-width: $break-tablet-landscape) {
+    .s-step-circle {
+        &::before {
+            width: 200px / 55px * 100%;
+        }
+    }
+
+    .st-row-question {
+        width: 250px / 1024px * 100%;
+    }
+}
+
+@media screen and (max-width: 890px) {
+    .s-step-circle {
+        &::before {
+            width: 180px / 55px * 100%;
+        }
+    }
+}

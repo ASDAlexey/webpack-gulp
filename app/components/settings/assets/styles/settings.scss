@@ -1,0 +1,374 @@
+@import '../../../../assets/styles/helpers/helpers';
+
+/* SETTINGS
+----------------------------------------------------*/
+.settings {
+    padding-top: 30px;
+    height: 101%; // add a necessary scrollbar to tabs https://umbrella-web.codebasehq.com/projects/jellychip/tickets/211
+
+    .settings-sidebar {
+        position: relative;
+        float: left;
+        width: 165px;
+    }
+
+    .settings-content {
+        position: relative;
+        margin-left: 180px;
+        padding: 0 15px 15px;
+        color: $color-blacklight;
+    }
+
+    .nav-tabs {
+        &.nav-stacked {
+            @include list-unstyled();
+        }
+
+        .tab {
+            margin-bottom: 5px;
+            width: 100%;
+            @include ellipsis();
+
+            a {
+                font-size: 17px;
+                line-height: 20px;
+            }
+
+            &.active a {
+                color: darken($color-green, 15%);
+            }
+        }
+    }
+
+    .settings-heading {
+        position: relative;
+        margin-top: 30px;
+
+        &._line {
+            margin: 0 -15px;
+            padding: 0 15px;
+            border-left: 1px solid $color-blacklight;
+        }
+    }
+
+    .settings-title {
+        font-size: 30px;
+        line-height: 33px;
+        margin-bottom: 5px;
+    }
+
+    .settings-subtitle {
+        margin: 0;
+    }
+
+    .form {
+        overflow: hidden;
+        margin-top: 20px;
+
+        .form-row {
+//            float: left;
+            width: 100%;
+            clear: both;
+            margin-bottom: 15px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .form-row.password-row{
+            width: 99%;
+            margin-left: 2px;
+        }
+
+        .form-row.password-row:first-child{
+            margin-top: 2px;
+        }
+
+        .form-label {
+            display: block;
+            width: 30%;
+            float: left;
+            color: $color-green;
+            font-size: 17px;
+            margin-top: 5px;
+            padding-right: 5px;
+            @include ellipsis();
+
+            &._size-lg {
+                width: 55%;
+            }
+        }
+
+        .form-fields {
+            position: relative;
+            min-height: 30px;
+            white-space: nowrap;
+
+            .btn._size-sm {
+                vertical-align: top;
+            }
+        }
+
+        .form-label + .form-fields {
+            margin-left: 30%;
+        }
+
+        .form-label._size-lg + .form-fields {
+            margin-left: 55%;
+        }
+
+        .form-fieldset {
+            overflow: hidden;
+            border: 0;
+            margin: 0 0 20px;
+            padding: 0;
+
+            legend {
+                float: left;
+                width: 100%;
+                clear: both;
+                font-size: 17px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .form-control {
+            color: $color-blacklight;
+            border-radius: 0;
+        }
+    }
+
+    .settings-password {
+        overflow: hidden;
+        max-height: 0;
+        transition: all 0.2s linear;
+
+        &._opened {
+            max-height: 500px;
+        }
+
+        .form-label + .form-fields {
+            margin-left: 40%;
+        }
+
+        .form-label {
+            width: 40%;
+            color: $color-blacklight;
+            font-size: 15px;
+        }
+
+        .form-control._text {
+            border-radius: 4px;
+            height: 30px;
+        }
+    }
+
+    .verify-resend-btn {
+        color: #A0D468;
+        text-decoration: none;
+        border: 0;
+        background-color: transparent;
+    }
+
+    .verify-resend-btn:hover {
+        color: #7aba35;
+        text-decoration: underline;
+    }
+
+    .editable {
+        cursor: pointer;
+        min-height: 27px;
+        margin-right: 10px;
+        max-width: 100%;
+        vertical-align: middle;
+        @include ellipsis();
+
+        &._readonly{
+            background: #eee !important;
+            color: #999;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &._one-half {
+            max-width: 45%;
+        }
+
+        &._one-third {
+            max-width: 30%;
+        }
+
+        &._text {
+            display: inline-block;
+            border: 1px solid $color-graylight;
+            padding: 5px 9px;
+            background: $color-white;
+            text-align: center;
+        }
+
+        &._year {
+            width: 90px;
+            margin-right: 0;
+        }
+
+        &._fixed {
+            width: 240px;
+        }
+
+        &._status {
+            padding: 5px 5px;
+            display: inline-block;
+            border: 1px solid $color-graylight;
+            cursor: default;
+
+            &._success {
+                background: $color-green;
+                color: $color-white;
+            }
+        }
+
+        &._radios {
+            position: relative;
+            cursor: default;
+        }
+
+        &._label {
+            display: inline-block;
+            margin-top: 5px;
+        }
+    }
+}
+
+@media screen and (max-width: $break-tablet-portrait) {
+    //.header {
+    //    color: $color-green;
+    //    background-color: $color-beige;
+    //    border-bottom: 1px solid $color-green;
+    //    h1{
+    //        /*font-weight: bold;*/
+    //    }
+    //    a {
+    //        &:link,
+    //        &:visited,
+    //        &:hover,
+    //        &:active {
+    //            color: $color-green;
+    //        }
+    //    }
+    //
+    //    .nav {
+    //        .nav-link {
+    //            color: $color-green;
+    //        }
+    //
+    //        .nav-button {
+    //            background-image: url('/assets/images/icon-settings.png');
+    //        }
+    //    }
+    //    .user{
+    //        .user-photo{
+    //            background: none;
+    //        }
+    //    }
+    //}
+    .settings {
+        padding-top: 0;
+        .settings-sidebar {
+            float: none;
+            width: 100%;
+        }
+
+        .settings-content {
+            margin-left: 0;
+            width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        ul.nav {
+            &.nav-tabs {
+                &.nav-stacked {
+                    margin: 0 -20px 20px -20px;
+                    @include clearing();
+                }
+                border-top: 1px solid $color-green;
+                border-bottom: 2px solid $color-green;
+                .tab {
+                    display: table-cell;
+                    float: none;
+                    width: 1%;
+                    margin-bottom: 0;
+                    text-align: center;
+                    padding: 8px 0;
+                    border-right: 2px solid $color-green;
+                    &:last-child{
+                        border-right: 0 none;
+                    }
+                    &.active{
+                        background-color: $color-green;
+                        a {
+                            color: $color-white;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        .settings-heading {
+            &._line {
+                margin: 0;
+                padding: 0;
+                border-left: 0;
+            }
+        }
+
+        .form {
+
+            .form-label {
+                width: 100%;
+                float: left;
+                margin-bottom: 5px;
+                padding-right: 0;
+
+                &._size-lg {
+                    width: 100%;
+                }
+            }
+
+            .form-fields {
+                float: left;
+                width: 100%;
+            }
+
+            .form-label + .form-fields {
+                margin-left: 0;
+            }
+
+            .form-label._size-lg + .form-fields {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $break-phone-landscape) {
+    .settings {
+
+        ul.nav {
+            &.nav-tabs {
+                &.nav-stacked {
+                    margin: 0 -10px 20px -10px;
+                }
+            }
+        }
+
+        .editable {
+            &._fixed {
+                width: auto;
+            }
+        }
+    }
+}

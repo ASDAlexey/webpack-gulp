@@ -1,0 +1,242 @@
+.add-question-form-container {
+    position: relative;
+
+    &._edit {
+        .add-options-btns-btn._cancel._cancel-add,
+        .add-options-btns-btn._add {
+            display: none;
+        }
+    }
+
+    &._add {
+        .add-options-btns-btn._cancel._cancel-edit,
+        .add-options-btns-btn._edit {
+            display: none;
+        }
+    }
+}
+
+.ch-wrap {
+    background: #F7F7F7;
+    margin-left: 1px;
+    margin-right: 1px;
+    overflow: hidden;
+}
+
+.ch-use {
+    float: left;
+    width: 50%;
+    text-align: center;
+    border-right: 1px solid $color-green;
+}
+
+.ch-notuse {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.ch-input-radio[type="radio"] {
+    display: none;
+}
+
+.ch-input-radio[type="radio"] + label {
+    cursor: pointer;
+    text-align: center;
+    padding: 18px 5%;
+    background: $color-white;
+
+    &::before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
+}
+
+.ch-input-radio[type="radio"]:checked + label {
+    background: #ECF6E1;
+}
+
+.ch-input-radio[type="radio"] + label span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border: 1px solid $color-green;
+    border-radius: 50%;
+}
+
+.ch-input-radio[type="radio"]:checked + label span {
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 16px;
+        height: 16px;
+        margin-left: -8px;
+        margin-top: -8px;
+        background-color: $color-green;
+        border-radius: 50%;
+    }
+}
+
+.add-input-radio[type="radio"] + label span {
+    height: 66px;
+}
+
+.ch-input-radio[type="radio"] + label span + i {
+    font-style: normal;
+    font-size: $survey-base-font-size;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
+//Checkboxes. Gender & Relationship
+.add-input-checkbox[type="checkbox"] {
+    display: none;
+}
+
+.add-input-checkbox[type="checkbox"] + label span {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 74px;
+    padding: 0px 14%;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    background-color: $color-white;
+    border: 1px solid $color-graylight;
+
+    i {
+        font-style: normal;
+        display: block;
+        @include vertical-align-text();
+    }
+}
+
+.add-input-checkbox[type="checkbox"]:checked + label span {
+    color: $color-white;
+    background-color: $color-green;
+    border: 1px solid $color-green;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 16px;
+        height: 14px;
+        right: 5px;
+        top: 5px;
+        background: url('/assets/img/arrows.png') 0 0 no-repeat;
+        background-size: 16px;
+    }
+}
+
+.add-input-checkbox[type="checkbox"]:disabled + label span {
+    cursor: default;
+    color: $color-graylight;
+    background: #F4F4F4;
+    border: 1px solid $color-graylight;
+}
+
+.age-input {
+    display: inline-block;
+    width: 70px / 130px * 100%;
+    padding: 12px;
+    font-size: $survey-base-font-size;
+    border: 1px solid $color-graylight;
+    background-color: $color-white;
+}
+
+.add-options {
+
+    .add-option-age-text {
+        text-align: right;
+        padding-right: 20px / 130px * 100%;
+        font-size: 13px;
+        display: inline-block;
+        width: 55px / 130px * 100%;
+    }
+
+    .add-option-wage {
+        margin-left: 0;
+        width: 130px / 828px * 100%;
+
+
+    }
+}
+
+.tags-help {
+    font-size: $survey-blocks-base-font-size;
+    margin-top: 10px;
+}
+
+.free-locked-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.free-locked-screen-bg {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $color-white;
+    opacity: 0.7;
+    border-radius: 0 0 5px 5px;
+}
+
+.free-locked-screen-notif {
+    position: absolute;
+    top: 30%;
+    z-index: 1000;
+    width: 100%;
+    text-align: center;
+    color: $color-blacklight;
+    font-size: $survey-input-font-size;
+
+    p {
+        margin-bottom: 15px;
+    }
+}
+
+.locked-btn {
+    text-transform: uppercase;
+    padding: 0 24px;
+    height: 44px;
+}
+
+.ch-notuse-bg {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-white;
+    opacity: 0.8;
+    border-radius: 0 0 5px 5px;
+}
+
+.ch-notuse-bg-active {
+    display: block;
+}
+
+.add-item-last {
+    border: none;
+    margin: 0;
+    padding-bottom: 8px;
+}

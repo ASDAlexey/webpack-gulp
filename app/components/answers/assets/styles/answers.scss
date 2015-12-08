@@ -1,0 +1,229 @@
+@import '../../../../assets/styles/helpers/helpers';
+
+/* ANSWERS LIST
+----------------------------------------------------*/
+.answers._list {
+    padding: 30px 100px;
+
+    .answers-body {
+        position: relative;
+    }
+
+    .search {
+        width: 100%;
+        margin-bottom: 35px;
+        overflow: hidden;
+    }
+
+    .search-input,
+    .search-btn {
+        height: 46px;
+        font-size: 18px;
+        border-radius: 0;
+        float: left;
+        margin-left: 1%;
+    }
+
+    .search-input {
+        //width: 58%;
+        width: 100%;
+        line-height: 22px;
+        margin-left: 0;
+    }
+
+    .search-btn {
+        width: 20%;
+    }
+
+    .order {
+        position: relative;
+        float: right;
+        margin-top: 5px;
+        margin-left: 10px;
+        z-index: 2;
+    }
+
+    .order-current {
+        position: relative;
+        font-size: 21px;
+        line-height: 25px;
+        color: $color-green;
+        padding-right: 35px;
+        cursor: pointer;
+
+        &:before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            right: 0;
+            width: 17px;
+            height: 11px;
+            margin-top: -5px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAALCAYAAACZIGYHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIFJREFUeNpiYACCBeezFECYgUQA1OMAohmhms8DsQAQJyYYTltApAHzgVQCEF9ggmoWgMrNB0omkGAACCgwAW2+ABJHUoPXIDQDQKCQEY8khtdwqWEkRhEhOUYinJsIxPb4XMlIpL8Z8HmTkYQAZMCVBBhJiEqi0xDWVEkoNQMEGADdBUp5TRpS0AAAAABJRU5ErkJggg==);
+        }
+
+        &._opened {
+            &:before {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .order-list {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        min-width: 120px;
+        margin-top: 10px;
+        background-color: $color-white;
+        border: 1px solid $color-green;
+        padding: 10px;
+    }
+
+    .order-item {
+        font-size: 21px;
+        line-height: 25px;
+        color: $color-graylight;
+        cursor: pointer;
+        transition: color 0.2s linear;
+
+        &:hover {
+            color: darken($color-graylight, 15%);
+        }
+    }
+
+    .group {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 80px;
+    }
+
+    .group-title {
+        font-size: 36px;
+        line-height: 42px;
+        margin-bottom: 10px;
+        color: $color-green;
+    }
+
+    .survey {
+        position: relative;
+        display: table;
+        width: 100%;
+        border-bottom: 2px solid $color-whitedark;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    .survey-link {
+        display: table-row;
+        width: 100%;
+
+        &:hover {
+            text-decoration: none;
+
+            .survey-title {
+                color: darken($color-green, 15%);
+            }
+
+            .survey-text {
+                color: darken($color-graylight, 15%);
+            }
+        }
+    }
+
+    .survey-body,
+    .survey-time {
+        display: table-cell;
+        padding: 25px 0;
+        vertical-align: middle;
+    }
+
+    .survey-body {
+        width: 70%;
+    }
+
+    .survey-time {
+        width: 30%;
+        padding-left: 20px;
+    }
+
+    .survey-title,
+    .survey-text {
+        font-size: 21px;
+        line-height: 25px;
+        transition: color 0.2s linear;
+    }
+
+    .survey-title {
+        letter-spacing: -0.4px;
+        color: $color-green;
+    }
+
+    .survey-text {
+        margin: 0;
+        color: $color-graylight;
+    }
+}
+
+@media screen and (max-width: $break-tablet-landscape) {
+    .answers._list {
+        padding: 30px 40px;
+    }
+}
+
+@media screen and (max-width: $break-tablet-portrait) {
+    .answers._list {
+        .search-input,
+        .search-btn {
+            height: 38px;
+            font-size: 16px;
+            margin-left: 2%;
+        }
+
+        .search-input {
+            //width: 68%;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .search-btn {
+            width: 30%;
+
+            &._create {
+                display: none;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $break-phone-landscape) {
+    .answers._list {
+        padding: 20px 20px;
+
+        .group {
+            margin-bottom: 40px;
+        }
+
+        .group-title {
+            font-size: 26px;
+            line-height: 32px;
+        }
+
+        .survey-body,
+        .survey-time {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .survey-title,
+        .survey-text {
+            font-size: 16px;
+            line-height: 19px;
+        }
+    }
+}

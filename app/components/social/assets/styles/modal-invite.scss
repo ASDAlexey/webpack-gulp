@@ -1,0 +1,433 @@
+@import '../../../../assets/styles/helpers/helpers';
+
+/* FRIENDS MODAL
+----------------------------------------------------*/
+.friends-modal {
+
+    .modal-dialog {
+        width: 90%;
+        max-width: 810px;
+    }
+
+    .modal-content {
+        background-color: $color-white;
+        border: 1px solid $color-green;
+        overflow: hidden;
+        border-radius: $border-radius-large;
+        box-shadow: none;
+    }
+
+    .modal-header {
+        padding: 10px 20px;
+        border-bottom: 1px solid $color-green;
+        min-height: 20px;
+        background-color: $color-green;
+        color: $color-white;
+        font-size: 27px;
+        line-height: 34px;
+        text-align: center;
+        @include ellipsis();
+    }
+
+    .modal-body {
+        padding: 30px 65px;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+    }
+
+    .modal-footer {
+        margin-top: 0;
+        padding: 0 18px 20px;
+        text-align: right;
+        border-top: 0;
+    }
+
+    .close {
+        background-color: transparent;
+        background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAAnCAYAAACSamGGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAo5JREFUeNrEWI11m0AMBi8QRmAENggbhA1ymaB0AzqBu4GTCdxOcNkAb4A7AdmA6lJdnpAP0P3g6j09MD/ydzrpk0SeJZBpmio4FPjTnF/svTzP32Pt5xGgGtBH0FrwygX1N4D+tStIAKfg8A29ReWDeO8KWuJ54XjW3H8D/QmAP7JUAuBq0H6ay8mABi2F7x9BB/L+CNqmAnhkhjvQIsKeYmB7yUKXjBXMe8cYcA77LS7aLr6OAWgMNNkOYjzIHKFCAVbZzoLxbaWWvKDvCdABdFyNUYyTuwN07KBeiw8byG32H4RhUGvu1jsDqTfud4hjcLlaFLjIcypwO8+SLCY8qlyx2Au2w0oXwblK6M3eldFK8Ie0Ap23CN4koC+lMWcU9qKVUugZJSlrCNAmwuDDGGRhjS3+t4EqaNfWyhouZCQLKTztd19hZZCGZvVSWWOe1iE1n9jQc8ThJHxi2//VzkW2h58gD9GtPTSuoC9w+oOMDxk2tS8puPWQiKDNdj6xy02q0nogbf9jBECNHjTjwHcyQuiINq9w7X0fMpCxDK8WyLsLsD3PlRvilAf2uMaVLKFOnvbnBYasWgWSeZHi2YVeouS1WwsMtL7eYV7fLI1kYf1Srdzqgs4hHMiIX9oFtUH9JG5FE8oEWw018eJ4s0vMm7tMh8JFjKuMQNJ+DB7Y40BqER2SuOlTfgzwnBYrn2HoLkAZn4o/EAQ3qxFzz+Q9OyHQIaa0CbhzCAa4stIh2NgcnGY2qxSrpqOANXyUGsc4bx3fOEVf6nIfr8LBEPEz+ZJr5R3bsz/k2gO2b6Xj+VfTJENTfN0zGxvMyGGSyxl3xJst8gSAraeqWaP6T0xDfQWPXWL+468AAwBF5qZgK29BnQAAAABJRU5ErkJggg==);
+        right: 15px;
+        top: 8px;
+        width: 41px;
+        height: 41px;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    .invite-my {
+        text-align: left;
+
+        label {
+            margin-bottom: 15px;
+        }
+
+        .invite-input {
+            display: inline-block;
+            width: 45%;
+            margin-left: 3%;
+            text-align: left;
+            font-size: 29px;
+        }
+    }
+
+    .invite-import {
+        &._step-2,
+        &._step-3 {
+            .modal-body {
+                padding: 15px 0 0;
+            }
+
+            .modal-footer {
+                padding: 10px 20px;
+                border-top: 1px solid $color-green;
+            }
+
+            .invite-my,
+            .invite-formHeader,
+            .invite-description {
+                padding: 0 15px;
+            }
+        }
+
+        &._step-2 {
+            .invite-form {
+                padding: 0 15px;
+            }
+
+            .invite-formHeader {
+                margin-left: -15px;
+                margin-right: -15px;
+                padding: 0 20px;
+            }
+
+            .modal-body._scrollbar {
+                .invite-form {
+                    padding-right: 0;
+                }
+
+                .invite-formHeader {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        &._step-4 {
+            .modal-body {
+                padding-bottom: 0;
+            }
+
+            .modal-footer {
+                padding-bottom: 25px;
+                text-align: center;
+            }
+
+            .invite-btn {
+                float: none;
+                margin-left: 0;
+            }
+        }
+    }
+
+    .invite-services {
+        text-align: center;
+    }
+
+    .invite-service {
+        display: inline-block;
+        margin: 0 10px;
+        cursor: pointer;
+
+        img {
+            display: block;
+        }
+    }
+
+    .checkbox {
+        label {
+            padding-left: 30px;
+
+            &:before {
+                left: 1px;
+            }
+
+            &:after {
+                left: 4px;
+            }
+        }
+    }
+
+    .invite-row {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        cursor: pointer;
+        padding: 5px 15px;
+        border-bottom: 1px solid $color-gray;
+        transition: background-color 0.2s linear;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        &._active,
+        &:hover {
+            background-color: rgba($color-green, 0.3);
+        }
+    }
+
+    .invite-dotdotdot {
+        width: 100%;
+        height: 30px;
+    }
+
+    .invite-cell {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+        font-size: 24px;
+        line-height: 27px;
+
+        &._checkbox {
+            width: 35%;
+        }
+
+        &._email {
+            width: 45%;
+            padding: 0 10px;
+            color: $color-graylight;
+        }
+
+        &._points {
+            width: 20%;
+            text-align: right;
+            color: $color-green;
+        }
+    }
+
+    .invite-formHeader {
+        overflow: hidden;
+        border-bottom: 1px solid $color-green;
+
+        .checkbox {
+            float: left;
+            margin-top: 9px;
+
+            label {
+                color: $color-green;
+                font-size: 23px;
+            }
+        }
+
+        .invite-countSelected {
+            float: right;
+            color: $color-green;
+            font-size: 15px;
+            line-height: 18px;
+        }
+    }
+
+    .invite-img {
+        margin: 40px 0;
+    }
+
+    .invite-listUsers {
+        position: relative;
+
+        &._scrollbar {
+            .ngsb-container {
+                padding-right: 15px;
+            }
+        }
+    }
+
+    .invite-scroll {
+        overflow-y: auto;
+        max-height: 450px;
+    }
+
+    .invite-user {
+        position: relative;
+        display: block;
+        float: left;
+        width: 25%;
+        text-align: center;
+        padding: 10px 20px;
+        background-color: $color-white;
+        cursor: pointer;
+        transition: background-color 0.2s linear;
+
+        .checkbox {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+        }
+
+        &:hover {
+            background-color: $color-green;
+
+            .invite-userName {
+                color: $color-white;
+            }
+        }
+
+        @media screen and (max-width: $break-tablet-portrait) {
+            width: 33.333333%;
+        }
+
+        @media screen and (max-width: $break-phone-landscape) {
+            width: 50%;
+        }
+    }
+
+    .invite-UserAvatar {
+        position: relative;
+        overflow: hidden;
+        border-radius: 100%;
+        margin-bottom: 10px;
+        padding-bottom: 100%;
+
+        // position absolute in order to correct calculation size of custom scrollbar
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .invite-userName {
+        color: $color-gray;
+        font-size: 23px;
+        line-height: 27px;
+        height: 81px;
+        overflow: hidden;
+        transition: color 0.2s linear;
+    }
+
+    .invite-userFullname {
+        display: block;
+        @include ellipsis();
+    }
+
+    .invite-userNickname {
+        display: block;
+        @include ellipsis();
+    }
+
+    .invite-text {
+        padding: 0;
+        width: 100%;
+        font-size: 23px;
+        line-height: 27px;
+
+        strong {
+            font-weight: normal;
+            color: $color-green;
+        }
+    }
+
+    .invite-input {
+        height: 85px;
+        border-radius: 12px;
+        font-size: 42px;
+        line-height: 51px;
+        text-align: center;
+        padding: 16px 20px;
+        margin-bottom: 30px;
+    }
+
+    .invite-btn {
+        float: right;
+        border-radius: 4px;
+        min-width: 121px;
+        margin-left: 30px;
+        font-size: 17px;
+    }
+
+    .invite-or {
+        position: relative;
+        width: 100%;
+        height: 1px;
+        background-color: $color-gray;
+        margin: 30px 0;
+
+        &:after {
+            content: 'or';
+            position: absolute;
+            left: 50%;
+            top: -16px;
+            display: block;
+            width: 54px;
+            margin-left: -27px;
+            font-size: 26px;
+            line-height: 32px;
+            background-color: $color-white;
+
+        }
+    }
+}
+
+@media screen and (max-width: $break-tablet-portrait) {
+    .friends-modal {
+
+        .modal-header {
+            padding: 15px 20px;
+            font-size: 20px;
+            line-height: 26px;
+        }
+
+        .modal-body {
+            padding: 25px 45px;
+        }
+
+        .close {
+            top: 10px;
+        }
+
+        .invite-row {
+            display: block;
+            width: 100%;
+        }
+
+        .invite-cell {
+            display: block;
+
+            &._checkbox {
+                width: 100%;
+            }
+
+            &._email {
+                width: 100%;
+                padding-left: 30px;
+            }
+
+            &._points {
+                width: 100%;
+                padding-left: 30px;
+                text-align: left;
+            }
+        }
+
+        .invite-my {
+
+            .invite-input {
+                display: block;
+                width: 100%;
+                margin-left: 0;
+                font-size: 23px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $break-phone-landscape) {
+    .friends-modal {
+
+        .modal-body {
+            padding: 25px;
+        }
+    }
+}

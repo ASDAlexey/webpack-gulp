@@ -1,0 +1,66 @@
+header {
+    border-bottom: 1px solid $color-green;
+}
+
+.h-container {
+    height: 50px;
+}
+
+.h-logo {
+    display: block;
+    margin-top: 14px;
+    float: left;
+    font-family: $font-sans;
+    font-size: 30px;
+    color: $color-green;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.h-usermenu {
+    margin-top: 5px;
+    width: 192px;
+    height: 42px;
+    background: url('/assets/img/1.jpg') 0 0 no-repeat;
+}
+
+.h-usermenu {
+    float: right;
+}
+
+.bal-container {
+    overflow: hidden;
+}
+
+.h-balance {
+    float: right;
+    padding: 14px 20px;
+    color: $color-graydarker;
+    font-size: $header-bal-font-size;
+    line-height: 2.5em;
+    border: 1px solid $color-green;
+    border-top: 0;
+    border-radius: 0 0 $input-border-radius $input-border-radius;
+}
+
+.h-balance-text {
+    float: left;
+    margin-right: 20px;
+}
+
+.h-balance-link {
+    color: $color-graydarker;
+    text-decoration: underline;
+
+    &:hover {
+        color: $color-graydarker;
+        text-decoration: none;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .h-container {
+        height: 80px;
+    }
+}
+

@@ -1,0 +1,31 @@
+/* SCROLLBAR
+----------------------------------------------------*/
+.ngsb-wrap .ngsb-scrollbar {
+    opacity: 1;
+}
+
+.ngsb-wrap .ngsb-scrollbar .ngsb-track {
+    background: #ddd;
+    border-radius: 0;
+    width: 4px;
+    box-shadow: none;
+}
+
+.ngsb-wrap .ngsb-scrollbar .ngsb-thumb-pos .ngsb-thumb {
+    background: $color-green;
+    opacity: 1;
+}
+
+.ngsb-wrap .ngsb-scrollbar .ngsb-thumb-pos:hover .ngsb-thumb {
+    background: darken($color-green, 10%);
+    opacity: 1;
+}
+
+.ngsb-wrap .ngsb-scrollbar .ngsb-thumb-pos:active {
+    background: transparent;
+    opacity: 1;
+}
+
+.ngsb-wrap .ngsb-scrollbar .ngsb-thumb-pos:active .ngsb-thumb {
+    background: darken($color-green, 10%);
+}

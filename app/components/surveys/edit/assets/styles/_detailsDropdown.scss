@@ -1,0 +1,142 @@
+.b-details-block {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 225px;
+    z-index: 1000;
+    width: 672px / 320px * 100%;
+    padding: 20px;
+    background-color: $color-lime;
+
+    ul {
+        padding: 20px 40px;
+        background: $color-white;
+
+        li {
+            padding: 6px 0;
+            display: block;
+
+            &:first-child {
+                font-size: $survey-base-font-size;
+                margin: 10px 0 16px;
+            }
+
+            &:first-child .d-free,
+            &:first-child .d-pro {
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+
+            &:last-child {
+                font-size: $survey-base-font-size;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+
+.d-options,
+.d-free,
+.d-pro {
+    display: inline-block;
+}
+
+// Check and x icons
+.d-free-icon,
+.d-pro-icon {
+    background-image: url('/assets/img/details.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    height: 14px;
+}
+
+.d-free-icon {
+    background-position: 50% 100%;
+}
+
+.d-pro-icon {
+    background-position: 50% 0;
+}
+
+.d-options {
+    width: 360px / 632px * 100%;
+
+    &:hover p {
+        color: $color-green;
+        cursor: default;
+    }
+}
+
+.d-options{
+    position: relative;
+
+    &:hover .d-option-desc {
+        display: block;
+    }
+}
+
+.d-free {
+    width: 120px / 632px * 100%;
+    text-align: center;
+}
+
+.d-pro {
+    width: 140px / 632px * 100%;
+    text-align: center;
+}
+
+.d-option-desc {
+    display: none;
+    padding: 20px 30px;
+    position: absolute;
+    z-index: 1001;
+    left: -10px;
+    top: 28px;
+    line-height: 1.6;
+    text-align: left;
+    background: $color-graylighter;
+    box-shadow: 2px 2px 0 #A2A2A2;
+
+    .d-arrow {
+        position: absolute;
+        top: -8px;
+        left: 24px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 8px 8px 8px;
+        border-color: transparent transparent #A2A2A2 transparent;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -2px;
+            left: -14px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 10px 10px 10px;
+            border-color: transparent transparent $color-graylighter transparent;
+        }
+    }
+}
+
+.d-last-option {
+    text-transform: uppercase;
+    font-size: $survey-base-font-size;
+}
+
+//Open derails block
+.open-details {
+    background-color: $color-lime;
+    z-index: 550;
+
+    .b-details-block {
+        display: block;
+    }
+
+    .b-details-link {
+        background-position: 100% 102%;
+    }
+}

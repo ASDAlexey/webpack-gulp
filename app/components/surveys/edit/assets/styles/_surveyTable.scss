@@ -1,0 +1,286 @@
+.survey-table-container {
+    margin-top: 10px;
+    border: 1px solid $color-cyan;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 0;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    z-index: 0;
+}
+
+.survey-table {
+    width: 1024px;
+    margin: 0;
+    text-align: left;
+    table-layout: fixed;
+    //width: 100%;
+    border: none;
+    color: #777777;
+}
+
+td {
+    padding: 15px 18px;
+    vertical-align: middle;
+    font-size: $survey-blocks-base-font-size;
+    border: 1px solid $color-graylighter;
+}
+
+th {
+    padding: 18px 5px 18px 18px;
+    vertical-align: middle;
+    font-family: $font-sans-light;
+    text-transform: uppercase;
+    color: $color-white;
+    font-size: $survey-blocks-base-font-size;
+    background: $color-cyan;
+    border: none;
+    white-space: nowrap;
+}
+
+//Table borders styles
+.survey-table tbody tr:first-child td {
+    border-top: none;
+}
+
+.survey-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.survey-table tbody tr td._first {
+    border-left: none;
+    text-align: center;
+}
+
+.survey-table tbody tr td:last-child {
+    border-right: none;
+}
+
+.survey-table tr:nth-child(even) {
+    background: #F7F7F7;
+}
+
+//Sorting section
+.st-col-sort {
+    display: inline-block;
+    position: relative;
+    padding-left: 14px;
+    text-decoration: none;
+    color: $color-white;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 6px 3px 0 3px;
+        border-color: $color-white transparent transparent transparent;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 1px;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 3px 6px 3px;
+        border-color: transparent transparent $color-white transparent;
+    }
+}
+
+.st-row-id {
+    width: 45px / 1024px * 100%;
+    text-align: center;
+}
+
+.st-row-question {
+    width: 320px / 1024px * 100%;
+}
+
+.st-row-type {
+    width: 140px / 1024px * 100%;
+}
+
+.st-row-answers {
+    width: 198px / 1024px * 100%;
+}
+
+.st-row-logic {
+    width: 170px / 1024px * 100%;
+}
+
+.st-row-action {
+    width: 256px / 1024px * 100%;
+}
+
+.st-cell-action {
+    .table-btn-edit,
+    .table-btn-addl,
+    .table-btn-del {
+        padding-left: 20px / 256px * 100%;
+        padding-right: 20px / 256px * 100%;
+    }
+
+    .table-btn-addl,
+    .table-btn-del,
+    .st-disab-container {
+        margin-left: 10px / 256px * 100%;
+    }
+
+    .st-disab-container {
+        display: inline-block;
+        width: 98px / 232px * 100%;
+
+        .table-btn-addl {
+            margin: 0;
+            width: 100%;
+        }
+    }
+}
+
+// Table buttons styles
+.st-cell-action-list {
+
+    li {
+        display: inline-block;
+    }
+}
+
+.table-btn {
+    padding: 7px 16px;
+    border: none;
+    background: none;
+    display: inline-block;
+    font-size: $survey-blocks-base-font-size;
+    font-family: $font-sans;
+
+    &[disabled] {
+        opacity: 0.7;
+    }
+}
+
+.table-btn-edit {
+    color: $color-green;
+    border: 1px solid $color-green;
+    transition: background-color 0.1s linear;
+
+    &:not([disabled]):hover {
+        color: $color-white;
+        background: $color-green;
+    }
+}
+
+.table-btn-addl {
+    color: $color-cyan;
+    border: 1px solid $color-cyan;
+    //margin-left: 5px;
+    transition: background-color 0.1s linear;
+
+    &.ng-hide {
+        transition: none;
+    }
+
+    &:not([disabled]):hover {
+        color: $color-white;
+        background: $color-cyan;
+    }
+}
+
+.table-btn-del {
+    border: 1px solid $color-red;
+    //margin-left: 4px;
+    background: transparent url('/assets/img/ui-table-elements.png') 49% 10px no-repeat;
+    transition: background-color 0.1s linear;
+
+    &:not([disabled]):hover {
+        background-color: $color-red;
+        background-position: 49% -40px;
+    }
+}
+
+// Disabled button in free survey
+.st-disab-container {
+    position: relative;
+}
+
+.table-btn-disabled {
+    position: relative;
+    color: $color-graylight;
+    border: 1px solid $color-graylight;
+    opacity: 1 !important;
+
+    &:not([disabled]):hover {
+        color: $color-graylight;
+        background: transparent;
+    }
+}
+
+.table-btn-sign {
+    color: $color-white;
+    position: absolute;
+    z-index: 200;
+    display: block;
+    text-decoration: none;
+    right: -6px;
+    top: -6px;
+    width: 14px;
+    height: 14px;
+    line-height: 1.2em;
+    font-size: 11px;
+    font-family: $font-sans-semibold;
+    text-align: center;
+    background: $color-cyan;
+    border-radius: 50%;
+}
+
+.table-free-popup {
+    background: $color-white;
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    top: -8px;
+    right: -9px;
+    border: 1px solid $color-green;
+    border-radius: 8px;
+}
+
+.table-popup-exit {
+    width: 20px;
+    height: 20px;
+    right: 6px;
+    position: absolute;
+    top: 6px;
+    cursor: pointer;
+    background: url('/assets/img/ui-table-elements.png') 50% -322px no-repeat;
+}
+
+// Show notification for disabled button
+.show-why-disab {
+    display: block;
+    padding: 22px 20px 20px 20px;
+    width: 174px;
+    text-align: center;
+
+    p {
+        margin-bottom: 10px;
+        line-height: 1.5em;
+        font-size: $survey-blocks-base-font-size;
+    }
+
+    .btn-disab {
+        font-size: $survey-blocks-base-font-size;
+        text-transform: uppercase;
+    }
+}
+
+.survey-table tr:last-child td .show-why-disab {
+    bottom: 0;
+    top: inherit;
+}

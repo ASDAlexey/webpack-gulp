@@ -1,0 +1,81 @@
+/* VARIABLES
+----------------------------------------------------*/
+$color-gray: #999;
+$color-graydark: #6a6a6a;
+$color-graylight: #ccc;
+$color-beige: #f4f5f3;
+$color-graylighter: #eee;
+$color-graydark: #8D8D8D;
+$color-graydarker: #686868;
+$color-white: #fff;
+$color-whitedark: #F0F0F0;
+$color-black: #000;
+$color-blacklight: #333;
+$color-green: #A0D468;
+$color-green-light: #EDF6E3;
+$color-green-lighter: #F5FAEF;
+$color-lime: #B4E06E;
+$color-red: #FE6D4B;
+$color-blue: #5A9AEF;
+$color-cyan: #65D1DE;
+$color-yellow: #FFCE54;
+$color-birch: #2dbd9b;
+$color-bg: $color-whitedark;
+
+$survey-base-font-color: #565656;
+$survey-popup-font: #474747;
+$survey-item-border: #a5a5a5;
+$survey-error-color: #ED5139;
+$survey-success-color: #23B1DB;
+
+$font-sans: 'Open Sans', sans-serif;
+$font-sans-light: 'Open Sans Light', sans-serif;
+$font-sans-semibold: 'Open Sans Semibold', sans-serif;
+$font-base: $font-sans;
+
+$base-font-size: 15px;
+$base-line-height: 18px;
+$base-font-color: $color-gray;
+
+$border-radius-xlarge: 15px;
+$border-radius-large: 8px;
+$border-radius-small: 4px;
+
+$input-color: $color-gray;
+$input-color-bg: $color-white;
+$input-color-border: $color-graylight;
+$input-border-radius: $border-radius-large;
+$input-focus-border-color: $color-gray;
+$input-disabled-bg: $color-graylighter;
+
+$modal-color-bg: $color-white;
+$modal-color-border: rgba(0, 0, 0, 0.2);
+$modal-fallback-border-color: $color-graylight;
+$modal-border-radius: $border-radius-small;
+$modal-backdrop-color-bg: rgba(255, 255, 255, 0.8);
+$modal-backdrop-opacity: 0.5;
+
+$header-height: 50px;
+$header-bal-font-size: 13px;
+
+$break-phone-portrait: 320px;
+$break-phone-landscape: 568px;
+$break-tablet-portrait: 768px;
+$break-tablet-landscape: 960px;
+$break-desktop: 1024px;
+
+$index-preloader: 99999;
+$index-toast: 9999;
+$index-modal: 1050;
+$index-header: 1040;
+$index-popover: 1030;
+
+//Survey
+$step-num-font-size: 24px;
+$survey-base-font-size: 14px;
+$survey-blocks-base-font-size: 12px;
+$survey-blocks-surv-btn-font-size: 22px;
+$survey-input-font-size: 16px;
+$survey-base-font-color: #565656;
+//rewards
+$rewards-border-radius: 8px;

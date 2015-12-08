@@ -1,0 +1,100 @@
+dropdown {
+  display: block;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+// Dropdown label
+.dropdown-display {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+
+    .dd-placeholder {
+        display: block;
+        font-family: $font-sans-light;
+        font-size: $survey-input-font-size;
+        padding-right: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+// Dropdown label right arrow down
+.dd-arrowdown {
+    display: inline-block;
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid $color-graylight;
+    background: $color-white;
+
+    &::after {
+        content: "";
+        display: inline-block;
+        text-align: left;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 8px 8px 0 8px;
+        border-color: $color-graylight transparent transparent transparent;
+        position: absolute;
+        top: 50%;
+        right: 17px;
+        margin-top: -3px;
+    }
+}
+
+// Dropdown list
+.dropdown-list {
+    display: none;
+    margin-top: -1px;
+    padding: 6px 0;
+    border: 1px solid $color-graylight;
+    background: $color-white;
+
+    .dd-list-item {
+        padding: 6px 18px;
+        font-family: $font-sans-light;
+        font-size: $survey-base-font-size;
+
+        &:hover {
+            cursor: pointer;
+            background: $color-graylighter;
+        }
+    }
+}
+
+// On click show dropdown menu
+.list-show .dropdown-list {
+    display: block;
+    min-height: 62px;
+    //height: 150px;
+    max-height: 180px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 500;
+}
+
+.list-hide .dropdown-list {
+    display: none;
+}
+
+.dd-list-item-line span {
+    width: 86%;
+    margin: 0 7% 10px 7%;
+    display: inline-block;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-graylight;
+}

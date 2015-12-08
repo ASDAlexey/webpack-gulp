@@ -1,0 +1,155 @@
+<!-- Popup -->
+<div class="popup logic-popup">
+    <div class="edit-popup-bg"></div>
+    <div class="edit-popup-wrap">
+        <div class="edit-popup-container">
+            <div class="edit-popup-content">
+                <div class="edit-question-modal" ng-class="{ '_rating': survey.currentQuestion.type === 'rating' }">
+                    <div class="edit-question-block">
+                        <div class="edit-popup-b-title">
+                            <h2>Question <span>{{ survey.getIndexOfQuestion(survey.currentQuestion) + 1 || 'Not found' }}</span></h2>
+                            <a class="close-popup" href="" ng-click="survey.closePopup()"></a>
+                        </div>
+                        <div class="edit-popup-b-list">
+                            <ul class="edit-popup-qlist">
+                                <li>
+                                    <div class="e-popup-tanswer" ng-if="survey.currentQuestion.type !== 'rating'">Answers</div>
+                                    <div class="e-popup-condition" ng-if="survey.currentQuestion.type === 'rating'">Сondition</div>
+                                    <div class="e-popup-value" ng-if="survey.currentQuestion.type === 'rating'">Value</div>
+                                    <div class="e-popup-tlogic">Logic redirection</div>
+                                </li>
+
+                                <li ng-repeat="answer in survey.currentQuestion.items track by $index" ng-if="survey.currentQuestion.type === 'choice'">
+                                    <div class="e-popop-answer-cont">
+                                        <div class="e-popup-answ-letter">{{ survey.alphabet[$index] }})</div>
+                                        <div class="e-popup-anws">{{ answer.title }}</div>
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic[$index]" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- BOOL QEUSTION dropdowns -->
+                                <li ng-if="survey.currentQuestion.type === 'boolean'">
+                                    <div class="e-popop-answer-cont">
+                                        <div class="e-popup-answ-letter">a)</div>
+                                        <div class="e-popup-anws">Yes</div>
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic[1]" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li ng-if="survey.currentQuestion.type === 'boolean'">
+                                    <div class="e-popop-answer-cont">
+                                        <div class="e-popup-answ-letter">b)</div>
+                                        <div class="e-popup-anws">No</div>
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic[0]" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- RATING QEUSTION dropdowns  -->
+                                <li ng-if="survey.currentQuestion.type === 'rating'" ng-init="rangeOfRating = _.range(survey.currentQuestion.size)">
+                                    <div class="e-popop-condition-cont">
+                                        <div class="e-popup-answ-letter">a)</div>
+                                        <div class="e-popup-anws">Greater than</div>
+                                    </div>
+                                    <div class="e-popup-value-cont">
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/ratingEditDropdownTemplate.html" list="rangeOfRating" selected="survey.ratingValue" placeholder="none"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic['GT']" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li ng-if="survey.currentQuestion.type === 'rating'" ng-init="rangeOfRating = _.range(survey.currentQuestion.size)">
+                                    <div class="e-popop-condition-cont">
+                                        <div class="e-popup-answ-letter">b)</div>
+                                        <div class="e-popup-anws">Less than</div>
+                                    </div>
+                                    <div class="e-popup-value-cont">
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/ratingEditDropdownTemplate.html" list="rangeOfRating" selected="survey.ratingValue" placeholder="none"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic['LT']" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li ng-if="survey.currentQuestion.type === 'rating'" ng-init="rangeOfRating = _.range(survey.currentQuestion.size)">
+                                    <div class="e-popop-condition-cont">
+                                        <div class="e-popup-answ-letter">c)</div>
+                                        <div class="e-popup-anws">Equal to</div>
+                                    </div>
+                                    <div class="e-popup-value-cont">
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/ratingEditDropdownTemplate.html" list="rangeOfRating" selected="survey.ratingValue" placeholder="none"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic['EQ']" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- SUBMIT & SKIP dropdowns -->
+                                <!-- show submit dropdown for questions without logic -->
+                                <li ng-if="survey.currentQuestion
+                                        && survey.currentQuestion.type !== 'rating'
+                                        && survey.currentQuestion.type !== 'boolean'
+                                        && survey.currentQuestion.type !== 'choice'">
+                                    <div class="e-popop-answer-cont">
+                                        <div class="e-popup-answ-letter">On&nbsp;submit</div>
+                                        <!--<div class="e-popup-anws"></div>-->
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic['SUBMIT']" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!-- show skip dropdown for all not required questions -->
+                                <li ng-if="survey.currentQuestion && !survey.currentQuestion.required">
+                                    <div class="e-popop-answer-cont">
+                                        <div class="e-popup-answ-letter">On&nbsp;skip</div>
+                                        <!--<div class="e-popup-anws"></div>-->
+                                    </div>
+                                    <div class="e-popup-logic-cont">
+                                        <div class="e-popup-lt">Go to:</div>
+                                        <div class="e-popup-input">
+                                            <survey-dropdown survey-dropdown-tmpl="/assets/templates/editDropdownTemplate.html" list="survey.allowedQuestions" selected="survey.tempLogic['SKIP']" property="title"></survey-dropdown>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button class="btn _green popup-btn-submit" ng-click="survey.saveLogic()"
+                                    ng-disabled="survey.currentQuestion.type === 'rating' && !survey.ratingValue">save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Popup END -->
