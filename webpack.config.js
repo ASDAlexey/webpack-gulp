@@ -46,32 +46,68 @@ module.exports = {
      },*/
     module: {
         loaders: [
-            //{
-            //    test: /\.js$/,
-            //    loader: "babel"
-            //},
-            {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
             {
-                test: /\.jade$/,
-                loader: "jade"
+                test: /\.js$/, loader: 'babel',
+                //include: [rootFolder, sharedComponents]
             },
             {
-                test: /\.styl$/,
-                loader: ExtractTextPlugin.extract('style', 'css!stylus?resolve url')
+                test: /\.css$/,
+                loaders: ['style', 'css']
+                //include: [rootFolder, sharedComponents]
             },
             {
                 test: /\.scss$/,
                 loaders: ['style', 'css?sourceMap', 'autoprefixer-loader?browsers=last 5 version', 'sass?sourceMap']
             },
             {
-                test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
-                loader: 'file?name=[path][name].[ext]?[hash]'
+                test: /\.json$/, loader: 'json',
+                //include: [rootFolder, sharedComponents]
             },
             {
-                test: /\.json$/, loader: 'json'
+                test: /\.html$/, loader: 'raw',
+                //include: [rootFolder, sharedComponents]
             },
             {
-                test: /\.html$/, loader: 'raw'
+                test: /\.png$/,
+                loader: 'url',
+                query: {limit: 8192, mimetype: 'image/png'},
+                //include: [rootFolder, sharedComponents]
+            },
+            {
+                test: /\.jpg$/,
+                loader: 'url',
+                query: {limit: 8192, mimetype: 'image/jpg'},
+                //include: [rootFolder, sharedComponents]
+            },
+            {
+                test: /\.gif$/,
+                loader: 'url',
+                query: {limit: 8192, mimetype: 'image/gif'},
+                //include: [rootFolder, sharedComponents]
+            },
+            {
+                test: /\.woff$/,
+                loader: 'url',
+                query: {prefix: 'application/font-woff', limit: 10000, mimetype: 'application/font-woff'},
+                //include: [rootFolder, sharedComponents]
+            },
+            {
+                test: /\.ttf$/,
+                loader: 'file',
+                query: {prefix: 'application/x-font-ttf'},
+                //include: [rootFolder, sharedComponents]
+            },
+            {
+                test: /\.eot$/,
+                loader: 'file',
+                query: {prefix: 'application/octet-stream'},
+                //include: [rootFolder, sharedComponents]
+            },
+            {
+                test: /\.svg$/,
+                loader: 'file',
+                query: {prefix: 'image/svg+xml'},
+                //include: [rootFolder, sharedComponents]
             }
         ]
     },
